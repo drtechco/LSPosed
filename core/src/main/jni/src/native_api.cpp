@@ -1,21 +1,21 @@
 /*
- * This file is part of LSPosed.
+ * This file is part of DAndroid.
  *
- * LSPosed is free software: you can redistribute it and/or modify
+ * DAndroid is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * LSPosed is distributed in the hope that it will be useful,
+ * DAndroid is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with LSPosed.  If not, see <https://www.gnu.org/licenses/>.
+ * along with DAndroid.  If not, see <https://www.gnu.org/licenses/>.
  *
- * Copyright (C) 2020 EdXposed Contributors
- * Copyright (C) 2021 LSPosed Contributors
+ * Copyright (C) 2020 EdDAndroid Contributors
+ * Copyright (C) 2021 DAndroid Contributors
  */
 
 //
@@ -34,7 +34,7 @@
 
 
 /*
- * Module: define xposed_native file in /assets, each line is a .so file name
+ * Module: define dandroid_native file in /assets, each line is a .so file name
  * LSP: Hook do_dlopen, if any .so file matches the name above, try to call
  *      "native_init(void*)" function in target so with function pointer of "init" below.
  * Module: Call init function with the pointer of callback function.
@@ -42,15 +42,15 @@
  *      LsposedNativeAPIEntries struct.
  * Module: Since JNI is not yet available at that time, module can store the struct to somewhere else,
  *      and handle them in JNI_Onload or later.
- * Module: Do some MAGIC provided by LSPosed framework.
+ * Module: Do some MAGIC provided by DAndroid framework.
  * LSP: If any so loaded by target app, we will send a callback to the specific module callback function.
  *      But an exception is, if the target skipped dlopen and handle linker stuffs on their own, the
  *      callback will not work.
  */
 
-namespace lspd {
+namespace dand {
 
-    using lsplant::operator""_tstr;
+    // using danlant::operator""_tstr;
     std::list<NativeOnModuleLoaded> moduleLoadedCallbacks;
     std::list<std::string> moduleNativeLibs;
     std::unique_ptr<void, std::function<void(void *)>> protected_page(
@@ -70,12 +70,14 @@ namespace lspd {
 
     void RegisterNativeLib(const std::string &library_name) {
         static bool initialized = []() {
-            return InstallNativeAPI({
-                .inline_hooker = [](auto t, auto r) {
+            danlant::InitInfo init_info{
+                .inline_hooker = [](void* t, void* r) {
                     void* bk = nullptr;
                     return HookFunction(t, r, &bk) == RS_SUCCESS ? bk : nullptr;
-                },
-            });
+                }
+            };
+            danlant::HookHandler handler(init_info);
+            return dand::InstallNativeAPI(handler);
         }();
         if (!initialized) [[unlikely]] return;
         LOGD("native_api: Registered {}", library_name);
@@ -89,56 +91,53 @@ namespace lspd {
         }
         return false;
     }
-
-    CREATE_HOOK_STUB_ENTRY(
-            "__dl__Z9do_dlopenPKciPK17android_dlextinfoPKv",
-            void*, do_dlopen, (const char* name, int flags, const void* extinfo,
-                    const void* caller_addr), {
-                auto *handle = backup(name, flags, extinfo, caller_addr);
-                std::string ns;
-                if (name) {
-                    ns = std::string(name);
-                } else {
-                    ns = "NULL";
-                }
-                LOGD("native_api: do_dlopen({})", ns);
-                if (handle == nullptr) {
-                    return nullptr;
-                }
-                for (std::string_view module_lib: moduleNativeLibs) {
-                    // the so is a module so
-                    if (hasEnding(ns, module_lib)) [[unlikely]] {
-                        LOGD("Loading module native library {}", module_lib);
-                        void *native_init_sym = dlsym(handle, "native_init");
-                        if (native_init_sym == nullptr) [[unlikely]] {
-                            LOGD("Failed to get symbol \"native_init\" from library {}",
-                                 module_lib);
-                            break;
-                        }
-                        auto native_init = reinterpret_cast<NativeInit>(native_init_sym);
-                        auto *callback = native_init(entries);
-                        if (callback) {
-                            moduleLoadedCallbacks.push_back(callback);
-                            // return directly to avoid module interaction
-                            return handle;
-                        }
+    // 定义符号字符串
+    static constexpr auto do_dlopen_sym = danlant::FixedString("__dl__Z9do_dlopenPKciPK17android_dlextinfoPKv");
+    
+    // 定义 hook 结构
+    inline static danlant::Hooker<do_dlopen_sym, void*(const char*, int, const void*, const void*)> do_dlopen{
+        [](const char* name, int flags, const void* extinfo, const void* caller_addr) -> void* {
+            auto *handle = do_dlopen(name, flags, extinfo, caller_addr);  // 使用 do_dlopen 而不是 backup
+            std::string ns;
+            if (name) {
+                ns = std::string(name);
+            } else {
+                ns = "NULL";
+            }
+            LOGD("native_api: do_dlopen({})", ns);
+            if (handle == nullptr) {
+                return nullptr;
+            }
+            for (std::string_view module_lib: moduleNativeLibs) {
+                if (hasEnding(ns, module_lib)) [[unlikely]] {
+                    LOGD("Loading module native library {}", module_lib);
+                    void *native_init_sym = dlsym(handle, "native_init");
+                    if (native_init_sym == nullptr) [[unlikely]] {
+                        LOGD("Failed to get symbol \"native_init\" from library {}", module_lib);
+                        break;
+                    }
+                    auto native_init = reinterpret_cast<NativeInit>(native_init_sym);
+                    auto *callback = native_init(entries);
+                    if (callback) {
+                        moduleLoadedCallbacks.push_back(callback);
+                        return handle;
                     }
                 }
+            }
 
-                // Callbacks
-                for (auto &callback: moduleLoadedCallbacks) {
-                    callback(name, handle);
-                }
-                return handle;
-            });
+            for (auto &callback: moduleLoadedCallbacks) {
+                callback(name, handle);
+            }
+            return handle;
+        }
+    };
 
-    bool InstallNativeAPI(const lsplant::HookHandler & handler) {
+    bool InstallNativeAPI(const danlant::HookHandler & handler) {
         auto *do_dlopen_sym = SandHook::ElfImg("/linker").getSymbAddress(
                 "__dl__Z9do_dlopenPKciPK17android_dlextinfoPKv");
         LOGD("InstallNativeAPI: {}", do_dlopen_sym);
         if (do_dlopen_sym) [[likely]] {
-            HookSymNoHandle(handler, do_dlopen_sym, do_dlopen);
-            return true;
+            return handler.hook(do_dlopen);
         }
         return false;
     }

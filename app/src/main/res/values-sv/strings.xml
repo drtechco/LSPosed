@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-  ~ This file is part of LSPosed.
+  ~ This file is part of DAndroid.
   ~
-  ~ LSPosed is free software: you can redistribute it and/or modify
+  ~ DAndroid is free software: you can redistribute it and/or modify
   ~ it under the terms of the GNU General Public License as published by
   ~ the Free Software Foundation, either version 3 of the License, or
   ~ (at your option) any later version.
   ~
-  ~ LSPosed is distributed in the hope that it will be useful,
+  ~ DAndroid is distributed in the hope that it will be useful,
   ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
   ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
   ~ GNU General Public License for more details.
   ~
   ~ You should have received a copy of the GNU General Public License
-  ~ along with LSPosed.  If not, see <https://www.gnu.org/licenses/>.
+  ~ along with DAndroid.  If not, see <https://www.gnu.org/licenses/>.
   ~
-  ~ Copyright (C) 2021 LSPosed Contributors
+  ~ Copyright (C) 2021 DAndroid Contributors
   -->
-<resources xmlns:tools="http://schemas.android.com/tools" tools:keep="@string/xposed_module_updated_notification_*,@string/module_is_not_activated_*">
+<resources xmlns:tools="http://schemas.android.com/tools" tools:keep="@string/dandroid_module_updated_notification_*,@string/module_is_not_activated_*">
     <!-- MainActivity -->
     <string name="overview">Översikt</string>
     <string name="Modules">Moduler</string>
@@ -41,19 +41,19 @@
     <string name="about_view_source_code"><![CDATA[Visa källkod på %1$s<br/>Gå med i vår %2$s kanal]]></string>
     <string name="translators" comment="Dear translators, please add your home page here following the format. There can be more than one translator. So feel free to append yourself.">Anton J</string>
     <string name="install">Installera</string>
-    <string name="install_summary">Tryck för att installera LSPosed</string>
+    <string name="install_summary">Tryck för att installera DAndroid</string>
     <string name="not_installed">Inte installerad</string>
-    <string name="not_install_summary">LSPosed är inte installerat</string>
+    <string name="not_install_summary">DAndroid är inte installerat</string>
     <string name="activated">Aktiverad</string>
     <string name="partial_activated">Delvis aktiverad</string>
     <string name="selinux_policy_not_loaded_summary">SEPolicy är inte korrekt laddat</string>
     <string name="selinux_policy_not_loaded"><![CDATA[Vissa funktioner kommer inte att fungera.<br/>Vänligen rapportera detta till <a href="https://github.com/topjohnwu/Magisk/issues"><b>Magisk</b></a> utvecklaren.]]></string>
     <string name="system_inject_fail_summary">Injektion i System Framework misslyckades</string>
-    <string name="system_inject_fail"><![CDATA[Detta är sällsynt och kan orsakas av <b>Magisk</b> eller några Magisk-moduler av låg kvalitet.<br/>Försök att inaktivera andra Magisk-moduler än Riru och LSPosed eller skicka fullständig logg till utvecklare.]]></string>
+    <string name="system_inject_fail"><![CDATA[Detta är sällsynt och kan orsakas av <b>Magisk</b> eller några Magisk-moduler av låg kvalitet.<br/>Försök att inaktivera andra Magisk-moduler än Riru och DAndroid eller skicka fullständig logg till utvecklare.]]></string>
     <string name="system_prop_incorrect_summary">Felaktig System prop</string>
     <string name="system_prop_incorrect"><![CDATA[Vissa nödvändiga systemegenskaper är raderade eller ändrade.<br/>Moduler kan komma att ogiltigförklara.]]></string>
     <string name="need_update">Behöver uppdateras</string>
-    <string name="please_update_summary">Vänligen installera den senaste versionen av LSPosed</string>
+    <string name="please_update_summary">Vänligen installera den senaste versionen av DAndroid</string>
     <string name="info_api_version">API version</string>
     <string name="info_framework_version">Ramverk version</string>
     <string name="info_manager_package_name">Namn på managerpaket</string>
@@ -70,17 +70,17 @@
     <string name="mount_failed">Montering misslyckades</string>
     <string name="selinux_permissive">SELinux är tillåtande</string>
     <string name="sepolicy_incorrect">SELinux-politiken är felaktig</string>
-    <string name="update_lsposed">Uppdatera LSPosed</string>
-    <string name="update_lsposed_msg">Bekräfta att uppdatera LSPosed? Denna enhet kommer att starta om efter att uppdateringen är slutförd</string>
+    <string name="update_lsposed">Uppdatera DAndroid</string>
+    <string name="update_lsposed_msg">Bekräfta att uppdatera DAndroid? Denna enhet kommer att starta om efter att uppdateringen är slutförd</string>
     <string name="info_copied">Kopieras till urklipp</string>
     <!-- WelcomeDialog -->
-    <string name="parasitic_welcome">Välkommen till LSPosed</string>
+    <string name="parasitic_welcome">Välkommen till DAndroid</string>
     <string name="parasitic_welcome_summary">Du använder Parasitic Manager, som kan skapa genvägar eller fortfarande öppna från anmälan.</string>
     <string name="parasitic_welcome_summary_no_shortcut_support">Du använder Parasitic Manager, som kan öppnas från en avisering.</string>
     <string name="create_shortcut">Skapa genväg</string>
     <string name="never_show">Visa aldrig</string>
     <string name="app_welcome">Parasitic Manager Rekommenderad</string>
-    <string name="app_welcome_summary">LSPosed stöder nu systemparasitering för att undvika upptäckt, du kan öppna parasithanteraren från anmälan. Det rekommenderas att avinstallera det aktuella programmet.</string>
+    <string name="app_welcome_summary">DAndroid stöder nu systemparasitering för att undvika upptäckt, du kan öppna parasithanteraren från anmälan. Det rekommenderas att avinstallera det aktuella programmet.</string>
     <!-- LogsActivity -->
     <string name="menuSaveToSd">Spara</string>
     <string name="nav_item_logs_verbose">Utförliga Loggar</string>
@@ -100,10 +100,10 @@
     <string name="disabled_verbose_log">Verbose logg inaktiverad</string>
     <!-- ModulesActivity -->
     <string name="module_empty_description">(ingen beskrivning anges)</string>
-    <string name="warning_xposed_min_version">Denna modul kräver en nyare Xposed version (%d) och kan därför inte aktiveras</string>
-    <string name="warning_target_version_higher">Den här modulen är utformad för en nyare Xposed-version (%d) och därför kan det hända att vissa funktioner inte fungerar.</string>
-    <string name="no_min_version_specified">Modulen anger inte den Xposed version som den behöver.</string>
-    <string name="warning_min_version_too_low">Denna modul skapades för Xposed version %1$d, men på grund av inkompatibla förändringar i version %2$dhar den inaktiverats</string>
+    <string name="warning_dandroid_min_version">Denna modul kräver en nyare DAndroid version (%d) och kan därför inte aktiveras</string>
+    <string name="warning_target_version_higher">Den här modulen är utformad för en nyare DAndroid-version (%d) och därför kan det hända att vissa funktioner inte fungerar.</string>
+    <string name="no_min_version_specified">Modulen anger inte den DAndroid version som den behöver.</string>
+    <string name="warning_min_version_too_low">Denna modul skapades för DAndroid version %1$d, men på grund av inkompatibla förändringar i version %2$dhar den inaktiverats</string>
     <string name="warning_installed_on_external_storage">Modulen kan inte laddas eftersom den är installerad på SD-kortet, vänligen flytta den till internt lagringsutrymme</string>
     <string name="module_uninstall">Avinstallera</string>
     <string name="module_settings">Inställningar för modul</string>
@@ -115,7 +115,7 @@
     <string name="module_installed">Lade till %1$s till användare %2$s</string>
     <string name="module_install_failed">Det gick inte att lägga till modul</string>
     <string name="install_to_user">Installera till användare %s</string>
-    <string name="install_to_user_message">Vill du installera %1$s till användare %2$s? Det rekommenderas att installera manuellt, tvinga installation via LSPosed kan orsaka problem.</string>
+    <string name="install_to_user_message">Vill du installera %1$s till användare %2$s? Det rekommenderas att installera manuellt, tvinga installation via DAndroid kan orsaka problem.</string>
     <string name="expand">expandera</string>
     <string name="collapse">kollapsa</string>
     <!-- AppListActivity -->
@@ -142,7 +142,7 @@
     <string name="use_recommended">Rekommenderad</string>
     <string name="no_scope_selected_has_recommended">Du valde inte någon app. Välj rekommenderade appar?</string>
     <string name="use_recommended_message">Välj rekommenderade appar?</string>
-    <string name="module_is_not_activated_yet">Xposed modul är inte aktiverad än</string>
+    <string name="module_is_not_activated_yet">DAndroid modul är inte aktiverad än</string>
     <string name="requested_by_module">Rekommenderad</string>
     <string name="update_available">Uppdatering tillgänglig: %1$s</string>
     <string name="module_disabled_no_selection">Modulen %s har inaktiverats sedan ingen app har valts.</string>
@@ -199,8 +199,8 @@
     <string name="update_channel_stable">Stabil</string>
     <string name="update_channel_bate">Beta</string>
     <string name="update_channel_nightly">Nattligt bygg</string>
-    <string name="settings_xposed_api_call_protection">Skydd av Xposed API-anrop</string>
-    <string name="settings_xposed_api_call_protection_summary">Blockera dynamiskt laddad modulkod för att använda Xposed API, vilket kan förstöra vissa moduler men gynnar säkerheten.</string>
+    <string name="settings_dandroid_api_call_protection">Skydd av DAndroid API-anrop</string>
+    <string name="settings_dandroid_api_call_protection_summary">Blockera dynamiskt laddad modulkod för att använda DAndroid API, vilket kan förstöra vissa moduler men gynnar säkerheten.</string>
     <!-- Module Repo -->
     <string name="module_readme">Läsa</string>
     <string name="module_releases">Släpp</string>

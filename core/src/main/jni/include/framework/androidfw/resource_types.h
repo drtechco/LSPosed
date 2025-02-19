@@ -1,21 +1,21 @@
 /*
- * This file is part of LSPosed.
+ * This file is part of DAndroid.
  *
- * LSPosed is free software: you can redistribute it and/or modify
+ * DAndroid is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * LSPosed is distributed in the hope that it will be useful,
+ * DAndroid is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with LSPosed.  If not, see <https://www.gnu.org/licenses/>.
+ * along with DAndroid.  If not, see <https://www.gnu.org/licenses/>.
  *
- * Copyright (C) 2020 EdXposed Contributors
- * Copyright (C) 2021 LSPosed Contributors
+ * Copyright (C) 2020 EdDAndroid Contributors
+ * Copyright (C) 2021 DAndroid Contributors
  */
 
 #pragma once
@@ -141,32 +141,36 @@ namespace android {
         uint32_t mStylePoolSize;    // number of uint32_t
 
         using stringAtRet = expected<StringPiece16, NullOrIOError>;
+   
+        // 使用 FixedString 定义符号
+        #if defined(__LP64__)
+            static constexpr auto stringAt_sym = danlant::FixedString("_ZNK7android13ResStringPool8stringAtEmPm");
+            static constexpr auto stringAtS_sym = danlant::FixedString("_ZNK7android13ResStringPool8stringAtEm");
+        #else
+            static constexpr auto stringAt_sym = danlant::FixedString("_ZNK7android13ResStringPool8stringAtEjPj");
+            static constexpr auto stringAtS_sym = danlant::FixedString("_ZNK7android13ResStringPool8stringAtEj");
+        #endif
 
-        CREATE_MEM_FUNC_SYMBOL_ENTRY(stringAtRet, stringAtS, void *thiz, size_t idx) {
-            if (stringAtSSym) {
-                return stringAtSSym(thiz, idx);
+
+        // 定义成员函数
+        inline static danlant::MemberFunction<stringAt_sym, ResStringPool, const char16_t*(size_t, size_t*)> stringAtFunc;
+        inline static danlant::MemberFunction<stringAtS_sym, ResStringPool, stringAtRet(size_t)> stringAtSFunc;
+        
+        const char16_t* stringAt(size_t idx, size_t *u16len) {
+            if (stringAtFunc) {
+                return stringAtFunc(this, idx, u16len);
             }
-            return {.var_ = unexpected<NullOrIOError>{.val_ = std::nullopt}};
-
-        };
-
-        CREATE_MEM_FUNC_SYMBOL_ENTRY(const char16_t*, stringAt, void *thiz, size_t idx,
-                                     size_t *u16len) {
-            if (stringAtSym) {
-                return stringAtSym(thiz, idx, u16len);
-            } else {
-                *u16len = 0u;
-                return nullptr;
-            }
-        };
+            *u16len = 0u;
+            return nullptr;
+        }
 
         StringPiece16 stringAt(size_t idx) const {
-            if (stringAtSym) {
+            if (stringAtFunc) {
                 size_t len;
-                const char16_t *str = stringAt(const_cast<ResStringPool *>(this), idx, &len);
+                const char16_t *str = const_cast<ResStringPool*>(this)->stringAt(idx, &len);
                 return {str, len};
-            } else if (stringAtSSym) {
-                auto str = stringAtS(const_cast<ResStringPool *>(this), idx);
+            } else if (stringAtSFunc) {
+                auto str = stringAtSFunc(const_cast<ResStringPool*>(this), idx);
                 if (str.has_value()) {
                     return {str->data_, str->length_};
                 }
@@ -174,10 +178,8 @@ namespace android {
             return {nullptr, 0u};
         }
 
-        static bool setup(const lsplant::HookHandler &handler) {
-            RETRIEVE_MEM_FUNC_SYMBOL(stringAt, LP_SELECT("_ZNK7android13ResStringPool8stringAtEjPj", "_ZNK7android13ResStringPool8stringAtEmPm"));
-            RETRIEVE_MEM_FUNC_SYMBOL(stringAtS, LP_SELECT("_ZNK7android13ResStringPool8stringAtEj", "_ZNK7android13ResStringPool8stringAtEm"));
-            return !stringAtSym || !stringAtSSym;
+        static bool setup(const danlant::HookHandler &handler) {
+            return handler.dlsym(stringAtFunc) && handler.dlsym(stringAtSFunc);
         }
     };
 

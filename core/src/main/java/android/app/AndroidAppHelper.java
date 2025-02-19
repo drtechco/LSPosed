@@ -1,31 +1,31 @@
 /*
- * This file is part of LSPosed.
+ * This file is part of DAndroid.
  *
- * LSPosed is free software: you can redistribute it and/or modify
+ * DAndroid is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * LSPosed is distributed in the hope that it will be useful,
+ * DAndroid is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with LSPosed.  If not, see <https://www.gnu.org/licenses/>.
+ * along with DAndroid.  If not, see <https://www.gnu.org/licenses/>.
  *
- * Copyright (C) 2020 EdXposed Contributors
- * Copyright (C) 2021 LSPosed Contributors
+ * Copyright (C) 2020 EdDAndroid Contributors
+ * Copyright (C) 2021 DAndroid Contributors
  */
 
 package android.app;
 
-import static de.robv.android.xposed.XposedHelpers.findClass;
-import static de.robv.android.xposed.XposedHelpers.findFieldIfExists;
-import static de.robv.android.xposed.XposedHelpers.findMethodExactIfExists;
-import static de.robv.android.xposed.XposedHelpers.getObjectField;
-import static de.robv.android.xposed.XposedHelpers.newInstance;
-import static de.robv.android.xposed.XposedHelpers.setFloatField;
+import static com.google.android.dandroid.DAndroidHelpers.findClass;
+import static com.google.android.dandroid.DAndroidHelpers.findFieldIfExists;
+import static com.google.android.dandroid.DAndroidHelpers.findMethodExactIfExists;
+import static com.google.android.dandroid.DAndroidHelpers.getObjectField;
+import static com.google.android.dandroid.DAndroidHelpers.newInstance;
+import static com.google.android.dandroid.DAndroidHelpers.setFloatField;
 
 import android.content.SharedPreferences;
 import android.content.pm.ApplicationInfo;
@@ -37,8 +37,8 @@ import android.view.Display;
 import java.lang.ref.WeakReference;
 import java.util.Map;
 
-import de.robv.android.xposed.XSharedPreferences;
-import de.robv.android.xposed.XposedBridge;
+import com.google.android.dandroid.XSharedPreferences;
+import com.google.android.dandroid.DAndroidBridge;
 
 /**
  * Contains various methods for information about the current app.
@@ -71,7 +71,7 @@ public final class AndroidAppHelper {
 		try {
 			return newInstance(CLASS_RESOURCES_KEY, resDir, splitResDirs, overlayDirs, libDirs, displayId, overrideConfiguration, compatInfo);
 		} catch (Throwable t) {
-			XposedBridge.log(t);
+			DAndroidBridge.log(t);
 			return null;
 		}
 	}

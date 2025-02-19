@@ -1,0 +1,19 @@
+<lint-module
+    format="1"
+    dir="/Users/ttttt/d/lineage22/LSPosed/libdandroidapi"
+    name=":libdandroidapi"
+    type="LIBRARY"
+    maven="com.google.libdandroid:libdandroidapi:"
+    agpVersion="8.2.1"
+    buildFolder="build"
+    bootClassPath="/Users/ttttt/Library/Android/sdk/platforms/android-35/android.jar:/Users/ttttt/Library/Android/sdk/build-tools/35.0.0/core-lambda-stubs.jar"
+    javaSourceLevel="1.8"
+    compileTarget="android-35"
+    neverShrinking="true">
+  <lintOptions
+      abortOnError="true"
+      absolutePaths="true"
+      checkReleaseBuilds="true"
+      explainIssues="true"/>
+  <variant name="debug"/>
+</lint-module>

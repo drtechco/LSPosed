@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-  ~ This file is part of LSPosed.
+  ~ This file is part of DAndroid.
   ~
-  ~ LSPosed is free software: you can redistribute it and/or modify
+  ~ DAndroid is free software: you can redistribute it and/or modify
   ~ it under the terms of the GNU General Public License as published by
   ~ the Free Software Foundation, either version 3 of the License, or
   ~ (at your option) any later version.
   ~
-  ~ LSPosed is distributed in the hope that it will be useful,
+  ~ DAndroid is distributed in the hope that it will be useful,
   ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
   ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
   ~ GNU General Public License for more details.
   ~
   ~ You should have received a copy of the GNU General Public License
-  ~ along with LSPosed.  If not, see <https://www.gnu.org/licenses/>.
+  ~ along with DAndroid.  If not, see <https://www.gnu.org/licenses/>.
   ~
-  ~ Copyright (C) 2021 LSPosed Contributors
+  ~ Copyright (C) 2021 DAndroid Contributors
   -->
-<resources xmlns:tools="http://schemas.android.com/tools" tools:keep="@string/xposed_module_updated_notification_*,@string/module_is_not_activated_*">
+<resources xmlns:tools="http://schemas.android.com/tools" tools:keep="@string/dandroid_module_updated_notification_*,@string/module_is_not_activated_*">
     <!-- MainActivity -->
     <string name="overview">Yleiskatsaus</string>
     <string name="Modules">Moduulit</string>
@@ -41,19 +41,19 @@
     <string name="about_view_source_code"><![CDATA[Näytä lähdekoodi %1$s<br/>Liity kanavaamme %2$s]]></string>
     <string name="translators" comment="Dear translators, please add your home page here following the format. There can be more than one translator. So feel free to append yourself.">null</string>
     <string name="install">Asenna</string>
-    <string name="install_summary">Napauta asentaaksesi LSPosed</string>
+    <string name="install_summary">Napauta asentaaksesi DAndroid</string>
     <string name="not_installed">Ei asennettu</string>
-    <string name="not_install_summary">LSPosed ei ole asennettu</string>
+    <string name="not_install_summary">DAndroid ei ole asennettu</string>
     <string name="activated">Aktivoitu</string>
     <string name="partial_activated">Osittain aktivoitu</string>
     <string name="selinux_policy_not_loaded_summary">SEPolicy ei ole ladattu oikein</string>
     <string name="selinux_policy_not_loaded"><![CDATA[Jotkin ominaisuudet eivät toimi.<br/>Ilmoita tästä <a href="https://github.com/topjohnwu/Magisk/issues"><b>Magisk</b></a> kehittäjälle.]]></string>
     <string name="system_inject_fail_summary">Järjestelmän kehysinjektointi epäonnistui</string>
-    <string name="system_inject_fail"><![CDATA[Tämä on harvinaista ja voi johtua <b>Magisk</b> tai joitakin heikkolaatuisia Magisk moduuleja.<br/>Yritä poistaa käytöstä muut Magisk moduulit kuin Riru ja LSPosed tai lähettää täysi loki kehittäjille.]]></string>
+    <string name="system_inject_fail"><![CDATA[Tämä on harvinaista ja voi johtua <b>Magisk</b> tai joitakin heikkolaatuisia Magisk moduuleja.<br/>Yritä poistaa käytöstä muut Magisk moduulit kuin Riru ja DAndroid tai lähettää täysi loki kehittäjille.]]></string>
     <string name="system_prop_incorrect_summary">Järjestelmän prop virheellinen</string>
     <string name="system_prop_incorrect"><![CDATA[Jotkut tarvittavat järjestelmän ominaisuudet poistettu tai muokattu.<br/>Moduulit voivat mitätöidä satunnaisesti.]]></string>
     <string name="need_update">Täytyy päivittää</string>
-    <string name="please_update_summary">Asenna LSPosedin uusin versio</string>
+    <string name="please_update_summary">Asenna DAndroidin uusin versio</string>
     <string name="info_api_version">API versio</string>
     <string name="info_framework_version">Kehyksen versio</string>
     <string name="info_manager_package_name">Manager-paketin nimi</string>
@@ -74,13 +74,13 @@
     <string name="update_lsposed_msg">Vahvista LSPost-päivitys? Tämä laite käynnistyy uudelleen päivityksen jälkeen</string>
     <string name="info_copied">Kopioitu leikepöydälle</string>
     <!-- WelcomeDialog -->
-    <string name="parasitic_welcome">Tervetuloa LSPosed</string>
+    <string name="parasitic_welcome">Tervetuloa DAndroid</string>
     <string name="parasitic_welcome_summary">Käytät loishallintaohjelmaa, joka voi luoda pikakuvakkeen tai silti avata ilmoituksen.</string>
     <string name="parasitic_welcome_summary_no_shortcut_support">Käytät loishallintaohjelmaa, joka voidaan avata ilmoituksesta.</string>
     <string name="create_shortcut">Luo pikakuvake</string>
     <string name="never_show">Älä näytä koskaan</string>
     <string name="app_welcome">Parasitic Manager Suositellaan</string>
-    <string name="app_welcome_summary">LSPosed tukee nyt järjestelmän loisimista havaitsemisen välttämiseksi, voit avata loishallinnan ilmoituksesta. On suositeltavaa poistaa nykyinen sovellus.</string>
+    <string name="app_welcome_summary">DAndroid tukee nyt järjestelmän loisimista havaitsemisen välttämiseksi, voit avata loishallinnan ilmoituksesta. On suositeltavaa poistaa nykyinen sovellus.</string>
     <!-- LogsActivity -->
     <string name="menuSaveToSd">Tallenna</string>
     <string name="nav_item_logs_verbose">Verbose Lokit</string>
@@ -100,10 +100,10 @@
     <string name="disabled_verbose_log">Verbose loki pois käytöstä</string>
     <!-- ModulesActivity -->
     <string name="module_empty_description">(ei kuvausta annettu)</string>
-    <string name="warning_xposed_min_version">Tämä moduuli vaatii uudemman Xposed version (%d) eikä sitä näin ollen voi aktivoida</string>
-    <string name="warning_target_version_higher">Tämä moduuli on suunniteltu uudemmalle Xposed-versiolle (%d), joten jotkin toiminnot eivät välttämättä toimi.</string>
-    <string name="no_min_version_specified">Tämä moduuli ei määrittele tarvitsemaansa Xposed versiota.</string>
-    <string name="warning_min_version_too_low">Tämä moduuli on luotu Xposed versiolle %1$d, mutta koska versiossa %2$don tehty yhteensopimattomia muutoksia, se on poistettu käytöstä</string>
+    <string name="warning_dandroid_min_version">Tämä moduuli vaatii uudemman DAndroid version (%d) eikä sitä näin ollen voi aktivoida</string>
+    <string name="warning_target_version_higher">Tämä moduuli on suunniteltu uudemmalle DAndroid-versiolle (%d), joten jotkin toiminnot eivät välttämättä toimi.</string>
+    <string name="no_min_version_specified">Tämä moduuli ei määrittele tarvitsemaansa DAndroid versiota.</string>
+    <string name="warning_min_version_too_low">Tämä moduuli on luotu DAndroid versiolle %1$d, mutta koska versiossa %2$don tehty yhteensopimattomia muutoksia, se on poistettu käytöstä</string>
     <string name="warning_installed_on_external_storage">Tätä moduulia ei voi ladata, koska se on asennettu SD-kortille, siirrä se sisäiseen tallennustilaan</string>
     <string name="module_uninstall">Poista</string>
     <string name="module_settings">Moduulin asetukset</string>
@@ -115,7 +115,7 @@
     <string name="module_installed">Lisätty %1$s käyttäjälle %2$s</string>
     <string name="module_install_failed">Moduulin lisääminen epäonnistui</string>
     <string name="install_to_user">Asenna käyttäjälle %s</string>
-    <string name="install_to_user_message">Haluatko asentaa %1$s käyttäjälle %2$s? On suositeltavaa asentaa manuaalisesti, pakottaa asennus LSPosedin kautta voi aiheuttaa ongelmia.</string>
+    <string name="install_to_user_message">Haluatko asentaa %1$s käyttäjälle %2$s? On suositeltavaa asentaa manuaalisesti, pakottaa asennus DAndroidin kautta voi aiheuttaa ongelmia.</string>
     <string name="expand">laajenna</string>
     <string name="collapse">pienennä</string>
     <!-- AppListActivity -->
@@ -142,7 +142,7 @@
     <string name="use_recommended">Suositeltu</string>
     <string name="no_scope_selected_has_recommended">Et valinnut yhtään sovellusta. Valitse suositellut sovellukset?</string>
     <string name="use_recommended_message">Valitse suositellut sovellukset?</string>
-    <string name="module_is_not_activated_yet">Xposed moduuli ei ole vielä aktivoitu</string>
+    <string name="module_is_not_activated_yet">DAndroid moduuli ei ole vielä aktivoitu</string>
     <string name="requested_by_module">Suositeltu</string>
     <string name="update_available">Päivitys saatavilla: %1$s</string>
     <string name="module_disabled_no_selection">Moduuli %s on poistettu käytöstä koska sovellusta ei ole valittu.</string>
@@ -199,8 +199,8 @@
     <string name="update_channel_stable">Vakaa</string>
     <string name="update_channel_bate">Beeta</string>
     <string name="update_channel_nightly">Yöllinen rakentaminen</string>
-    <string name="settings_xposed_api_call_protection">Xposedin API-kutsujen suojaus</string>
-    <string name="settings_xposed_api_call_protection_summary">Estetään dynaamisesti ladatun moduulin koodin käyttö Xposed API:n avulla, mikä saattaa rikkoa joitakin moduuleja mutta hyödyttää turvallisuutta.</string>
+    <string name="settings_dandroid_api_call_protection">DAndroidin API-kutsujen suojaus</string>
+    <string name="settings_dandroid_api_call_protection_summary">Estetään dynaamisesti ladatun moduulin koodin käyttö DAndroid API:n avulla, mikä saattaa rikkoa joitakin moduuleja mutta hyödyttää turvallisuutta.</string>
     <!-- Module Repo -->
     <string name="module_readme">Luennot</string>
     <string name="module_releases">Julkaisut</string>

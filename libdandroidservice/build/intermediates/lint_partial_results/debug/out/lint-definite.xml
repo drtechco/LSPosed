@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<incidents format="6" by="lint 8.2.1" type="incidents">
+
+    <incident
+        id="ExportedService"
+        severity="warning"
+        message="Exported service does not require permission">
+        <fix-alternatives>
+            <fix-attribute
+                description="Set permission"
+                namespace="http://schemas.android.com/apk/res/android"
+                attribute="permission"
+                value="TODO"
+                dot="4"
+                mark="0"/>
+            <fix-attribute
+                description="Set exported=&quot;false&quot;"
+                namespace="http://schemas.android.com/apk/res/android"
+                attribute="exported"
+                value="false"/>
+        </fix-alternatives>
+        <location
+            file="${:libdandroidservice*debug*MAIN*sourceProvider*0*manifest*0}"
+            line="6"
+            column="10"
+            startOffset="188"
+            endLine="6"
+            endColumn="17"
+            endOffset="195"/>
+    </incident>
+
+    <incident
+        id="MissingClass"
+        severity="error"
+        message="Class referenced in the manifest, `com.google.libdandroid.service.MyService`, was not found in the project or the libraries">
+        <location
+            file="${:libdandroidservice*debug*MAIN*sourceProvider*0*manifest*0}"
+            line="7"
+            column="27"
+            startOffset="222"
+            endLine="7"
+            endColumn="37"
+            endOffset="232"/>
+    </incident>
+
+    <incident
+        id="UseTomlInstead"
+        severity="warning"
+        message="Use the existing version catalog reference (`libs.androidx.annotation`) instead">
+        <fix-replace
+            description="Replace with existing version catalog reference `androidx-annotation`"
+            robot="true"
+            independent="true"
+            replacement="libs.androidx.annotation">
+            <range
+                file="${:libdandroidservice*projectDir}/build.gradle.kts"
+                startOffset="848"
+                endOffset="886"/>
+        </fix-replace>
+        <location
+            file="${:libdandroidservice*projectDir}/build.gradle.kts"
+            line="46"
+            column="18"
+            startOffset="849"
+            endLine="46"
+            endColumn="54"
+            endOffset="885"/>
+    </incident>
+
+    <incident
+        id="GradleDependency"
+        severity="warning"
+        message="A newer version of androidx.annotation:annotation than 1.7.1 is available: 1.9.1">
+        <fix-replace
+            description="Change to 1.9.1"
+            family="Update versions"
+            oldString="1.7.1"
+            replacement="1.9.1"/>
+        <location
+            file="${:libdandroidservice*projectDir}/build.gradle.kts"
+            line="46"
+            column="18"
+            startOffset="849"
+            endLine="46"
+            endColumn="54"
+            endOffset="885"/>
+    </incident>
+
+</incidents>

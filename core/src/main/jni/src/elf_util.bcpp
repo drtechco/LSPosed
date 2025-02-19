@@ -1,0 +1,516 @@
+/*
+ * This file is part of DAndroid.
+ *
+ * DAndroid is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * DAndroid is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with DAndroid.  If not, see <https://www.gnu.org/licenses/>.
+ *
+ * Copyright (C) 2019 Swift Gan
+ * Copyright (C) 2021 DAndroid Contributors
+ */
+#include <malloc.h>
+#include <cstring>
+#include <sys/mman.h>
+#include <fcntl.h>
+#include <unistd.h>
+#include <cassert>
+#include <algorithm>
+#include <sys/stat.h>
+#include "logging.h"
+#include "elf_util.h"
+
+using namespace SandHook;
+
+template<typename T>
+inline constexpr auto offsetOf(ElfW(Ehdr) *head, ElfW(Off) off) {
+    return reinterpret_cast<std::conditional_t<std::is_pointer_v<T>, T, T *>>(
+            reinterpret_cast<uintptr_t>(head) + off);
+}
+
+
+void ElfImg::DumpSymbols() const {
+    LOGD("=========== Dumping All Symbols ===========");
+
+    // 打印动态符号表信息
+    if (dynsym && strtab_start) {
+        LOGD("Dynamic symbols from .dynsym:");
+        size_t dynsym_count = dynsym->sh_size / dynsym->sh_entsize;
+        for (size_t i = 0; i < dynsym_count; i++) {
+            auto* sym = dynsym_start + i;
+            const char* name = sym->st_name ? (char*)strtab_start + sym->st_name : "<unnamed>";
+            LOGD("  [{:4d}] type={:2d} bind={:2d} value={:#x} size={:6d} name={}",
+                 i,
+                 ELF_ST_TYPE(sym->st_info),
+                 ELF_ST_BIND(sym->st_info),
+                 sym->st_value,
+                 sym->st_size,
+                 name);
+        }
+    } else {
+        LOGD("No dynamic symbol table available");
+    }
+
+    // 打印静态符号表信息
+    if (symtab_start && symstr_offset_for_symtab) {
+        LOGD("\nStatic symbols from .symtab:");
+        for (ElfW(Off) i = 0; i < symtab_count; i++) {
+            const char* name = symtab_start[i].st_name ?
+                               offsetOf<const char*>(header, symstr_offset_for_symtab + symtab_start[i].st_name) :
+                               "<unnamed>";
+            LOGD("  [{:4d}] type={:2d} bind={:2d} value={:#x} size={:6d} name={}",
+                 i,
+                 ELF_ST_TYPE(symtab_start[i].st_info),
+                 ELF_ST_BIND(symtab_start[i].st_info),
+                 symtab_start[i].st_value,
+                 symtab_start[i].st_size,
+                 name);
+        }
+    } else {
+        LOGD("No static symbol table available");
+    }
+
+    // 打印GNU哈希表信息
+    if (gnu_nbucket_ > 0) {
+        LOGD("\nGNU Hash Table Info:");
+        LOGD("  Number of buckets: {}", gnu_nbucket_);
+        LOGD("  Symbol index: {}", gnu_symndx_);
+        LOGD("  Bloom size: {}", gnu_bloom_size_);
+        LOGD("  Bloom shift: {}", gnu_shift2_);
+
+        LOGD("\nBloom filter entries:");
+        for (ElfW(Word) i = 0; i < gnu_bloom_size_; i++) {
+            LOGD("  [{:3d}] {:#x}", i, gnu_bloom_filter_[i]);
+        }
+
+        LOGD("\nBucket entries:");
+        for (ElfW(Word) i = 0; i < gnu_nbucket_; i++) {
+            LOGD("  [{:3d}] {}", i, gnu_bucket_[i]);
+        }
+
+        // 打印chain表的一部分
+        size_t chain_size = dynsym->sh_size / dynsym->sh_entsize - gnu_symndx_;
+        LOGD("\nChain entries (first 50 or less):");
+        for (size_t i = 0; i < std::min(chain_size, size_t(50)); i++) {
+            LOGD("  [{:3d}] {:#x}", i, gnu_chain_[i]);
+        }
+    }
+
+    // 打印ELF哈希表信息
+    if (nbucket_ > 0) {
+        LOGD("\nELF Hash Table Info:");
+        LOGD("  Number of buckets: {}", nbucket_);
+
+        LOGD("\nBucket entries:");
+        for (ElfW(Word) i = 0; i < nbucket_; i++) {
+            LOGD("  [{:3d}] {}", i, bucket_[i]);
+        }
+
+        // 获取chain表大小（如果可能）并打印一部分
+        if (dynsym) {
+            size_t nchain = dynsym->sh_size / dynsym->sh_entsize;
+            LOGD("\nChain entries (first 50 or less):");
+            for (size_t i = 0; i < std::min(nchain, size_t(50)); i++) {
+                LOGD("  [{:3d}] {}", i, chain_[i]);
+            }
+        }
+    }
+
+    LOGD("=========== Symbol Dump End ===========");
+}
+
+ElfImg::ElfImg(std::string_view base_name) : elf(base_name) {
+    LOGD("Initializing ElfImg for {}", base_name);
+    if (!findModuleBase()) {
+        LOGE("Failed to find module base for {}", base_name);
+        base = nullptr;
+        return;
+    }
+
+    //load elf
+    int fd = open(elf.data(), O_RDONLY);
+    if (fd < 0) {
+        LOGE("Failed to open {}, errno: {}", elf, errno);
+        return;
+    }
+
+    size = lseek(fd, 0, SEEK_END);
+    if (size <= 0) {
+        LOGE("lseek() failed for {}, errno: {}, size: {}", elf, errno, size);
+    }
+
+    header = reinterpret_cast<decltype(header)>(mmap(nullptr, size, PROT_READ, MAP_SHARED, fd, 0));
+    if (header == MAP_FAILED) {
+        LOGE("mmap failed for {}, errno: {}", elf, errno);
+        close(fd);
+        return;
+    }
+
+    close(fd);
+    LOGD("Successfully mapped ELF file, size: {}", size);
+
+    section_header = offsetOf<decltype(section_header)>(header, header->e_shoff);
+    LOGD("Section header offset: {:#x}", header->e_shoff);
+
+    auto shoff = reinterpret_cast<uintptr_t>(section_header);
+    char *section_str = offsetOf<char *>(header, section_header[header->e_shstrndx].sh_offset);
+
+    for (int i = 0; i < header->e_shnum; i++, shoff += header->e_shentsize) {
+        auto *section_h = (ElfW(Shdr) *) shoff;
+        char *sname = section_h->sh_name + section_str;
+        auto entsize = section_h->sh_entsize;
+
+        LOGD("Processing section {} ({})", i, sname);
+        LOGD("  Section type: {:#x}", section_h->sh_type);
+        LOGD("  Section offset: {:#x}", section_h->sh_offset);
+        LOGD("  Section size: {:#x}", section_h->sh_size);
+        LOGD("  Section entry size: {:#x}", section_h->sh_entsize);
+        LOGD("  Section flags: {:#x}", section_h->sh_flags);
+
+        switch (section_h->sh_type) {
+            case SHT_DYNSYM: {
+                LOGD("  Found DYNSYM section");
+                if (bias == -4396) {
+                    dynsym = section_h;
+                    dynsym_offset = section_h->sh_offset;
+                    dynsym_start = offsetOf<decltype(dynsym_start)>(header, dynsym_offset);
+                    LOGD("    Initialized DYNSYM: offset={:#x}, addr={:#x}, size={}, entsize={}",
+                         dynsym_offset, section_h->sh_addr, section_h->sh_size, section_h->sh_entsize);
+                    LOGD("    Number of dynamic symbols: {}", section_h->sh_size / section_h->sh_entsize);
+                } else {
+                    LOGD("    Skipped DYNSYM initialization (bias != -4396)");
+                }
+                break;
+            }
+            case SHT_SYMTAB: {
+                LOGD("  Found SYMTAB section");
+                if (strcmp(sname, ".symtab") == 0) {
+                    symtab = section_h;
+                    symtab_offset = section_h->sh_offset;
+                    symtab_size = section_h->sh_size;
+                    symtab_count = symtab_size / entsize;
+                    symtab_start = offsetOf<decltype(symtab_start)>(header, symtab_offset);
+                    LOGD("    Initialized SYMTAB: offset={:#x}, size={}, count={}, entsize={}",
+                         symtab_offset, symtab_size, symtab_count, entsize);
+                    LOGD("    SYMTAB address range: {:#x} - {:#x}",
+                         reinterpret_cast<uintptr_t>(symtab_start),
+                         reinterpret_cast<uintptr_t>(symtab_start) + symtab_size);
+                } else {
+                    LOGD("    Skipped non-.symtab SYMTAB section: {}", sname);
+                }
+                break;
+            }
+            case SHT_STRTAB: {
+                LOGD("  Found STRTAB section");
+                if (bias == -4396) {
+                    strtab = section_h;
+                    symstr_offset = section_h->sh_offset;
+                    strtab_start = offsetOf<decltype(strtab_start)>(header, symstr_offset);
+                    LOGD("    Initialized STRTAB: offset={:#x}, size={}",
+                         symstr_offset, section_h->sh_size);
+                } else {
+                    LOGD("    Skipped STRTAB initialization (bias != -4396)");
+                }
+
+                if (strcmp(sname, ".strtab") == 0) {
+                    symstr_offset_for_symtab = section_h->sh_offset;
+                    LOGD("    Found .strtab: offset={:#x}, size={}",
+                         symstr_offset_for_symtab, section_h->sh_size);
+                    LOGD("    String table address: {:#x}",
+                         reinterpret_cast<uintptr_t>(offsetOf<char *>(header, symstr_offset_for_symtab)));
+                }
+                break;
+            }
+            case SHT_PROGBITS: {
+                LOGD("  Found PROGBITS section: {}", sname);
+                if (strtab == nullptr || dynsym == nullptr) {
+                    LOGD("    Skipped bias calculation (strtab or dynsym not initialized)");
+                    break;
+                }
+                if (bias == -4396) {
+                    bias = (off_t) section_h->sh_addr - (off_t) section_h->sh_offset;
+                    LOGD("    Calculated bias: {:#x} (addr={:#x}, offset={:#x})",
+                         bias, section_h->sh_addr, section_h->sh_offset);
+                }
+                break;
+            }
+            case SHT_HASH: {
+                LOGD("  Found HASH section");
+                auto *d_un = offsetOf<ElfW(Word)>(header, section_h->sh_offset);
+                nbucket_ = d_un[0];
+                bucket_ = d_un + 2;
+                chain_ = bucket_ + nbucket_;
+                LOGD("    Initialized HASH: nbucket={}, bucket_addr={:#x}, chain_addr={:#x}",
+                     nbucket_,
+                     reinterpret_cast<uintptr_t>(bucket_),
+                     reinterpret_cast<uintptr_t>(chain_));
+
+                // Print first few bucket entries for debugging
+                LOGD("    First few bucket entries:");
+                for(int j = 0; j < std::min(5, static_cast<int>(nbucket_)); j++) {
+                    LOGD("      bucket[{}] = {}", j, bucket_[j]);
+                }
+                break;
+            }
+            case SHT_GNU_HASH: {
+                LOGD("  Found GNU_HASH section");
+                auto *d_buf = reinterpret_cast<ElfW(Word) *>(((size_t) header) + section_h->sh_offset);
+                gnu_nbucket_ = d_buf[0];
+                gnu_symndx_ = d_buf[1];
+                gnu_bloom_size_ = d_buf[2];
+                gnu_shift2_ = d_buf[3];
+                gnu_bloom_filter_ = reinterpret_cast<decltype(gnu_bloom_filter_)>(d_buf + 4);
+                gnu_bucket_ = reinterpret_cast<decltype(gnu_bucket_)>(gnu_bloom_filter_ + gnu_bloom_size_);
+                gnu_chain_ = gnu_bucket_ + gnu_nbucket_ - gnu_symndx_;
+
+                LOGD("    Initialized GNU_HASH:");
+                LOGD("      nbucket={}, symndx={}, bloom_size={}, shift2={}",
+                     gnu_nbucket_, gnu_symndx_, gnu_bloom_size_, gnu_shift2_);
+                LOGD("      bloom_filter_addr={:#x}", reinterpret_cast<uintptr_t>(gnu_bloom_filter_));
+                LOGD("      bucket_addr={:#x}", reinterpret_cast<uintptr_t>(gnu_bucket_));
+                LOGD("      chain_addr={:#x}", reinterpret_cast<uintptr_t>(gnu_chain_));
+
+                // Print first few bloom filter and bucket entries for debugging
+                LOGD("    First few bloom filter entries:");
+                ElfW(Word) max_bloom_print = 2;
+                if (gnu_bloom_size_ > 0) {
+                    for(ElfW(Word) j = 0; j < ((gnu_bloom_size_ < max_bloom_print) ? gnu_bloom_size_ : max_bloom_print); j++) {
+                        LOGD("      bloom[{}] = {:#x}", j, gnu_bloom_filter_[j]);
+                    }
+                }
+
+                LOGD("    First few bucket entries:");
+                ElfW(Word) max_bucket_print = 5;
+                if (gnu_nbucket_ > 0) {
+                    for(ElfW(Word) j = 0; j < ((gnu_nbucket_ < max_bucket_print) ? gnu_nbucket_ : max_bucket_print); j++) {
+                        LOGD("      bucket[{}] = {}", j, gnu_bucket_[j]);
+                    }
+                }
+                break;
+            }
+            default: {
+                LOGD("  Skipped section type {:#x}", section_h->sh_type);
+                break;
+            }
+        }
+    }
+    //DumpSymbols();
+}
+
+ElfW(Addr) ElfImg::ElfLookup(std::string_view name, uint32_t hash) const {
+    LOGD("ElfLookup for symbol: {}, hash: {:#x}", name, hash);
+
+    if (nbucket_ == 0) {
+        LOGD("No hash buckets available");
+        return 0;
+    }
+
+    char *strings = (char *) strtab_start;
+    if (!strings) {
+        LOGE("String table is null");
+        return 0;
+    }
+
+    uint32_t index = hash % nbucket_;
+    LOGD("Checking bucket index: {}", index);
+
+    for (auto n = bucket_[index]; n != 0; n = chain_[n]) {
+        auto *sym = dynsym_start + n;
+        const char* sym_name = strings + sym->st_name;
+        LOGD("Checking symbol: {}, value: {:#x}", sym_name, sym->st_value);
+
+        if (name == sym_name) {
+            LOGD("Found matching symbol, value: {:#x}", sym->st_value);
+            return sym->st_value;
+        }
+    }
+
+    LOGD("Symbol not found in ELF hash table");
+    return 0;
+}
+
+
+ElfW(Addr) ElfImg::GnuLookup(std::string_view name, uint32_t hash) const {
+    LOGD("GnuLookup for symbol: {}, hash: {:#x}", name, hash);
+
+    static constexpr auto bloom_mask_bits = sizeof(ElfW(Addr)) * 8;
+
+    if (gnu_nbucket_ == 0 || gnu_bloom_size_ == 0) {
+        LOGD("GNU hash table not available");
+        return 0;
+    }
+
+    auto bloom_word = gnu_bloom_filter_[(hash / bloom_mask_bits) % gnu_bloom_size_];
+    uintptr_t mask = 0
+                     | (uintptr_t) 1 << (hash % bloom_mask_bits)
+                     | (uintptr_t) 1 << ((hash >> gnu_shift2_) % bloom_mask_bits);
+
+    LOGD("Bloom filter check - word: {:#x}, mask: {:#x}", bloom_word, mask);
+
+    if ((mask & bloom_word) == mask) {
+        auto sym_index = gnu_bucket_[hash % gnu_nbucket_];
+        LOGD("Passed bloom filter, checking bucket index: {}", sym_index);
+
+        if (sym_index >= gnu_symndx_) {
+            char *strings = (char *) strtab_start;
+            do {
+                auto *sym = dynsym_start + sym_index;
+                const char* sym_name = strings + sym->st_name;
+                LOGD("Checking symbol: {}, hash: {:#x}, value: {:#x}",
+                     sym_name, gnu_chain_[sym_index], sym->st_value);
+
+                if (((gnu_chain_[sym_index] ^ hash) >> 1) == 0 && name == sym_name) {
+                    LOGD("Found matching symbol, value: {:#x}", sym->st_value);
+                    return sym->st_value;
+                }
+            } while ((gnu_chain_[sym_index++] & 1) == 0);
+        }
+    } else {
+        LOGD("Symbol filtered out by bloom filter");
+    }
+
+    LOGD("Symbol not found in GNU hash table");
+    return 0;
+}
+
+void ElfImg::MayInitLinearMap() const {
+    if (symtabs_.empty()) {
+        if (symtab_start != nullptr && symstr_offset_for_symtab != 0) {
+            for (ElfW(Off) i = 0; i < symtab_count; i++) {
+                unsigned int st_type = ELF_ST_TYPE(symtab_start[i].st_info);
+                const char *st_name = offsetOf<const char *>(header, symstr_offset_for_symtab +
+                                                                     symtab_start[i].st_name);
+                if ((st_type == STT_FUNC || st_type == STT_OBJECT) && symtab_start[i].st_size) {
+                    symtabs_.emplace(st_name, &symtab_start[i]);
+                }
+            }
+        }
+    }
+}
+
+ElfW(Addr) ElfImg::LinearLookup(std::string_view name) const {
+    MayInitLinearMap();
+    if (auto i = symtabs_.find(name); i != symtabs_.end()) {
+        return i->second->st_value;
+    } else {
+        return 0;
+    }
+}
+
+std::vector<ElfW(Addr)> ElfImg::LinearRangeLookup(std::string_view name) const {
+    MayInitLinearMap();
+    std::vector<ElfW(Addr)> res;
+    for (auto [i, end] = symtabs_.equal_range(name); i != end; ++i) {
+        auto offset = i->second->st_value;
+        res.emplace_back(offset);
+        LOGD("found {} {:#x} in {} in symtab by linear range lookup", name, offset, elf);
+    }
+    return res;
+}
+
+ElfW(Addr) ElfImg::PrefixLookupFirst(std::string_view prefix) const {
+    MayInitLinearMap();
+    if (auto i = symtabs_.lower_bound(prefix); i != symtabs_.end() && i->first.starts_with(prefix)) {
+        LOGD("found prefix {} of {} {:#x} in {} in symtab by linear lookup", prefix, i->first, i->second->st_value, elf);
+        return i->second->st_value;
+    } else {
+        return 0;
+    }
+}
+
+
+ElfImg::~ElfImg() {
+    //open elf file local
+    if (buffer) {
+        free(buffer);
+        buffer = nullptr;
+    }
+    //use mmap
+    if (header) {
+        munmap(header, size);
+    }
+}
+
+ElfW(Addr) ElfImg::getSymbOffset(std::string_view name, uint32_t gnu_hash, uint32_t elf_hash) const {
+    LOGD("Looking up symbol: {}, gnu_hash: {:#x}, elf_hash: {:#x}", name, gnu_hash, elf_hash);
+
+    auto offset = GnuLookup(name, gnu_hash);
+    if (offset > 0) {
+        LOGD("Found symbol {} at {:#x} in {} using GNU hash", name, offset, elf);
+        return offset;
+    }
+
+    offset = ElfLookup(name, elf_hash);
+    if (offset > 0) {
+        LOGD("Found symbol {} at {:#x} in {} using ELF hash", name, offset, elf);
+        return offset;
+    }
+
+    offset = LinearLookup(name);
+    if (offset > 0) {
+        LOGD("Found symbol {} at {:#x} in {} using linear lookup", name, offset, elf);
+        return offset;
+    }
+
+    LOGE("Symbol {} not found in {}", name, elf);
+    return 0;
+}
+
+constexpr inline bool contains(std::string_view a, std::string_view b) {
+    return a.find(b) != std::string_view::npos;
+}
+
+ 
+
+bool ElfImg::findModuleBase() {
+    off_t load_addr;
+    bool found = false;
+    FILE *maps = fopen("/proc/self/maps", "r");
+
+    char *buff = nullptr;
+    size_t len = 0;
+    ssize_t nread;
+
+    while ((nread = getline(&buff, &len, maps)) != -1) {
+        std::string_view line{buff, static_cast<size_t>(nread)};
+
+        if ((contains(line, "r-xp") || contains(line, "r--p")) && contains(line, elf)) {
+            LOGD("found: {}", line);
+            if (auto begin = line.find_last_of(' '); begin != std::string_view::npos &&
+                                                     line[++begin] == '/') {
+                found = true;
+                elf = line.substr(begin);
+                if (elf.back() == '\n') elf.pop_back();
+                LOGD("update path: {}", elf);
+                break;
+            }
+        }
+    }
+    if (!found) {
+        if (buff) free(buff);
+        LOGE("failed to read load address for {}", elf);
+        fclose(maps);
+        return false;
+    }
+
+    if (char *next = buff; load_addr = strtoul(buff, &next, 16), next == buff) {
+        LOGE("failed to read load address for {}", elf);
+    }
+
+    if (buff) free(buff);
+
+    fclose(maps);
+
+    LOGD("get module base {}: {:#x}", elf, load_addr);
+
+    base = reinterpret_cast<void *>(load_addr);
+    return true;
+}

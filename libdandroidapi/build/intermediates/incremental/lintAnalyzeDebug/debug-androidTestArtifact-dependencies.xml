@@ -1,0 +1,14 @@
+<dependencies>
+  <compile
+      roots=":@@:libdandroidapi::debug">
+    <dependency
+        name=":@@:libdandroidapi::debug"
+        simpleName="com.google.libdandroid:libdandroidapi"/>
+  </compile>
+  <package
+      roots=":@@:libdandroidapi::debug">
+    <dependency
+        name=":@@:libdandroidapi::debug"
+        simpleName="com.google.libdandroid:libdandroidapi"/>
+  </package>
+</dependencies>

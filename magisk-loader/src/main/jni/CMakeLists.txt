@@ -1,4 +1,4 @@
-project(lspd)
+project(dand)
 cmake_minimum_required(VERSION 3.4.1)
 
 add_subdirectory(${CORE_ROOT} core)
@@ -16,7 +16,9 @@ add_library(${PROJECT_NAME} SHARED ${SRC_LIST} ${CMAKE_CURRENT_BINARY_DIR}/src/l
 
 target_include_directories(${PROJECT_NAME} PUBLIC include)
 target_include_directories(${PROJECT_NAME} PRIVATE src)
-
+target_compile_options(${PROJECT_NAME} PUBLIC
+        -Wno-error
+)
 target_link_libraries(${PROJECT_NAME} core log)
 
 if (DEFINED DEBUG_SYMBOLS_PATH)

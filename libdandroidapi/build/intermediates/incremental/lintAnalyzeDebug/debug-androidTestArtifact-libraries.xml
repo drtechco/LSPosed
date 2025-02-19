@@ -1,0 +1,15 @@
+<libraries>
+  <library
+      name=":@@:libdandroidapi::debug"
+      jars="/Users/ttttt/d/lineage22/LSPosed/libdandroidapi/build/.transforms/fc5d3bebadcaeed71915e4cf6d9e032a/transformed/out/jars/classes.jar"
+      resolved="com.google.libdandroid:libdandroidapi:unspecified"
+      folder="/Users/ttttt/d/lineage22/LSPosed/libdandroidapi/build/.transforms/fc5d3bebadcaeed71915e4cf6d9e032a/transformed/out"
+      manifest="AndroidManifest.xml"
+      resFolder="res"
+      assetsFolder="assets"
+      lintJar="lint.jar"
+      publicResources="public.txt"
+      symbolFile="R.txt"
+      externalAnnotations="annotations.zip"
+      proguardRules="proguard.txt"/>
+</libraries>

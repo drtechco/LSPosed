@@ -1,32 +1,32 @@
 /*
- * This file is part of LSPosed.
+ * This file is part of DAndroid.
  *
- * LSPosed is free software: you can redistribute it and/or modify
+ * DAndroid is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * LSPosed is distributed in the hope that it will be useful,
+ * DAndroid is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with LSPosed.  If not, see <https://www.gnu.org/licenses/>.
+ * along with DAndroid.  If not, see <https://www.gnu.org/licenses/>.
  *
- * Copyright (C) 2022 LSPosed Contributors
+ * Copyright (C) 2022 DAndroid Contributors
  */
 
 #include "hook_bridge.h"
 #include "native_util.h"
-#include "lsplant.hpp"
+#include "danlant.hpp"
 #include <parallel_hashmap/phmap.h>
 #include <memory>
 #include <shared_mutex>
 #include <mutex>
 #include <set>
 
-using namespace lsplant;
+using namespace danlant;
 
 namespace {
 struct ModuleCallback {
@@ -71,7 +71,7 @@ jfieldID before_method_field = nullptr;
 jfieldID after_method_field = nullptr;
 }
 
-namespace lspd {
+namespace dand {
 LSP_DEF_NATIVE_METHOD(jboolean, HookBridge, hookMethod, jboolean useModernApi, jobject hookMethod,
                       jclass hooker, jint priority, jobject callback) {
     bool newHook = false;
@@ -106,7 +106,7 @@ LSP_DEF_NATIVE_METHOD(jboolean, HookBridge, hookMethod, jboolean useModernApi, j
                                                                                "([Ljava/lang/Object;)Ljava/lang/Object;"),
                                                       false);
         auto hooker_object = env->NewObject(hooker, init, hookMethod);
-        hook_item->SetBackup(lsplant::Hook(env, hookMethod, hooker_object, callback_method));
+        hook_item->SetBackup(danlant::Hook(env, hookMethod, hooker_object, callback_method));
         env->DeleteLocalRef(hooker_object);
     }
     jobject backup = hook_item->GetBackup();
@@ -122,8 +122,8 @@ LSP_DEF_NATIVE_METHOD(jboolean, HookBridge, hookMethod, jboolean useModernApi, j
         auto before_method = JNI_GetObjectField(env, callback, before_method_field);
         auto after_method = JNI_GetObjectField(env, callback, after_method_field);
         auto callback_type = ModuleCallback {
-                .before_method = env->FromReflectedMethod(before_method),
-                .after_method = env->FromReflectedMethod(after_method),
+                .before_method = env->FromReflectedMethod(before_method.get()),
+                .after_method = env->FromReflectedMethod(after_method.get()),
         };
         hook_item->modern_callbacks.emplace(priority, callback_type);
     } else {
@@ -144,7 +144,7 @@ LSP_DEF_NATIVE_METHOD(jboolean, HookBridge, unhookMethod, jboolean useModernApi,
     JNIMonitor monitor(env, backup);
     if (useModernApi) {
         auto before_method = JNI_GetObjectField(env, callback, before_method_field);
-        auto before = env->FromReflectedMethod(before_method);
+        auto before = env->FromReflectedMethod(before_method.get());
         for (auto i = hook_item->modern_callbacks.begin(); i != hook_item->modern_callbacks.end(); ++i) {
             if (before == i->second.before_method) {
                 hook_item->modern_callbacks.erase(i);
@@ -164,7 +164,7 @@ LSP_DEF_NATIVE_METHOD(jboolean, HookBridge, unhookMethod, jboolean useModernApi,
 
 LSP_DEF_NATIVE_METHOD(jboolean, HookBridge, deoptimizeMethod, jobject hookMethod,
                       jclass hooker, jint priority, jobject callback) {
-    return lsplant::Deoptimize(env, hookMethod);
+    return danlant::Deoptimize(env, hookMethod);
 }
 
 LSP_DEF_NATIVE_METHOD(jobject, HookBridge, invokeOriginalMethod, jobject hookMethod,
@@ -291,7 +291,7 @@ LSP_DEF_NATIVE_METHOD(jboolean, HookBridge, instanceOf, jobject object, jclass e
 }
 
 LSP_DEF_NATIVE_METHOD(jboolean, HookBridge, setTrusted, jobject cookie) {
-    return lsplant::MakeDexFileTrusted(env, cookie);
+    return danlant::MakeDexFileTrusted(env, cookie);
 }
 
 LSP_DEF_NATIVE_METHOD(jobjectArray, HookBridge, callbackSnapshot, jclass callback_class, jobject method) {
@@ -312,7 +312,7 @@ LSP_DEF_NATIVE_METHOD(jobjectArray, HookBridge, callbackSnapshot, jclass callbac
         auto before_method = JNI_ToReflectedMethod(env, clazz, callback.second.before_method, JNI_TRUE);
         auto after_method = JNI_ToReflectedMethod(env, clazz, callback.second.after_method, JNI_TRUE);
         auto callback_object = JNI_NewObject(env, callback_class, callback_ctor, before_method, after_method);
-        env->SetObjectArrayElement(modern, i++, env->NewLocalRef(callback_object));
+        env->SetObjectArrayElement(modern, i++, env->NewLocalRef(callback_object.get()));
     }
     for (jsize i = 0; auto callback: hook_item->legacy_callbacks) {
         env->SetObjectArrayElement(legacy, i++, env->NewLocalRef(callback.second));
@@ -342,4 +342,4 @@ void RegisterHookBridge(JNIEnv *env) {
     env->DeleteLocalRef(method);
     REGISTER_LSP_NATIVE_METHODS(HookBridge);
 }
-} // namespace lspd
+} // namespace dand

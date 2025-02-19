@@ -1,32 +1,32 @@
 /*
- * This file is part of LSPosed.
+ * This file is part of DAndroid.
  *
- * LSPosed is free software: you can redistribute it and/or modify
+ * DAndroid is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * LSPosed is distributed in the hope that it will be useful,
+ * DAndroid is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with LSPosed.  If not, see <https://www.gnu.org/licenses/>.
+ * along with DAndroid.  If not, see <https://www.gnu.org/licenses/>.
  *
- * Copyright (C) 2020 EdXposed Contributors
- * Copyright (C) 2021 LSPosed Contributors
+ * Copyright (C) 2020 EdDAndroid Contributors
+ * Copyright (C) 2021 DAndroid Contributors
  */
 
 package android.content.res;
 
-import static org.lsposed.lspd.nativebridge.ResourcesHook.rewriteXmlReferencesNative;
-import static de.robv.android.xposed.XposedHelpers.decrementMethodDepth;
-import static de.robv.android.xposed.XposedHelpers.findAndHookMethod;
-import static de.robv.android.xposed.XposedHelpers.getBooleanField;
-import static de.robv.android.xposed.XposedHelpers.getLongField;
-import static de.robv.android.xposed.XposedHelpers.getObjectField;
-import static de.robv.android.xposed.XposedHelpers.incrementMethodDepth;
+import static com.google.dand.nativebridge.ResourcesHook.rewriteXmlReferencesNative;
+import static com.google.android.dandroid.DAndroidHelpers.decrementMethodDepth;
+import static com.google.android.dandroid.DAndroidHelpers.findAndHookMethod;
+import static com.google.android.dandroid.DAndroidHelpers.getBooleanField;
+import static com.google.android.dandroid.DAndroidHelpers.getLongField;
+import static com.google.android.dandroid.DAndroidHelpers.getObjectField;
+import static com.google.android.dandroid.DAndroidHelpers.incrementMethodDepth;
 
 import android.content.Context;
 import android.content.pm.PackageParser;
@@ -58,22 +58,22 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.WeakHashMap;
 
-import de.robv.android.xposed.IXposedHookZygoteInit;
-import de.robv.android.xposed.XC_MethodHook;
-import de.robv.android.xposed.XC_MethodHook.MethodHookParam;
-import de.robv.android.xposed.XposedBridge;
-import de.robv.android.xposed.XposedBridge.CopyOnWriteSortedSet;
-import de.robv.android.xposed.XposedInit;
-import de.robv.android.xposed.callbacks.XC_LayoutInflated;
-import de.robv.android.xposed.callbacks.XC_LayoutInflated.LayoutInflatedParam;
-import de.robv.android.xposed.callbacks.XCallback;
-import xposed.dummy.XResourcesSuperClass;
-import xposed.dummy.XTypedArraySuperClass;
+import com.google.android.dandroid.IDAndroidHookZygoteInit;
+import com.google.android.dandroid.XC_MethodHook;
+import com.google.android.dandroid.XC_MethodHook.MethodHookParam;
+import com.google.android.dandroid.DAndroidBridge;
+import com.google.android.dandroid.DAndroidBridge.CopyOnWriteSortedSet;
+import com.google.android.dandroid.DAndroidInit;
+import com.google.android.dandroid.callbacks.XC_LayoutInflated;
+import com.google.android.dandroid.callbacks.XC_LayoutInflated.LayoutInflatedParam;
+import com.google.android.dandroid.callbacks.XCallback;
+import dandroid.dummy.XResourcesSuperClass;
+import dandroid.dummy.XTypedArraySuperClass;
 
 /**
  * {@link android.content.res.Resources} subclass that allows replacing individual resources.
  *
- * <p>Xposed replaces the standard resources with this class, which overrides the methods used for
+ * <p>DAndroid replaces the standard resources with this class, which overrides the methods used for
  * retrieving individual resources and adds possibilities to replace them. These replacements can
  * be set using the methods made available via the API methods in this class.
  */
@@ -183,7 +183,7 @@ public class XResources extends XResourcesSuperClass {
 			throw new IllegalStateException("Could not determine package name for " + resDir, e);
 		}
 		if (pkgInfo != null && pkgInfo.packageName != null) {
-//			Log.w(XposedBridge.TAG, "Package name for " + resDir + " had to be retrieved via parser");
+//			Log.w(DAndroidBridge.TAG, "Package name for " + resDir + " had to be retrieved via parser");
 			packageName = pkgInfo.packageName;
 			setPackageNameForResDir(packageName, resDir);
 			return packageName;
@@ -543,7 +543,7 @@ public class XResources extends XResourcesSuperClass {
 	 * <p>Some resources are part of the Android framework and can be used in any app. They're
 	 * accessible via {@link android.R android.R} and are not bound to a specific
 	 * {@link android.content.res.Resources} instance. Such resources can be replaced in
-	 * {@link IXposedHookZygoteInit#initZygote initZygote()} for all apps. As there is no
+	 * {@link IDAndroidHookZygoteInit#initZygote initZygote()} for all apps. As there is no
 	 * {@link XResources} object easily available in that scope, this static method can be used
 	 * to set resource replacements. All other details (e.g. how certain types can be replaced) are
 	 * mentioned in {@link #setReplacement(String, String, String, Object)}.
@@ -567,7 +567,7 @@ public class XResources extends XResourcesSuperClass {
 		String resDir = (res != null) ? res.mResDir : null;
 		if (res == null) {
 			try {
-				XposedInit.hookResources();
+				DAndroidInit.hookResources();
 			} catch (Throwable throwable) {
 				throw new IllegalStateException("Failed to initialize resources hook");
 			}
@@ -578,7 +578,7 @@ public class XResources extends XResourcesSuperClass {
 			throw new IllegalArgumentException("ids >= 0x7f000000 are app specific and cannot be set for the framework");
 
 		if (replacement instanceof Drawable)
-			throw new IllegalArgumentException("Drawable replacements are deprecated since Xposed 2.1. Use DrawableLoader instead.");
+			throw new IllegalArgumentException("Drawable replacements are deprecated since DAndroid 2.1. Use DrawableLoader instead.");
 
 		// Cache that we have a replacement for this ID, false positives are accepted to save memory.
 		if (id < 0x7f000000) {
@@ -764,7 +764,7 @@ public class XResources extends XResourcesSuperClass {
 						Drawable result = ((DrawableLoader) replacement).newDrawable(this, id);
 						if (result != null)
 							return result;
-					} catch (Throwable t) { XposedBridge.log(t); }
+					} catch (Throwable t) { DAndroidBridge.log(t); }
 				} else if (replacement instanceof Integer) {
 					return new ColorDrawable((Integer) replacement);
 				} else if (replacement instanceof XResForwarder) {
@@ -790,7 +790,7 @@ public class XResources extends XResourcesSuperClass {
 						Drawable result = ((DrawableLoader) replacement).newDrawable(this, id);
 						if (result != null)
 							return result;
-					} catch (Throwable t) { XposedBridge.log(t); }
+					} catch (Throwable t) { DAndroidBridge.log(t); }
 				} else if (replacement instanceof Integer) {
 					return new ColorDrawable((Integer) replacement);
 				} else if (replacement instanceof XResForwarder) {
@@ -816,7 +816,7 @@ public class XResources extends XResourcesSuperClass {
 						Drawable result = ((DrawableLoader) replacement).newDrawableForDensity(this, id, density);
 						if (result != null)
 							return result;
-					} catch (Throwable t) { XposedBridge.log(t); }
+					} catch (Throwable t) { DAndroidBridge.log(t); }
 				} else if (replacement instanceof Integer) {
 					return new ColorDrawable((Integer) replacement);
 				} else if (replacement instanceof XResForwarder) {
@@ -842,7 +842,7 @@ public class XResources extends XResourcesSuperClass {
 						Drawable result = ((DrawableLoader) replacement).newDrawableForDensity(this, id, density);
 						if (result != null)
 							return result;
-					} catch (Throwable t) { XposedBridge.log(t); }
+					} catch (Throwable t) { DAndroidBridge.log(t); }
 				} else if (replacement instanceof Integer) {
 					return new ColorDrawable((Integer) replacement);
 				} else if (replacement instanceof XResForwarder) {
@@ -967,10 +967,10 @@ public class XResources extends XResourcesSuperClass {
 					if (components.length == 3)
 						variant = components[1];
 					else
-						XposedBridge.log("Unexpected resource path \"" + value.string.toString()
+						DAndroidBridge.log("Unexpected resource path \"" + value.string.toString()
 								+ "\" for resource id 0x" + Integer.toHexString(id));
 				} else {
-					XposedBridge.log(new NotFoundException("Could not find file name for resource id 0x") + Integer.toHexString(id));
+					DAndroidBridge.log(new NotFoundException("Could not find file name for resource id 0x") + Integer.toHexString(id));
 				}
 
 				synchronized (sXmlInstanceDetails) {
@@ -1091,7 +1091,7 @@ public class XResources extends XResourcesSuperClass {
 			repRes.getValue(repId, outValue, resolveRefs);
 		} else {
 			if (replacement != null) {
-				XposedBridge.log("Replacement of resource ID #0x" + Integer.toHexString(id) + " escaped because of deprecated replacement. Please use XResForwarder instead.");
+				DAndroidBridge.log("Replacement of resource ID #0x" + Integer.toHexString(id) + " escaped because of deprecated replacement. Please use XResForwarder instead.");
 			}
 			super.getValue(id, outValue, resolveRefs);
 		}
@@ -1107,7 +1107,7 @@ public class XResources extends XResourcesSuperClass {
 			repRes.getValueForDensity(repId, density, outValue, resolveRefs);
 		} else {
 			if (replacement != null) {
-				XposedBridge.log("Replacement of resource ID #0x" + Integer.toHexString(id) + " escaped because of deprecated replacement. Please use XResForwarder instead.");
+				DAndroidBridge.log("Replacement of resource ID #0x" + Integer.toHexString(id) + " escaped because of deprecated replacement. Please use XResForwarder instead.");
 			}
 			super.getValueForDensity(id, density, outValue, resolveRefs);
 		}
@@ -1174,7 +1174,7 @@ public class XResources extends XResourcesSuperClass {
 			} catch (NotFoundException ignored) {}
 
 			if (!repResDefined && origResId == 0 && !entryType.equals("id")) {
-				XposedBridge.log(entryType + "/" + entryName + " is neither defined in module nor in original resources");
+				DAndroidBridge.log(entryType + "/" + entryName + " is neither defined in module nor in original resources");
 				return 0;
 			}
 
@@ -1188,7 +1188,7 @@ public class XResources extends XResourcesSuperClass {
 
 			return origResId;
 		} catch (Exception e) {
-			XposedBridge.log(e);
+			DAndroidBridge.log(e);
 			return id;
 		}
 	}
@@ -1255,7 +1255,7 @@ public class XResources extends XResourcesSuperClass {
 		try {
 			origAttrId = origRes.getIdentifier(attrName, "attr", origPackage);
 		} catch (NotFoundException e) {
-			XposedBridge.log("Attribute " + attrName + " not found in original resources");
+			DAndroidBridge.log("Attribute " + attrName + " not found in original resources");
 		}
 		return origAttrId;
 	}
@@ -1372,7 +1372,7 @@ public class XResources extends XResourcesSuperClass {
 					Drawable result = ((DrawableLoader) replacement).newDrawable(xres, resId);
 					if (result != null)
 						return result;
-				} catch (Throwable t) { XposedBridge.log(t); }
+				} catch (Throwable t) { DAndroidBridge.log(t); }
 			} else if (replacement instanceof Integer) {
 				return new ColorDrawable((Integer) replacement);
 			} else if (replacement instanceof XResForwarder) {
@@ -1518,7 +1518,7 @@ public class XResources extends XResourcesSuperClass {
 				return outValue.type != TypedValue.TYPE_NULL;
 			} else {
 				if (replacement != null) {
-					XposedBridge.log("Replacement of resource ID #0x" + Integer.toHexString(id) + " escaped because of deprecated replacement. Please use XResForwarder instead.");
+					DAndroidBridge.log("Replacement of resource ID #0x" + Integer.toHexString(id) + " escaped because of deprecated replacement. Please use XResForwarder instead.");
 				}
 				return super.getValue(index, outValue);
 			}
@@ -1539,7 +1539,7 @@ public class XResources extends XResourcesSuperClass {
 				return value;
 			} else {
 				if (replacement != null) {
-					XposedBridge.log("Replacement of resource ID #0x" + Integer.toHexString(id) + " escaped because of deprecated replacement. Please use XResForwarder instead.");
+					DAndroidBridge.log("Replacement of resource ID #0x" + Integer.toHexString(id) + " escaped because of deprecated replacement. Please use XResForwarder instead.");
 				}
 				return super.peekValue(index);
 			}
@@ -1739,7 +1739,7 @@ public class XResources extends XResourcesSuperClass {
 	 * <p>Some layouts are part of the Android framework and can be used in any app. They're
 	 * accessible via {@link android.R.layout android.R.layout} and are not bound to a specific
 	 * {@link android.content.res.Resources} instance. Such resources can be replaced in
-	 * {@link IXposedHookZygoteInit#initZygote initZygote()} for all apps. As there is no
+	 * {@link IDAndroidHookZygoteInit#initZygote initZygote()} for all apps. As there is no
 	 * {@link XResources} object easily available in that scope, this static method can be used
 	 * to hook layouts.
 	 *
@@ -1765,7 +1765,7 @@ public class XResources extends XResourcesSuperClass {
 
 		if (resDir == null) {
 			try {
-				XposedInit.hookResources();
+				DAndroidInit.hookResources();
 			} catch (Throwable throwable) {
 				throw new IllegalStateException("Failed to initialize resources hook", throwable);
 			}

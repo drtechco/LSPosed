@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-  ~ This file is part of LSPosed.
+  ~ This file is part of DAndroid.
   ~
-  ~ LSPosed is free software: you can redistribute it and/or modify
+  ~ DAndroid is free software: you can redistribute it and/or modify
   ~ it under the terms of the GNU General Public License as published by
   ~ the Free Software Foundation, either version 3 of the License, or
   ~ (at your option) any later version.
   ~
-  ~ LSPosed is distributed in the hope that it will be useful,
+  ~ DAndroid is distributed in the hope that it will be useful,
   ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
   ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
   ~ GNU General Public License for more details.
   ~
   ~ You should have received a copy of the GNU General Public License
-  ~ along with LSPosed.  If not, see <https://www.gnu.org/licenses/>.
+  ~ along with DAndroid.  If not, see <https://www.gnu.org/licenses/>.
   ~
-  ~ Copyright (C) 2021 LSPosed Contributors
+  ~ Copyright (C) 2021 DAndroid Contributors
   -->
-<resources xmlns:tools="http://schemas.android.com/tools" tools:keep="@string/xposed_module_updated_notification_*,@string/module_is_not_activated_*">
+<resources xmlns:tools="http://schemas.android.com/tools" tools:keep="@string/dandroid_module_updated_notification_*,@string/module_is_not_activated_*">
     <!-- MainActivity -->
     <string name="overview">Resumen</string>
     <string name="Modules">Módulos</string>
@@ -41,19 +41,19 @@
     <string name="about_view_source_code"><![CDATA[Ve el código fuente en %1$s<br/>Únete a nuestro %2$s canal]]></string>
     <string name="translators" comment="Dear translators, please add your home page here following the format. There can be more than one translator. So feel free to append yourself.">squaredDot</string>
     <string name="install">Instalar</string>
-    <string name="install_summary">Pulsa para instalar LSPosed</string>
+    <string name="install_summary">Pulsa para instalar DAndroid</string>
     <string name="not_installed">No instalado</string>
-    <string name="not_install_summary">LSPosed no está instalado</string>
+    <string name="not_install_summary">DAndroid no está instalado</string>
     <string name="activated">Activado</string>
     <string name="partial_activated">Parcialmente activado</string>
     <string name="selinux_policy_not_loaded_summary">Selinux policy no está cargado correctamente</string>
     <string name="selinux_policy_not_loaded"><![CDATA[Algunas funciones no funcionarán.<br/>Informa de ello al desarrollador de <a href="https://github.com/topjohnwu/Magisk/issues"><b>Magisk</b></a> .]]></string>
     <string name="system_inject_fail_summary">System Framework injection failed</string>
-    <string name="system_inject_fail"><![CDATA[This is rare and may be caused by <b>Magisk</b> or some low-quality Magisk modules.<br/>Please try to disable Magisk modules other than Riru and LSPosed or submit full log to developers.]]></string>
+    <string name="system_inject_fail"><![CDATA[This is rare and may be caused by <b>Magisk</b> or some low-quality Magisk modules.<br/>Please try to disable Magisk modules other than Riru and DAndroid or submit full log to developers.]]></string>
     <string name="system_prop_incorrect_summary">System prop incorrect</string>
     <string name="system_prop_incorrect"><![CDATA[Some necessary system properties deleted or modified.<br/>Modules may invalidate occasionally.]]></string>
     <string name="need_update">Need to update</string>
-    <string name="please_update_summary">Por favor instale la última versión de LSPosed</string>
+    <string name="please_update_summary">Por favor instale la última versión de DAndroid</string>
     <string name="info_api_version">Versión de la API</string>
     <string name="info_framework_version">Versión del framework</string>
     <string name="info_manager_package_name">Nombre del paquete de gestión</string>
@@ -70,17 +70,17 @@
     <string name="mount_failed">El montaje falló</string>
     <string name="selinux_permissive">SELinux es permisivo</string>
     <string name="sepolicy_incorrect">La política de SELinux es incorrecta</string>
-    <string name="update_lsposed">Actualizar LSPosed</string>
+    <string name="update_lsposed">Actualizar DAndroid</string>
     <string name="update_lsposed_msg">¿Confirmar para actualizar LSPose? Este dispositivo se reiniciará después de completar la actualización</string>
     <string name="info_copied">Información copiada al portapapeles</string>
     <!-- WelcomeDialog -->
-    <string name="parasitic_welcome">Bienvenido a LSPosed</string>
+    <string name="parasitic_welcome">Bienvenido a DAndroid</string>
     <string name="parasitic_welcome_summary">Usted está utilizando el gestor de parásitos, que puede crear acceso directo o todavía abierta de notificación.</string>
     <string name="parasitic_welcome_summary_no_shortcut_support">Estás usando el gestor de parásitos, que se puede abrir desde la notificación.</string>
     <string name="create_shortcut">Crear acceso directo</string>
     <string name="never_show">Nunca mostrar</string>
     <string name="app_welcome">Se recomienda Parasitic Manager</string>
-    <string name="app_welcome_summary">LSPosed ahora soporta la parasitación del sistema para evitar la detección, puede abrir el gestor de parásitos desde la notificación. Se recomienda desinstalar la aplicación actual.</string>
+    <string name="app_welcome_summary">DAndroid ahora soporta la parasitación del sistema para evitar la detección, puede abrir el gestor de parásitos desde la notificación. Se recomienda desinstalar la aplicación actual.</string>
     <!-- LogsActivity -->
     <string name="menuSaveToSd">Guardar</string>
     <string name="nav_item_logs_verbose">Registros detallados</string>
@@ -100,10 +100,10 @@
     <string name="disabled_verbose_log">Registro detallado desactivado</string>
     <!-- ModulesActivity -->
     <string name="module_empty_description">(sin descripción)</string>
-    <string name="warning_xposed_min_version">Este módulo requiere una versión más nueva de Xposed (%d), por lo que no puede ser activado</string>
-    <string name="warning_target_version_higher">Este módulo está diseñado para una versión más reciente Xposed (%d) y por lo tanto algunas funcionalidades pueden no funcionar</string>
-    <string name="no_min_version_specified">Este módulo no especifica la versión de Xposed que necesita.</string>
-    <string name="warning_min_version_too_low">Este módulo fue creado para la versión de Xposed %1$d, pero, debido a cambios incompatibles en la versión %2$d, ha sido desactivado</string>
+    <string name="warning_dandroid_min_version">Este módulo requiere una versión más nueva de DAndroid (%d), por lo que no puede ser activado</string>
+    <string name="warning_target_version_higher">Este módulo está diseñado para una versión más reciente DAndroid (%d) y por lo tanto algunas funcionalidades pueden no funcionar</string>
+    <string name="no_min_version_specified">Este módulo no especifica la versión de DAndroid que necesita.</string>
+    <string name="warning_min_version_too_low">Este módulo fue creado para la versión de DAndroid %1$d, pero, debido a cambios incompatibles en la versión %2$d, ha sido desactivado</string>
     <string name="warning_installed_on_external_storage">Este módulo no puede ser cargado porque está instalado en la tarjeta SD. Por favor, muévelo al almacenamiento interno</string>
     <string name="module_uninstall">Desinstalar</string>
     <string name="module_settings">Configuración del módulo</string>
@@ -115,7 +115,7 @@
     <string name="module_installed">%1$s instalado %2$s</string>
     <string name="module_install_failed">Fallo en la instalación</string>
     <string name="install_to_user">Instalar al usuario %s</string>
-    <string name="install_to_user_message">¿Quieres instalar %1$s al usuario %2$s? Se recomienda que lo instales manualmente; forzar la instalación a través de LSPosed puede causar problemas.</string>
+    <string name="install_to_user_message">¿Quieres instalar %1$s al usuario %2$s? Se recomienda que lo instales manualmente; forzar la instalación a través de DAndroid puede causar problemas.</string>
     <string name="expand">expandir</string>
     <string name="collapse">contraer</string>
     <!-- AppListActivity -->
@@ -142,7 +142,7 @@
     <string name="use_recommended">Recomendado</string>
     <string name="no_scope_selected_has_recommended">No seleccionaste ninguna aplicación. ¿Quieres seleccionar las aplicaciones recomendadas?</string>
     <string name="use_recommended_message">¿Quieres seleccionar las aplicaciones recomendadas?</string>
-    <string name="module_is_not_activated_yet">El módulo Xposed no está activado aún</string>
+    <string name="module_is_not_activated_yet">El módulo DAndroid no está activado aún</string>
     <string name="requested_by_module">Recomendado</string>
     <string name="update_available">Actualización disponible: %1$s</string>
     <string name="module_disabled_no_selection">El módulo %s ha sido desactivado ya que no se ha seleccionado ninguna aplicación.</string>
@@ -183,7 +183,7 @@
     <string name="theme_color">Color del tema</string>
     <string name="theme_color_system">Color de acentuación del sistema</string>
     <string name="settings_show_hidden_icon_apps_enabled">Forzar a las aplicaciones a mostrar los íconos del ejecutable</string>
-    <string name="settings_show_hidden_icon_apps_enabled_summary">En versiones posteriores a Android 10 no se permite a las aplicaciones (especialmente los módulos de Xposed) a ocultar el logo de su ejecutable. Desactiva la opción para desactivar esta característica.</string>
+    <string name="settings_show_hidden_icon_apps_enabled_summary">En versiones posteriores a Android 10 no se permite a las aplicaciones (especialmente los módulos de DAndroid) a ocultar el logo de su ejecutable. Desactiva la opción para desactivar esta característica.</string>
     <string name="settings_group_system">Sistema</string>
     <string name="settings_language">Idioma</string>
     <string name="settings_translation_contributors">Colaboradores de traducción</string>
@@ -199,8 +199,8 @@
     <string name="update_channel_stable">Estable</string>
     <string name="update_channel_bate">Beta</string>
     <string name="update_channel_nightly">Construcción nocturna</string>
-    <string name="settings_xposed_api_call_protection">Protección de llamadas a la API Xposed</string>
-    <string name="settings_xposed_api_call_protection_summary">Bloquear el código del módulo cargado dinámicamente para utilizar Xposed API, esto puede romper algunos módulos, pero beneficiar a la seguridad</string>
+    <string name="settings_dandroid_api_call_protection">Protección de llamadas a la API DAndroid</string>
+    <string name="settings_dandroid_api_call_protection_summary">Bloquear el código del módulo cargado dinámicamente para utilizar DAndroid API, esto puede romper algunos módulos, pero beneficiar a la seguridad</string>
     <!-- Module Repo -->
     <string name="module_readme">Léeme</string>
     <string name="module_releases">Versiones</string>

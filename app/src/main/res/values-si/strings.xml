@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-  ~ This file is part of LSPosed.
+  ~ This file is part of DAndroid.
   ~
-  ~ LSPosed is free software: you can redistribute it and/or modify
+  ~ DAndroid is free software: you can redistribute it and/or modify
   ~ it under the terms of the GNU General Public License as published by
   ~ the Free Software Foundation, either version 3 of the License, or
   ~ (at your option) any later version.
   ~
-  ~ LSPosed is distributed in the hope that it will be useful,
+  ~ DAndroid is distributed in the hope that it will be useful,
   ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
   ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
   ~ GNU General Public License for more details.
   ~
   ~ You should have received a copy of the GNU General Public License
-  ~ along with LSPosed.  If not, see <https://www.gnu.org/licenses/>.
+  ~ along with DAndroid.  If not, see <https://www.gnu.org/licenses/>.
   ~
-  ~ Copyright (C) 2021 LSPosed Contributors
+  ~ Copyright (C) 2021 DAndroid Contributors
   -->
-<resources xmlns:tools="http://schemas.android.com/tools" tools:keep="@string/xposed_module_updated_notification_*,@string/module_is_not_activated_*">
+<resources xmlns:tools="http://schemas.android.com/tools" tools:keep="@string/dandroid_module_updated_notification_*,@string/module_is_not_activated_*">
     <!-- MainActivity -->
     <string name="overview">දළ විශ්ලේෂණය</string>
     <string name="Modules">මොඩියුල</string>
@@ -41,15 +41,15 @@
     <string name="about_view_source_code"><![CDATA[මූල කේතය බලන්න අපේ නාලිකාවට %1$s<br/> සම්බන්ධ වන්න %2$s]]></string>
     <string name="translators" comment="Dear translators, please add your home page here following the format. There can be more than one translator. So feel free to append yourself.">null</string>
     <string name="install">ඉන්ට්ට්‍රොල්</string>
-    <string name="install_summary">LSPosed ස්ථාපනය කිරීමට තට්ටු කරන්න</string>
+    <string name="install_summary">DAndroid ස්ථාපනය කිරීමට තට්ටු කරන්න</string>
     <string name="not_installed">ස්ථාපනය කර නැත</string>
-    <string name="not_install_summary">LSPosed ස්ථාපනය කර නැත</string>
+    <string name="not_install_summary">DAndroid ස්ථාපනය කර නැත</string>
     <string name="activated">සක්රිය කර ඇත</string>
     <string name="partial_activated">බාගෙට ඇක්ටිව් කර ඇත</string>
     <string name="selinux_policy_not_loaded_summary">SEPolicy හරියට ලෝඩ් වෙන් නෑ</string>
     <string name="selinux_policy_not_loaded"><![CDATA[සමහර විශේෂාංග ක්‍රියා නොකරනු ඇත.<br/>කරුණාකර මෙය <a href="https://github.com/topjohnwu/Magisk/issues"><b>Magisk</b></a> ඩිවලෝපර් වෙත රිපෝට් කරන්න.]]></string>
     <string name="system_inject_fail_summary">පද්ධති ෆ්‍රෙම්වවර් ඉන්ජෙක්ෂන් ෆෙල්ඩ්</string>
-    <string name="system_inject_fail"><![CDATA[මෙය කලාතුරකින් වන අතර <b>Magisk</b> හෝ සමහර අඩු ගුණාත්මක Magisk මොඩියුල නිසා ඇති විය හැක.<br/>කරුණාකර Riru සහ LSPosed හැර අනෙකුත් Magisk මොඩියුල අක්‍රිය කිර උත්සාහ කරන්න හෝ ඩිවලොපර්ස්ලට සම්පූර්ණ ලොගය ඉදිරිපත් කරන්න.]]></string>
+    <string name="system_inject_fail"><![CDATA[මෙය කලාතුරකින් වන අතර <b>Magisk</b> හෝ සමහර අඩු ගුණාත්මක Magisk මොඩියුල නිසා ඇති විය හැක.<br/>කරුණාකර Riru සහ DAndroid හැර අනෙකුත් Magisk මොඩියුල අක්‍රිය කිර උත්සාහ කරන්න හෝ ඩිවලොපර්ස්ලට සම්පූර්ණ ලොගය ඉදිරිපත් කරන්න.]]></string>
     <string name="system_prop_incorrect_summary">පද්ධති ප්‍රෝප් වැරදියි</string>
     <string name="system_prop_incorrect"><![CDATA[සමහර අවශ්‍ය පද්ධති ගුණාංග මකා හෝ වෙනස් කරන ඇත.<br/>මොඩියුල වරින් වර අවලංගු විය හැක.]]></string>
     <string name="need_update">අප්ඩේට් කිරීම අවශ්‍ය වේ</string>
@@ -80,7 +80,7 @@
     <string name="create_shortcut">කෙටිමං සාදන්න</string>
     <string name="never_show">කවදාවත් පෙන්වන්න එපා</string>
     <string name="app_welcome">පරපෝෂිත කළමනාකරු නිර්දේශ කෙරේ</string>
-    <string name="app_welcome_summary">LSPosed දැන් හඳුනාගැනීම වැළැක්වීම සඳහා පද්ධති පරපෝෂිතකරණයට සහය දක්වයි, ඔබට දැනුම්දීමෙන් පරපෝෂිත කළමනාකරු විවෘත කළ හැක. වත්මන් යෙදුම අස්ථාපනය කිරීම නිර්දේශ කෙරේ.</string>
+    <string name="app_welcome_summary">DAndroid දැන් හඳුනාගැනීම වැළැක්වීම සඳහා පද්ධති පරපෝෂිතකරණයට සහය දක්වයි, ඔබට දැනුම්දීමෙන් පරපෝෂිත කළමනාකරු විවෘත කළ හැක. වත්මන් යෙදුම අස්ථාපනය කිරීම නිර්දේශ කෙරේ.</string>
     <!-- LogsActivity -->
     <string name="menuSaveToSd">සුරකින්න</string>
     <string name="nav_item_logs_verbose">වාචික ලඝු-සටහන්</string>
@@ -100,10 +100,10 @@
     <string name="disabled_verbose_log">වාචික ලොගය අක්‍රීය කර ඇත</string>
     <!-- ModulesActivity -->
     <string name="module_empty_description">(විස්තරයක් සපයා නැත)</string>
-    <string name="warning_xposed_min_version">මෙම මොඩියුලයට නව Xposed අනුවාදයක් අවශ්‍ය වේ (%d) එබැවින් සක්‍රිය කළ නොහැක</string>
-    <string name="warning_target_version_higher">මෙම මොඩියුලය නවතම Xposed අනුවාදයක් සඳහා නිර්මාණය කර ඇත (%d) එබැවින් සමහර ක්‍රියාකාරීත්වයන් ක්‍රියා නොකරනු ඇත</string>
-    <string name="no_min_version_specified">මෙම මොඩියුලය එයට අවශ්‍ය Xposed අනුවාදය සඳහන් නොකරයි.</string>
-    <string name="warning_min_version_too_low">මෙම මොඩියුලය Xposed අනුවාදය %1$dසඳහා නිර්මාණය කරන ලද නමුත් %2$dඅනුවාදයේ නොගැලපෙන වෙනස්කම් හේතුවෙන් එය අක්‍රීය කර ඇත</string>
+    <string name="warning_dandroid_min_version">මෙම මොඩියුලයට නව DAndroid අනුවාදයක් අවශ්‍ය වේ (%d) එබැවින් සක්‍රිය කළ නොහැක</string>
+    <string name="warning_target_version_higher">මෙම මොඩියුලය නවතම DAndroid අනුවාදයක් සඳහා නිර්මාණය කර ඇත (%d) එබැවින් සමහර ක්‍රියාකාරීත්වයන් ක්‍රියා නොකරනු ඇත</string>
+    <string name="no_min_version_specified">මෙම මොඩියුලය එයට අවශ්‍ය DAndroid අනුවාදය සඳහන් නොකරයි.</string>
+    <string name="warning_min_version_too_low">මෙම මොඩියුලය DAndroid අනුවාදය %1$dසඳහා නිර්මාණය කරන ලද නමුත් %2$dඅනුවාදයේ නොගැලපෙන වෙනස්කම් හේතුවෙන් එය අක්‍රීය කර ඇත</string>
     <string name="warning_installed_on_external_storage">මෙම මොඩියුලය SD පතෙහි ස්ථාපනය කර ඇති නිසා එය පූරණය කළ නොහැක, කරුණාකර එය අභ්‍යන්තර ආචයනය වෙත ගෙන යන්න</string>
     <string name="module_uninstall">අස්ථාපනය කරන්න</string>
     <string name="module_settings">මොඩියුල සැකසුම්</string>
@@ -115,7 +115,7 @@
     <string name="module_installed">පරිශීලක %2$sවෙත %1$s එකතු කරන ලදී</string>
     <string name="module_install_failed">මොඩියුලය එකතු කිරීම අසාර්ථක විය</string>
     <string name="install_to_user">පරිශීලක %sවෙත ස්ථාපනය කරන්න</string>
-    <string name="install_to_user_message">පරිශීලක %2$sවෙත %1$s ස්ථාපනය කිරීමට අවශ්‍යද? අතින් ස්ථාපනය කිරීම රෙකමදාරු කරනු ලැබේ, LSPosed හරහා බලහත්කාරයෙන් ස්ථාපනය කිරීම ගැටළු ඇති කළ හැකිය.</string>
+    <string name="install_to_user_message">පරිශීලක %2$sවෙත %1$s ස්ථාපනය කිරීමට අවශ්‍යද? අතින් ස්ථාපනය කිරීම රෙකමදාරු කරනු ලැබේ, DAndroid හරහා බලහත්කාරයෙන් ස්ථාපනය කිරීම ගැටළු ඇති කළ හැකිය.</string>
     <string name="expand">පුළුල් කරන්න</string>
     <string name="collapse">කඩා වැටීම</string>
     <!-- AppListActivity -->
@@ -142,7 +142,7 @@
     <string name="use_recommended">නිර්දේශ කර ඇත</string>
     <string name="no_scope_selected_has_recommended">ඔබ කිසිදු යෙදුමක් තෝරාගෙන නැත. නිර්දේශිත යෙදුම් තෝරන්නද?</string>
     <string name="use_recommended_message">නිර්දේශිත යෙදුම් තෝරන්නද?</string>
-    <string name="module_is_not_activated_yet">Xposed මොඩියුලය තවම සක්‍රිය කර නැත</string>
+    <string name="module_is_not_activated_yet">DAndroid මොඩියුලය තවම සක්‍රිය කර නැත</string>
     <string name="requested_by_module">නිර්දේශ කර ඇත</string>
     <string name="update_available">යාවත්කාලීන ලබා ගත හැක: %1$s</string>
     <string name="module_disabled_no_selection">යෙදුමක් තෝරා නොගත් නිසා මොඩියුලය %s අබල කර ඇත.</string>
@@ -199,8 +199,8 @@
     <string name="update_channel_stable">ස්ථාවර</string>
     <string name="update_channel_bate">බීටා</string>
     <string name="update_channel_nightly">රාත්රී ගොඩනැගීම</string>
-    <string name="settings_xposed_api_call_protection">Xposed API ඇමතුම් ආරක්ෂාව</string>
-    <string name="settings_xposed_api_call_protection_summary">Xposed API භාවිතා කිරීමට ගතිකව පටවන ලද මොඩියුල කේතය අවහිර කරන්න, මෙය සමහර මොඩියුල බිඳ දැමිය හැකි නමුත් ආරක්ෂාවට ප්‍රතිලාභ ලබා දෙයි</string>
+    <string name="settings_dandroid_api_call_protection">DAndroid API ඇමතුම් ආරක්ෂාව</string>
+    <string name="settings_dandroid_api_call_protection_summary">DAndroid API භාවිතා කිරීමට ගතිකව පටවන ලද මොඩියුල කේතය අවහිර කරන්න, මෙය සමහර මොඩියුල බිඳ දැමිය හැකි නමුත් ආරක්ෂාවට ප්‍රතිලාභ ලබා දෙයි</string>
     <!-- Module Repo -->
     <string name="module_readme">කියවන්න</string>
     <string name="module_releases">නිකුත් කරයි</string>

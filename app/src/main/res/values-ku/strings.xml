@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-  ~ This file is part of LSPosed.
+  ~ This file is part of DAndroid.
   ~
-  ~ LSPosed is free software: you can redistribute it and/or modify
+  ~ DAndroid is free software: you can redistribute it and/or modify
   ~ it under the terms of the GNU General Public License as published by
   ~ the Free Software Foundation, either version 3 of the License, or
   ~ (at your option) any later version.
   ~
-  ~ LSPosed is distributed in the hope that it will be useful,
+  ~ DAndroid is distributed in the hope that it will be useful,
   ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
   ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
   ~ GNU General Public License for more details.
   ~
   ~ You should have received a copy of the GNU General Public License
-  ~ along with LSPosed.  If not, see <https://www.gnu.org/licenses/>.
+  ~ along with DAndroid.  If not, see <https://www.gnu.org/licenses/>.
   ~
-  ~ Copyright (C) 2021 LSPosed Contributors
+  ~ Copyright (C) 2021 DAndroid Contributors
   -->
-<resources xmlns:tools="http://schemas.android.com/tools" tools:keep="@string/xposed_module_updated_notification_*,@string/module_is_not_activated_*">
+<resources xmlns:tools="http://schemas.android.com/tools" tools:keep="@string/dandroid_module_updated_notification_*,@string/module_is_not_activated_*">
     <!-- MainActivity -->
     <string name="overview">کورتەی گشتی</string>
     <string name="Modules">مۆدیوولەکان</string>
@@ -41,19 +41,19 @@
     <string name="about_view_source_code"><![CDATA[Koda çavkaniyê li %1$s<br/>bibînin Tevlî %2$s kanala me bibin]]></string>
     <string name="translators" comment="Dear translators, please add your home page here following the format. There can be more than one translator. So feel free to append yourself.">null</string>
     <string name="install">Lêkirin</string>
-    <string name="install_summary">Ji bo sazkirina LSPosed bikirtînin</string>
+    <string name="install_summary">Ji bo sazkirina DAndroid bikirtînin</string>
     <string name="not_installed">Ne hatiye sazkirin</string>
-    <string name="not_install_summary">LSPosed nayê Sazkirin</string>
+    <string name="not_install_summary">DAndroid nayê Sazkirin</string>
     <string name="activated">Çalak kirin</string>
     <string name="partial_activated">Qismî aktîf kirin</string>
     <string name="selinux_policy_not_loaded_summary">SEPolicy bi rêkûpêk nayê barkirin</string>
     <string name="selinux_policy_not_loaded"><![CDATA[Hin taybetmendî dê nexebitin.<br/>Ji kerema xwe vê yekê ji <a href="https://github.com/topjohnwu/Magisk/issues"><b>Magisk</b></a> pêşdebir re ragihînin.]]></string>
     <string name="system_inject_fail_summary">Derzkirina Çarçoveya Pergalê têk çû</string>
-    <string name="system_inject_fail"><![CDATA[Ev kêm e û dibe ku ji hêla <b>Magisk</b> an hin modulên Magisk-a kêm-kalîteyê ve çêbibe.<br/>Ji kerema xwe hewl bidin ku modulên Magisk ji bilî Riru û LSPosed neçalak bikin an jî têketinek tevahî ji pêşdebiran re bişînin.]]></string>
+    <string name="system_inject_fail"><![CDATA[Ev kêm e û dibe ku ji hêla <b>Magisk</b> an hin modulên Magisk-a kêm-kalîteyê ve çêbibe.<br/>Ji kerema xwe hewl bidin ku modulên Magisk ji bilî Riru û DAndroid neçalak bikin an jî têketinek tevahî ji pêşdebiran re bişînin.]]></string>
     <string name="system_prop_incorrect_summary">Pêşniyara pergalê xelet e</string>
     <string name="system_prop_incorrect"><![CDATA[Hin taybetmendiyên pergalê yên pêwîst jêbirin an guherandin.<br/>Dibe ku modul carinan betal bibin.]]></string>
     <string name="need_update">Pêdivî ye ku nûve bike</string>
-    <string name="please_update_summary">Ji kerema xwe guhertoya herî dawî ya LSPosed saz bikin</string>
+    <string name="please_update_summary">Ji kerema xwe guhertoya herî dawî ya DAndroid saz bikin</string>
     <string name="info_api_version">Guhertoya API</string>
     <string name="info_framework_version">Guhertoya çarçoveyê</string>
     <string name="info_manager_package_name">Navê pakêta rêveberê</string>
@@ -70,17 +70,17 @@
     <string name="mount_failed">Çiya têk çû</string>
     <string name="selinux_permissive">SELinux destûr e</string>
     <string name="sepolicy_incorrect">Siyaseta SELinux nerast e</string>
-    <string name="update_lsposed">LSPosed nûve bikin</string>
-    <string name="update_lsposed_msg">Piştrast bike ku LSPosed nûve bike? Ev cîhaz dê piştî qedandina nûvekirinê ji nû ve dest pê bike</string>
+    <string name="update_lsposed">DAndroid nûve bikin</string>
+    <string name="update_lsposed_msg">Piştrast bike ku DAndroid nûve bike? Ev cîhaz dê piştî qedandina nûvekirinê ji nû ve dest pê bike</string>
     <string name="info_copied">Li clipboardê hate kopî kirin</string>
     <!-- WelcomeDialog -->
-    <string name="parasitic_welcome">Hûn bi xêr hatin LSPosed</string>
+    <string name="parasitic_welcome">Hûn bi xêr hatin DAndroid</string>
     <string name="parasitic_welcome_summary">Hûn rêveberê parazît bikar tînin, ku dikare kurtebirê biafirîne an hîn jî ji ragihandinê vebe.</string>
     <string name="parasitic_welcome_summary_no_shortcut_support">Hûn rêveberê parazît bikar tînin, ku dikare ji ragihandinê vebe.</string>
     <string name="create_shortcut">Kurtenivîsê çêbikin</string>
     <string name="never_show">Qet nîşan nedin</string>
     <string name="app_welcome">Rêvebirê Parazît Pêşniyar kirin</string>
-    <string name="app_welcome_summary">LSPosed naha parazîtkirina pergalê piştgirî dike da ku ji tespîtê dûr bixe, hûn dikarin rêveberê parazît ji ragihandinê vekin. Tê pêşniyar kirin ku serîlêdana heyî jêbirin.</string>
+    <string name="app_welcome_summary">DAndroid naha parazîtkirina pergalê piştgirî dike da ku ji tespîtê dûr bixe, hûn dikarin rêveberê parazît ji ragihandinê vekin. Tê pêşniyar kirin ku serîlêdana heyî jêbirin.</string>
     <!-- LogsActivity -->
     <string name="menuSaveToSd">Rizgarkirin</string>
     <string name="nav_item_logs_verbose">Têketinên Verbose</string>
@@ -100,10 +100,10 @@
     <string name="disabled_verbose_log">Têketinê bi devkî neçalak bû</string>
     <!-- ModulesActivity -->
     <string name="module_empty_description">(bê şirove nehat dayîn)</string>
-    <string name="warning_xposed_min_version">Vê modulê guhertoyek nû ya Xposed (%d) hewce dike û ji ber vê yekê nayê çalak kirin</string>
-    <string name="warning_target_version_higher">Ev modul ji bo guhertoyek nû ya Xposed (%d) hatî çêkirin û ji ber vê yekê dibe ku hin fonksiyon nexebitin</string>
-    <string name="no_min_version_specified">Ev modul guhertoya Xposed ya ku jê re hewce dike diyar nake.</string>
-    <string name="warning_min_version_too_low">Ev modul ji bo guhertoya Xposed %1$dhate afirandin, lê ji ber guheztinên nelihev ên di guhertoya %2$d-ê de, ew hate asteng kirin.</string>
+    <string name="warning_dandroid_min_version">Vê modulê guhertoyek nû ya DAndroid (%d) hewce dike û ji ber vê yekê nayê çalak kirin</string>
+    <string name="warning_target_version_higher">Ev modul ji bo guhertoyek nû ya DAndroid (%d) hatî çêkirin û ji ber vê yekê dibe ku hin fonksiyon nexebitin</string>
+    <string name="no_min_version_specified">Ev modul guhertoya DAndroid ya ku jê re hewce dike diyar nake.</string>
+    <string name="warning_min_version_too_low">Ev modul ji bo guhertoya DAndroid %1$dhate afirandin, lê ji ber guheztinên nelihev ên di guhertoya %2$d-ê de, ew hate asteng kirin.</string>
     <string name="warning_installed_on_external_storage">Ev modul nikare were barkirin ji ber ku ew li ser qerta SD-ê hatî saz kirin, ji kerema xwe wê biguhezînin hilana hundurîn</string>
     <string name="module_uninstall">Rakirin</string>
     <string name="module_settings">Mîhengên Modulê</string>
@@ -115,7 +115,7 @@
     <string name="module_installed">%1$s ji bikarhêner %2$sre zêde kirin</string>
     <string name="module_install_failed">Zêdekirina modulê têk çû</string>
     <string name="install_to_user">Ji bikarhêner %sre saz bike</string>
-    <string name="install_to_user_message">Dixwazin %1$s ji bikarhêner %2$sre saz bikin? Tête pêşniyar kirin ku bi destan saz bikin, zordariya sazkirinê bi riya LSPosed dibe ku bibe sedema pirsgirêkan.</string>
+    <string name="install_to_user_message">Dixwazin %1$s ji bikarhêner %2$sre saz bikin? Tête pêşniyar kirin ku bi destan saz bikin, zordariya sazkirinê bi riya DAndroid dibe ku bibe sedema pirsgirêkan.</string>
     <string name="expand">firehkirin</string>
     <string name="collapse">jiberhevketin</string>
     <!-- AppListActivity -->
@@ -142,7 +142,7 @@
     <string name="use_recommended">Pêşniyar kirin</string>
     <string name="no_scope_selected_has_recommended">Te tu sepanê hilnebijart. Serlêdanên pêşniyarkirî hilbijêrin?</string>
     <string name="use_recommended_message">Serlêdanên pêşniyarkirî hilbijêrin?</string>
-    <string name="module_is_not_activated_yet">Modula Xposed hîn nehatiye çalak kirin</string>
+    <string name="module_is_not_activated_yet">Modula DAndroid hîn nehatiye çalak kirin</string>
     <string name="requested_by_module">Pêşniyar kirin</string>
     <string name="update_available">Nûvekirin heye: %1$s</string>
     <string name="module_disabled_no_selection">Modula %s ji ber ku tu sepan nehat hilbijartî hate neçalak kirin.</string>
@@ -199,8 +199,8 @@
     <string name="update_channel_stable">Stewr</string>
     <string name="update_channel_bate">Beta</string>
     <string name="update_channel_nightly">Avakirina şevê</string>
-    <string name="settings_xposed_api_call_protection">Parastina banga Xposed API</string>
-    <string name="settings_xposed_api_call_protection_summary">Koda modulê ya bi dînamîk barkirî asteng bike ku Xposed API bikar bîne, ev dibe ku hin modulan bişkîne lê ji ewlehiyê sûd werdigire</string>
+    <string name="settings_dandroid_api_call_protection">Parastina banga DAndroid API</string>
+    <string name="settings_dandroid_api_call_protection_summary">Koda modulê ya bi dînamîk barkirî asteng bike ku DAndroid API bikar bîne, ev dibe ku hin modulan bişkîne lê ji ewlehiyê sûd werdigire</string>
     <!-- Module Repo -->
     <string name="module_readme">Readme</string>
     <string name="module_releases">Releases</string>

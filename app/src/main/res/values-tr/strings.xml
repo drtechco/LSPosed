@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-  ~ This file is part of LSPosed.
+  ~ This file is part of DAndroid.
   ~
-  ~ LSPosed is free software: you can redistribute it and/or modify
+  ~ DAndroid is free software: you can redistribute it and/or modify
   ~ it under the terms of the GNU General Public License as published by
   ~ the Free Software Foundation, either version 3 of the License, or
   ~ (at your option) any later version.
   ~
-  ~ LSPosed is distributed in the hope that it will be useful,
+  ~ DAndroid is distributed in the hope that it will be useful,
   ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
   ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
   ~ GNU General Public License for more details.
   ~
   ~ You should have received a copy of the GNU General Public License
-  ~ along with LSPosed.  If not, see <https://www.gnu.org/licenses/>.
+  ~ along with DAndroid.  If not, see <https://www.gnu.org/licenses/>.
   ~
-  ~ Copyright (C) 2021 LSPosed Contributors
+  ~ Copyright (C) 2021 DAndroid Contributors
   -->
-<resources xmlns:tools="http://schemas.android.com/tools" tools:keep="@string/xposed_module_updated_notification_*,@string/module_is_not_activated_*">
+<resources xmlns:tools="http://schemas.android.com/tools" tools:keep="@string/dandroid_module_updated_notification_*,@string/module_is_not_activated_*">
     <!-- MainActivity -->
     <string name="overview">Genel bakış</string>
     <string name="Modules">Modüller</string>
@@ -41,19 +41,19 @@
     <string name="about_view_source_code"><![CDATA[%1$s adresinden kaynak kodu görüntüleyin<br/>%2$s kanalımıza katılın]]></string>
     <string name="translators" comment="Dear translators, please add your home page here following the format. There can be more than one translator. So feel free to append yourself.">Bedircan AYAYDIN, Furkan KARCIOĞLU, Ahmet AÇIKGÖZ, Sir-C</string>
     <string name="install">Yükle</string>
-    <string name="install_summary">LSPosed\'i yüklemek için dokunun</string>
+    <string name="install_summary">DAndroid\'i yüklemek için dokunun</string>
     <string name="not_installed">Yüklenmedi</string>
-    <string name="not_install_summary">LSPosed Kurulu değil</string>
+    <string name="not_install_summary">DAndroid Kurulu değil</string>
     <string name="activated">Aktif edildi</string>
     <string name="partial_activated">Kısmen etkinleştirildi</string>
     <string name="selinux_policy_not_loaded_summary">SEPolicy düzgün yüklenmemiş</string>
     <string name="selinux_policy_not_loaded"><![CDATA[Bazı özellikler çalışmayacaktır.<br/>Lütfen bunu <a href="https://github.com/topjohnwu/Magisk/issues"><b>Magisk</b></a> geliştiricisine bildirin.]]></string>
     <string name="system_inject_fail_summary">Sistem Çerçevesi enjeksiyonu başarısız oldu</string>
-    <string name="system_inject_fail"><![CDATA[Bu nadiren yaşanır ve <b>Magisk</b> veya düşük kaliteli modüller yüzünden olabilir.<br/>Lütfen Riru ve LSPosed dışında bütün modülleri devre dışı bırakmayı deneyin veya geliştiricilere tam bir hata kaydı gönderin.]]></string>
+    <string name="system_inject_fail"><![CDATA[Bu nadiren yaşanır ve <b>Magisk</b> veya düşük kaliteli modüller yüzünden olabilir.<br/>Lütfen Riru ve DAndroid dışında bütün modülleri devre dışı bırakmayı deneyin veya geliştiricilere tam bir hata kaydı gönderin.]]></string>
     <string name="system_prop_incorrect_summary">Sistem desteği yanlış</string>
     <string name="system_prop_incorrect"><![CDATA[Bazı gerekli sistem özellikleri silindi veya değiştirildi.<br/>Modüller zaman zaman düzgün çalışmayabilir.]]></string>
     <string name="need_update">Güncelleme gerekiyor</string>
-    <string name="please_update_summary">Lütfen LSPosed\'in en son sürümünü yükleyin</string>
+    <string name="please_update_summary">Lütfen DAndroid\'in en son sürümünü yükleyin</string>
     <string name="info_api_version">API sürümü</string>
     <string name="info_framework_version">Çerçeve sürümü</string>
     <string name="info_manager_package_name">Yönetici paket adı</string>
@@ -70,17 +70,17 @@
     <string name="mount_failed">Bağlama başarısız</string>
     <string name="selinux_permissive">SELinux\'a izin verildi</string>
     <string name="sepolicy_incorrect">SELinux politikası yanlış</string>
-    <string name="update_lsposed">LSPosed\'ı güncelle</string>
-    <string name="update_lsposed_msg">LSPosed\'ı güncellemek istediğinize emin misiniz? Bu cihaz güncelleme tamamlandıktan sonra yeniden başlatılacak</string>
+    <string name="update_lsposed">DAndroid\'ı güncelle</string>
+    <string name="update_lsposed_msg">DAndroid\'ı güncellemek istediğinize emin misiniz? Bu cihaz güncelleme tamamlandıktan sonra yeniden başlatılacak</string>
     <string name="info_copied">Panoya kopyalandı</string>
     <!-- WelcomeDialog -->
-    <string name="parasitic_welcome">LSPosed\'a hoş geldiniz</string>
+    <string name="parasitic_welcome">DAndroid\'a hoş geldiniz</string>
     <string name="parasitic_welcome_summary">Parazit yöneticiyi kullanıyorsunuz, bu da kısayol oluşturabileceğinizi veya hala bildirimden açabileceğinizi gösterir.</string>
     <string name="parasitic_welcome_summary_no_shortcut_support">Parazit yöneticiyi kullanıyorsunuz ve bu da hala bildirimden açabileceğinizi gösterir.</string>
     <string name="create_shortcut">Kısayol oluştur</string>
     <string name="never_show">Asla gösterme</string>
     <string name="app_welcome">Parazit Yönetici Önerilir</string>
-    <string name="app_welcome_summary">LSPosed tespit edilmeyi önlemek için sistem parazitlemeyi destekliyor, parazit yöneticiyi bildirimden açabilirsiniz. Şu anki uygulamayı kaldırmanız önerilir.</string>
+    <string name="app_welcome_summary">DAndroid tespit edilmeyi önlemek için sistem parazitlemeyi destekliyor, parazit yöneticiyi bildirimden açabilirsiniz. Şu anki uygulamayı kaldırmanız önerilir.</string>
     <!-- LogsActivity -->
     <string name="menuSaveToSd">Kaydet</string>
     <string name="nav_item_logs_verbose">Ayrıntılı Günlükler</string>
@@ -100,10 +100,10 @@
     <string name="disabled_verbose_log">Ayrıntılı Günlükler Deaktif</string>
     <!-- ModulesActivity -->
     <string name="module_empty_description">(açıklama yapılmadı)</string>
-    <string name="warning_xposed_min_version">Bu modül daha yeni bir Xposed sürümü gerektiriyor (%d) ve bu nedenle etkinleştirilemez</string>
-    <string name="warning_target_version_higher">Bu modül daha yeni bir Xposed sürümü (%d) için tasarlanmıştır ve bu nedenle bazı işlevler çalışmayabilir</string>
-    <string name="no_min_version_specified">Bu modül, ihtiyaç duyduğu Xposed sürümünü belirtmiyor.</string>
-    <string name="warning_min_version_too_low">Bu modül Xposed sürümü için oluşturuldu %1$d, ancak sürümdeki uyumsuz değişiklikler nedeniyle %2$d, devre dışı bırakıldı</string>
+    <string name="warning_dandroid_min_version">Bu modül daha yeni bir DAndroid sürümü gerektiriyor (%d) ve bu nedenle etkinleştirilemez</string>
+    <string name="warning_target_version_higher">Bu modül daha yeni bir DAndroid sürümü (%d) için tasarlanmıştır ve bu nedenle bazı işlevler çalışmayabilir</string>
+    <string name="no_min_version_specified">Bu modül, ihtiyaç duyduğu DAndroid sürümünü belirtmiyor.</string>
+    <string name="warning_min_version_too_low">Bu modül DAndroid sürümü için oluşturuldu %1$d, ancak sürümdeki uyumsuz değişiklikler nedeniyle %2$d, devre dışı bırakıldı</string>
     <string name="warning_installed_on_external_storage">Bu modül yüklenemiyor çünkü SD kartta yüklü, lütfen dahili depolama birimine taşıyın veya SD kart erişimine izin verin</string>
     <string name="module_uninstall">Kaldır</string>
     <string name="module_settings">Modül ayarları</string>
@@ -115,7 +115,7 @@
     <string name="module_installed">Kullanıcıya %1$s eklendi %2$s</string>
     <string name="module_install_failed">Modül eklenemedi</string>
     <string name="install_to_user">Kullanıcıya yükle %s</string>
-    <string name="install_to_user_message">%2$s kullanıcısına %1$s yüklemek ister misiniz? Elle kurulum yapılması tavsiye edilir, LSPosed ile kurulumu zorlamak sorunlara neden olabilir.</string>
+    <string name="install_to_user_message">%2$s kullanıcısına %1$s yüklemek ister misiniz? Elle kurulum yapılması tavsiye edilir, DAndroid ile kurulumu zorlamak sorunlara neden olabilir.</string>
     <string name="expand">genişlet</string>
     <string name="collapse">daralt</string>
     <!-- AppListActivity -->
@@ -142,7 +142,7 @@
     <string name="use_recommended">Önerilen</string>
     <string name="no_scope_selected_has_recommended">Herhangi bir uygulama seçmediniz. Önerilen uygulamalar seçilsin mi?</string>
     <string name="use_recommended_message">Önerilen uygulamalar seçilsin mi?</string>
-    <string name="module_is_not_activated_yet">Xposed modülü henüz etkinleştirilmedi</string>
+    <string name="module_is_not_activated_yet">DAndroid modülü henüz etkinleştirilmedi</string>
     <string name="requested_by_module">Önerilen</string>
     <string name="update_available">Güncelleme uygun: %1$s</string>
     <string name="module_disabled_no_selection">Hiçbir uygulama seçilmediği için %s modülü devre dışı bırakıldı.</string>
@@ -199,8 +199,8 @@
     <string name="update_channel_stable">Stabil</string>
     <string name="update_channel_bate">Beta</string>
     <string name="update_channel_nightly">Gecelik</string>
-    <string name="settings_xposed_api_call_protection">Xposed API çağrı koruması</string>
-    <string name="settings_xposed_api_call_protection_summary">Xposed API kullanmak için dinamik olarak yüklenen modül kodunu engelleyin, bu bazı modülleri bozabilir ancak güvenliğe faydalı da olabilir</string>
+    <string name="settings_dandroid_api_call_protection">DAndroid API çağrı koruması</string>
+    <string name="settings_dandroid_api_call_protection_summary">DAndroid API kullanmak için dinamik olarak yüklenen modül kodunu engelleyin, bu bazı modülleri bozabilir ancak güvenliğe faydalı da olabilir</string>
     <!-- Module Repo -->
     <string name="module_readme">Beni oku</string>
     <string name="module_releases">Sürümler</string>

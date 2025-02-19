@@ -1,20 +1,20 @@
 /*
- * This file is part of LSPosed.
+ * This file is part of DAndroid.
  *
- * LSPosed is free software: you can redistribute it and/or modify
+ * DAndroid is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * LSPosed is distributed in the hope that it will be useful,
+ * DAndroid is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with LSPosed.  If not, see <https://www.gnu.org/licenses/>.
+ * along with DAndroid.  If not, see <https://www.gnu.org/licenses/>.
  *
- * Copyright (C) 2021 LSPosed Contributors
+ * Copyright (C) 2021 DAndroid Contributors
  */
 
 import com.android.build.api.dsl.ApplicationExtension
@@ -26,7 +26,7 @@ plugins {
     alias(libs.plugins.lsplugin.resopt)
 }
 
-val daemonName = "LSPosed"
+val daemonName = "DAndroid"
 
 val injectedPackageName: String by rootProject.extra
 val injectedPackageUid: Int by rootProject.extra
@@ -42,7 +42,7 @@ android {
     }
 
     defaultConfig {
-        applicationId = "org.lsposed.daemon"
+        applicationId = "com.google.dand.daemon"
 
         buildConfigField(
             "String",
@@ -74,7 +74,7 @@ android {
         }
     }
 
-    namespace = "org.lsposed.daemon"
+    namespace = "com.google.dand.daemon"
 }
 
 android.applicationVariants.all {
@@ -88,7 +88,7 @@ android.applicationVariants.all {
         val sign = rootProject.project(":app").extensions
             .getByType(ApplicationExtension::class.java)
             .buildTypes.named(variantLowered).get().signingConfig
-        val outSrc = file("$outSrcDir/org/lsposed/lspd/util/SignInfo.java")
+        val outSrc = file("$outSrcDir/org/lsposed/dand/util/SignInfo.java")
         outputs.file(outSrc)
         doLast {
             outSrc.parentFile.mkdirs()
@@ -101,7 +101,7 @@ android.applicationVariants.all {
             )
             PrintStream(outSrc).print(
                 """
-                |package org.lsposed.lspd.util;
+                |package com.google.dand.util;
                 |public final class SignInfo {
                 |    public static final byte[] CERTIFICATE = {${
                     certificateInfo.certificate.encoded.joinToString(",")
@@ -114,7 +114,9 @@ android.applicationVariants.all {
 }
 
 dependencies {
-    implementation(libs.libxposed.`interface`)
+    implementation(projects.libdandroidapi)
+    implementation(projects.libdandroidservice)
+//    implementation(projects.compat)
     implementation(libs.agp.apksig)
     implementation(libs.commons.lang3)
     implementation(projects.hiddenapi.bridge)

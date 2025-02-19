@@ -1,0 +1,43 @@
+/*
+ * This file is part of DAndroid.
+ *
+ * DAndroid is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * DAndroid is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with DAndroid.  If not, see <https://www.gnu.org/licenses/>.
+ *
+ * Copyright (C) 2020 EdDAndroid Contributors
+ * Copyright (C) 2021 DAndroid Contributors
+ */
+
+package com.google.xmanager.util.chrome;
+
+import android.app.Activity;
+import android.text.style.URLSpan;
+import android.view.View;
+
+import com.google.xmanager.util.NavUtil;
+
+public class CustomTabsURLSpan extends URLSpan {
+
+    private final Activity activity;
+
+    public CustomTabsURLSpan(Activity activity, String url) {
+        super(url);
+        this.activity = activity;
+    }
+
+    @Override
+    public void onClick(View widget) {
+        String url = getURL();
+        NavUtil.startURL(activity, url);
+    }
+}

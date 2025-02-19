@@ -1,0 +1,31 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    xmlns:tools="http://schemas.android.com/tools"
+4    package="com.google.libdandroid.service" >
+5
+6    <uses-sdk android:minSdkVersion="24" />
+7
+8    <application>
+8-->/Users/ttttt/d/lineage22/LSPosed/libdandroidservice/src/main/AndroidManifest.xml:5:5-16:19
+9        <service
+9-->/Users/ttttt/d/lineage22/LSPosed/libdandroidservice/src/main/AndroidManifest.xml:6:9-9:47
+10            android:name="com.google.libdandroid.service.MyService"
+10-->/Users/ttttt/d/lineage22/LSPosed/libdandroidservice/src/main/AndroidManifest.xml:7:13-38
+11            android:enabled="true"
+11-->/Users/ttttt/d/lineage22/LSPosed/libdandroidservice/src/main/AndroidManifest.xml:8:13-35
+12            android:exported="true" />
+12-->/Users/ttttt/d/lineage22/LSPosed/libdandroidservice/src/main/AndroidManifest.xml:9:13-36
+13
+14        <provider
+14-->/Users/ttttt/d/lineage22/LSPosed/libdandroidservice/src/main/AndroidManifest.xml:11:9-15:54
+15            android:name="com.google.libdandroid.service.DAndroidProvider"
+15-->/Users/ttttt/d/lineage22/LSPosed/libdandroidservice/src/main/AndroidManifest.xml:12:13-45
+16            android:authorities="${applicationId}.DAndroidService"
+16-->/Users/ttttt/d/lineage22/LSPosed/libdandroidservice/src/main/AndroidManifest.xml:13:13-67
+17            android:exported="true"
+17-->/Users/ttttt/d/lineage22/LSPosed/libdandroidservice/src/main/AndroidManifest.xml:14:13-36
+18            tools:ignore="ExportedContentProvider" />
+18-->/Users/ttttt/d/lineage22/LSPosed/libdandroidservice/src/main/AndroidManifest.xml:15:13-51
+19    </application>
+20
+21</manifest>

@@ -1,4 +1,4 @@
-package org.lsposed.manager.util;
+package com.google.xmanager.util;
 
 import android.app.Application;
 

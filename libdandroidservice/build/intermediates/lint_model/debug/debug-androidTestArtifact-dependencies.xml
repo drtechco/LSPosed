@@ -1,0 +1,20 @@
+<dependencies>
+  <compile
+      roots=":@@:libdandroidservice::debug,:@@:libdandroidapi::debug">
+    <dependency
+        name=":@@:libdandroidservice::debug"
+        simpleName="com.google.libdandroid:libdandroidservice"/>
+    <dependency
+        name=":@@:libdandroidapi::debug"
+        simpleName="artifacts::libdandroidapi"/>
+  </compile>
+  <package
+      roots=":@@:libdandroidservice::debug,:@@:libdandroidapi::debug">
+    <dependency
+        name=":@@:libdandroidservice::debug"
+        simpleName="com.google.libdandroid:libdandroidservice"/>
+    <dependency
+        name=":@@:libdandroidapi::debug"
+        simpleName="artifacts::libdandroidapi"/>
+  </package>
+</dependencies>

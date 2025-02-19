@@ -1,0 +1,21 @@
+// Android.bp
+
+cc_binary {
+    name: "dex2oat2",
+    srcs: ["src/main/cpp/dex2oat.c"],
+    shared_libs: ["liblog"],
+
+    // Enable debug symbols
+    // Soong automatically handles debug symbols, but you can specify the level if needed
+    // debug: {
+    //     symbol_level: "full",
+    // },
+
+    // Optional: If you need to place debug symbols in a specific directory,
+    // you can use Soong's built-in mechanisms or environment variables.
+    // However, Soong manages debug symbols automatically, and custom post-build
+    // commands like in CMake are not directly supported.
+    //
+    // If DEBUG_SYMBOLS_PATH is an environment variable, you might handle it
+    // outside of Android.bp or use Soong's configurability to adjust as needed.
+}

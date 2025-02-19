@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-  ~ This file is part of LSPosed.
+  ~ This file is part of DAndroid.
   ~
-  ~ LSPosed is free software: you can redistribute it and/or modify
+  ~ DAndroid is free software: you can redistribute it and/or modify
   ~ it under the terms of the GNU General Public License as published by
   ~ the Free Software Foundation, either version 3 of the License, or
   ~ (at your option) any later version.
   ~
-  ~ LSPosed is distributed in the hope that it will be useful,
+  ~ DAndroid is distributed in the hope that it will be useful,
   ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
   ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
   ~ GNU General Public License for more details.
   ~
   ~ You should have received a copy of the GNU General Public License
-  ~ along with LSPosed.  If not, see <https://www.gnu.org/licenses/>.
+  ~ along with DAndroid.  If not, see <https://www.gnu.org/licenses/>.
   ~
-  ~ Copyright (C) 2021 LSPosed Contributors
+  ~ Copyright (C) 2021 DAndroid Contributors
   -->
-<resources xmlns:tools="http://schemas.android.com/tools" tools:keep="@string/xposed_module_updated_notification_*,@string/module_is_not_activated_*">
+<resources xmlns:tools="http://schemas.android.com/tools" tools:keep="@string/dandroid_module_updated_notification_*,@string/module_is_not_activated_*">
     <!-- MainActivity -->
-    <string name="overview">LSPosed</string>
+    <string name="overview">DAndroid</string>
     <string name="Modules">Модули</string>
     <plurals name="modules_enabled_count">
         <item quantity="one">Включен %d модуль</item>
@@ -45,19 +45,19 @@
     <string name="about_view_source_code"><![CDATA[Просмотреть исходный код на %1$s<br/>Присоединяйтесь к нашему %2$s каналу]]></string>
     <string name="translators" comment="Dear translators, please add your home page here following the format. There can be more than one translator. So feel free to append yourself.">Alеxеy</string>
     <string name="install">Установить</string>
-    <string name="install_summary">Нажмите, чтобы установить LSPosed</string>
+    <string name="install_summary">Нажмите, чтобы установить DAndroid</string>
     <string name="not_installed">Не установлен</string>
-    <string name="not_install_summary">LSPosed не установлен!</string>
+    <string name="not_install_summary">DAndroid не установлен!</string>
     <string name="activated">Активирован</string>
     <string name="partial_activated">Частично активирован</string>
     <string name="selinux_policy_not_loaded_summary">SEPolicy загружен неправильно</string>
     <string name="selinux_policy_not_loaded"><![CDATA[Некоторые функции не будут работать.<br/>Пожалуйста, сообщите об этом разработчику <a href="https://github.com/topjohnwu/Magisk/issues"><b>Magisk</b></a>]]></string>
     <string name="system_inject_fail_summary">Ошибка внедрения системного фреймворка</string>
-    <string name="system_inject_fail"><![CDATA[Это редкость и может быть вызвано <b>Magisk</b> или несовместимыми модулями Magisk.<br/>Пожалуйста, попробуйте отключить модули Magisk кроме Riru и LSPosed или пришлите полные логи разработчику]]></string>
+    <string name="system_inject_fail"><![CDATA[Это редкость и может быть вызвано <b>Magisk</b> или несовместимыми модулями Magisk.<br/>Пожалуйста, попробуйте отключить модули Magisk кроме Riru и DAndroid или пришлите полные логи разработчику]]></string>
     <string name="system_prop_incorrect_summary">Неправильные системные настройки</string>
     <string name="system_prop_incorrect"><![CDATA[Неправильные системные настройки.<br/>Некоторые системные настройки нужные для работы удалены или изменены.<br/>Модули могут не работать должным образом]]></string>
     <string name="need_update">Требуется обновление</string>
-    <string name="please_update_summary">Установите последнюю версию LSPosed!</string>
+    <string name="please_update_summary">Установите последнюю версию DAndroid!</string>
     <string name="developer_warning_title">Советы разработчику модулей</string>
     <string name="developer_warning_summary">Пожалуйста, отключите оптимизацию развертывания в Android Studio или используйте для установки команду `gradlew installDebug`. Иначе модуль не обновится</string>
     <string name="info_api_version">Версия API</string>
@@ -76,17 +76,17 @@
     <string name="mount_failed">Ошибка монтирования</string>
     <string name="selinux_permissive">SELinux в разрешающим режиме</string>
     <string name="sepolicy_incorrect">Неправильная политика SELinux</string>
-    <string name="update_lsposed">Обновление LSPosed</string>
-    <string name="update_lsposed_msg">Вы точно хотите обновить LSPosed?\nУстройство перезагрузится после завершения обновления</string>
+    <string name="update_lsposed">Обновление DAndroid</string>
+    <string name="update_lsposed_msg">Вы точно хотите обновить DAndroid?\nУстройство перезагрузится после завершения обновления</string>
     <string name="info_copied">Скопировано в буфер обмена</string>
     <!-- WelcomeDialog -->
-    <string name="parasitic_welcome">Добро пожаловать в LSPosed</string>
-    <string name="parasitic_welcome_summary">Вы используете скрытый режим. Для открытия LSPosed, можно создать ярлык на рабочем столе или открывать через уведомление</string>
-    <string name="parasitic_welcome_summary_no_shortcut_support">Вы используете скрытый режим. LSPosed можно открыть через уведомление</string>
+    <string name="parasitic_welcome">Добро пожаловать в DAndroid</string>
+    <string name="parasitic_welcome_summary">Вы используете скрытый режим. Для открытия DAndroid, можно создать ярлык на рабочем столе или открывать через уведомление</string>
+    <string name="parasitic_welcome_summary_no_shortcut_support">Вы используете скрытый режим. DAndroid можно открыть через уведомление</string>
     <string name="create_shortcut">Ярлык</string>
     <string name="never_show">Больше не показывать</string>
-    <string name="app_welcome">Скрытие приложения LSPosed</string>
-    <string name="app_welcome_summary">LSPosed теперь поддерживает скрытие, чтобы избежать различные обнаружения системой, вы можете открыть LSPosed из уведомления. Рекомендуется удалить текущее приложение</string>
+    <string name="app_welcome">Скрытие приложения DAndroid</string>
+    <string name="app_welcome_summary">DAndroid теперь поддерживает скрытие, чтобы избежать различные обнаружения системой, вы можете открыть DAndroid из уведомления. Рекомендуется удалить текущее приложение</string>
     <!-- LogsActivity -->
     <string name="menuSaveToSd">Сохранить</string>
     <string name="nav_item_logs_verbose">Подробные логи</string>
@@ -106,10 +106,10 @@
     <string name="disabled_verbose_log">Подробные логи выключены</string>
     <!-- ModulesActivity -->
     <string name="module_empty_description">(описание отсутствует)</string>
-    <string name="warning_xposed_min_version">Этот модуль требует более новой версии LSPosed (%d) и не может быть включен</string>
-    <string name="warning_target_version_higher">Этот модуль разработан для более новой версии Xposed (%d), поэтому некоторые функции могут не работать</string>
-    <string name="no_min_version_specified">Этот модуль не указал версию LSPosed, в которой он нуждается</string>
-    <string name="warning_min_version_too_low">Этот модуль был создан для LSPosed версии %1$d, но из-за несовместимых изменений в версии %2$d, он был выключен</string>
+    <string name="warning_dandroid_min_version">Этот модуль требует более новой версии DAndroid (%d) и не может быть включен</string>
+    <string name="warning_target_version_higher">Этот модуль разработан для более новой версии DAndroid (%d), поэтому некоторые функции могут не работать</string>
+    <string name="no_min_version_specified">Этот модуль не указал версию DAndroid, в которой он нуждается</string>
+    <string name="warning_min_version_too_low">Этот модуль был создан для DAndroid версии %1$d, но из-за несовместимых изменений в версии %2$d, он был выключен</string>
     <string name="warning_installed_on_external_storage">Этот модуль не может быть загружен, потому что он установлен на SD-карте, переместите его во внутреннюю память</string>
     <string name="module_uninstall">Удалить</string>
     <string name="module_settings">Открыть настройки</string>
@@ -121,7 +121,7 @@
     <string name="module_installed">Добавить %1$s для пользователя %2$s</string>
     <string name="module_install_failed">Добавление модуля не удалось</string>
     <string name="install_to_user">Установить пользователю %s</string>
-    <string name="install_to_user_message">Хотите установить %1$s пользователю %2$s? Рекомендуется устанавливать вручную, принудительная установка через LSPosed может вызвать проблемы</string>
+    <string name="install_to_user_message">Хотите установить %1$s пользователю %2$s? Рекомендуется устанавливать вручную, принудительная установка через DAndroid может вызвать проблемы</string>
     <string name="expand">развернуть</string>
     <string name="collapse">свернуть</string>
     <!-- AppListActivity -->
@@ -195,18 +195,18 @@
     <string name="settings_translation_contributors">Автор перевода</string>
     <string name="settings_translation">Принять участие в переводе</string>
     <string name="settings_translation_summary">Помогите нам перевести %s на ваш язык</string>
-    <string name="settings_create_shortcut_summary">Создать ярлык, с помощью которого можно открыть LSPosed</string>
+    <string name="settings_create_shortcut_summary">Создать ярлык, с помощью которого можно открыть DAndroid</string>
     <string name="settings_shortcut_pinned_hint">Ярлык закреплен</string>
     <string name="settings_unsupported_pin_shortcut_summary">Текущий лаунчер по умолчанию не поддерживает ярлыки</string>
     <string name="settings_enable_status_notification">Уведомление</string>
-    <string name="settings_enable_status_notification_summary">Показывать уведомление, через которое можно открыть LSPosed</string>
+    <string name="settings_enable_status_notification_summary">Показывать уведомление, через которое можно открыть DAndroid</string>
     <string name="disable_status_notification_error">Не найден ярлык, выключить уведомление нельзя</string>
     <string name="settings_update_channel">Источник обновлений</string>
     <string name="update_channel_stable">Стабильные версии</string>
     <string name="update_channel_bate">Бета-версии</string>
     <string name="update_channel_nightly">Ночные версии</string>
-    <string name="settings_xposed_api_call_protection">Защита использования Xposed API</string>
-    <string name="settings_xposed_api_call_protection_summary">Блокировать динамически загружаемый код модуля для использования Xposed API, это может нарушить работу некоторых модулей, но повысит безопасность</string>
+    <string name="settings_dandroid_api_call_protection">Защита использования DAndroid API</string>
+    <string name="settings_dandroid_api_call_protection_summary">Блокировать динамически загружаемый код модуля для использования DAndroid API, это может нарушить работу некоторых модулей, но повысит безопасность</string>
     <!-- Module Repo -->
     <string name="module_readme">Описание</string>
     <string name="module_releases">Версии</string>

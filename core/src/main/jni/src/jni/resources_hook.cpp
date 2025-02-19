@@ -1,21 +1,21 @@
 /*
- * This file is part of LSPosed.
+ * This file is part of DAndroid.
  *
- * LSPosed is free software: you can redistribute it and/or modify
+ * DAndroid is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * LSPosed is distributed in the hope that it will be useful,
+ * DAndroid is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with LSPosed.  If not, see <https://www.gnu.org/licenses/>.
+ * along with DAndroid.  If not, see <https://www.gnu.org/licenses/>.
  *
- * Copyright (C) 2020 EdXposed Contributors
- * Copyright (C) 2021 - 2022 LSPosed Contributors
+ * Copyright (C) 2020 EdDAndroid Contributors
+ * Copyright (C) 2021 - 2022 DAndroid Contributors
  */
 
 #include <jni.h>
@@ -26,9 +26,9 @@
 #include "resources_hook.h"
 #include "config_bridge.h"
 
-using namespace lsplant;
+using namespace danlant;
 
-namespace lspd {
+namespace dand {
     using TYPE_GET_ATTR_NAME_ID = int32_t (*)(void *, int);
 
     using TYPE_STRING_AT = char16_t *(*)(const void *, int32_t, size_t *);
@@ -50,7 +50,7 @@ namespace lspd {
         if (obfs_map.empty()) {
             LOGW("GetXResourcesClassName: obfuscation_map empty?????");
         }
-        static auto name = lspd::JavaNameToSignature(
+        static auto name = dand::JavaNameToSignature(
                 obfs_map.at("android.content.res.XRes"))  // TODO: kill this hardcoded name
                     .substr(1) + "ources";
         LOGD("{}", name.c_str());
@@ -75,11 +75,13 @@ namespace lspd {
                           "_ZNK7android12ResXMLParser18getAttributeNameIDEm")))) {
             return false;
         }
-        return android::ResStringPool::setup(HookHandler{
-            .art_symbol_resolver = [&](auto s) {
-                return fw.template getSymbAddress(s);
+        return android::ResStringPool::setup(danlant::HookHandler(
+            danlant::InitInfo{
+                .art_symbol_resolver = [&](auto s) {
+                    return fw.template getSymbAddress(s);
+                }
             }
-        });
+        ));
     }
 
     LSP_DEF_NATIVE_METHOD(jboolean, ResourcesHook, initXResourcesNative) {
@@ -111,7 +113,7 @@ namespace lspd {
 
     // @ApiSensitive(Level.MIDDLE)
     LSP_DEF_NATIVE_METHOD(jboolean, ResourcesHook, makeInheritable, jclass target_class) {
-        if (lsplant::MakeClassInheritable(env, target_class)) {
+        if (danlant::MakeClassInheritable(env, target_class)) {
             return JNI_TRUE;
         }
         return JNI_FALSE;
@@ -127,11 +129,11 @@ namespace lspd {
         DexBuilder dex_file;
 
         ClassBuilder xresource_builder{
-                dex_file.MakeClass("xposed.dummy.XResourcesSuperClass")};
+                dex_file.MakeClass("dandroid.dummy.XResourcesSuperClass")};
         xresource_builder.setSuperClass(TypeDescriptor::FromClassname(JUTFString(env, resource_super_class).get()));
 
         ClassBuilder xtypearray_builder{
-                dex_file.MakeClass("xposed.dummy.XTypedArraySuperClass")};
+                dex_file.MakeClass("dandroid.dummy.XTypedArraySuperClass")};
         xtypearray_builder.setSuperClass(TypeDescriptor::FromClassname(JUTFString(env, typed_array_super_class).get()));
 
         slicer::MemView image{dex_file.CreateImage()};

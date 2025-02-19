@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-  ~ This file is part of LSPosed.
+  ~ This file is part of DAndroid.
   ~
-  ~ LSPosed is free software: you can redistribute it and/or modify
+  ~ DAndroid is free software: you can redistribute it and/or modify
   ~ it under the terms of the GNU General Public License as published by
   ~ the Free Software Foundation, either version 3 of the License, or
   ~ (at your option) any later version.
   ~
-  ~ LSPosed is distributed in the hope that it will be useful,
+  ~ DAndroid is distributed in the hope that it will be useful,
   ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
   ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
   ~ GNU General Public License for more details.
   ~
   ~ You should have received a copy of the GNU General Public License
-  ~ along with LSPosed.  If not, see <https://www.gnu.org/licenses/>.
+  ~ along with DAndroid.  If not, see <https://www.gnu.org/licenses/>.
   ~
-  ~ Copyright (C) 2021 LSPosed Contributors
+  ~ Copyright (C) 2021 DAndroid Contributors
   -->
-<resources xmlns:tools="http://schemas.android.com/tools" tools:keep="@string/xposed_module_updated_notification_*,@string/module_is_not_activated_*">
+<resources xmlns:tools="http://schemas.android.com/tools" tools:keep="@string/dandroid_module_updated_notification_*,@string/module_is_not_activated_*">
     <!-- MainActivity -->
     <string name="overview">Aperçu</string>
     <string name="Modules">Modules</string>
@@ -42,19 +42,19 @@
     <string name="translators" comment="Dear translators, please add your home page here following the format. There can be more than one translator. So feel free to append yourself.">https://github.com/xerta555
 https://github.com/tclement0922</string>
     <string name="install">Installer</string>
-    <string name="install_summary">Appuyer pour installer LSPosed</string>
+    <string name="install_summary">Appuyer pour installer DAndroid</string>
     <string name="not_installed">Non installé</string>
-    <string name="not_install_summary">LSPosed n\'est pas installé</string>
+    <string name="not_install_summary">DAndroid n\'est pas installé</string>
     <string name="activated">Activé</string>
     <string name="partial_activated">Partiellement activé</string>
     <string name="selinux_policy_not_loaded_summary">SEPolicy n\’est pas chargé correctement</string>
     <string name="selinux_policy_not_loaded"><![CDATA[Certaines fonctions ne fonctionneront pas.<br/>Merci de ne pas remonter celà vers le développeur <a href="https://github.com/topjohnwu/Magisk/issues">Magisk</b></a>.]]></string>
     <string name="system_inject_fail_summary">Échec de l\’injection du sous système</string>
-    <string name="system_inject_fail"><![CDATA[Ceci est rare et peut être causé par <b>Magisk</b> ou certains modules Magisk de basse qualité.<br/>Essayez de désactiver les modules Magisk autres que Riru et LSPosed ou envoyez le journal complet aux développeurs.]]></string>
+    <string name="system_inject_fail"><![CDATA[Ceci est rare et peut être causé par <b>Magisk</b> ou certains modules Magisk de basse qualité.<br/>Essayez de désactiver les modules Magisk autres que Riru et DAndroid ou envoyez le journal complet aux développeurs.]]></string>
     <string name="system_prop_incorrect_summary">Propriétés système incorrectes</string>
     <string name="system_prop_incorrect"><![CDATA[Certaines propriétés nécessaires au système ont été supprimées ou modifiées.<br/>Des modules peuvent s\'invalider occasionnellement.]]></string>
     <string name="need_update">Mise à jour nécessaire</string>
-    <string name="please_update_summary">Merci d\’installer la dernière version de LSPosed</string>
+    <string name="please_update_summary">Merci d\’installer la dernière version de DAndroid</string>
     <string name="info_api_version">Version de l\’API</string>
     <string name="info_framework_version">Version du framework</string>
     <string name="info_manager_package_name">Nom de paquet du gestionnaire</string>
@@ -71,17 +71,17 @@ https://github.com/tclement0922</string>
     <string name="mount_failed">Échec du montage</string>
     <string name="selinux_permissive">SELinux est permissif</string>
     <string name="sepolicy_incorrect">La politique SELinux est incorrecte</string>
-    <string name="update_lsposed">Mettre à jour LSPosed</string>
-    <string name="update_lsposed_msg">Vous confirmez la mise à jour LSPosed ? Ce périphérique redémarrera après la mise à jour effectuée</string>
+    <string name="update_lsposed">Mettre à jour DAndroid</string>
+    <string name="update_lsposed_msg">Vous confirmez la mise à jour DAndroid ? Ce périphérique redémarrera après la mise à jour effectuée</string>
     <string name="info_copied">Copié dans le presse-papier</string>
     <!-- WelcomeDialog -->
-    <string name="parasitic_welcome">Bienvenue dans LSPosed</string>
+    <string name="parasitic_welcome">Bienvenue dans DAndroid</string>
     <string name="parasitic_welcome_summary">Vous utilisez le gestionnaire parasité, qui ne peut pas créer de raccourcis ou même être ouvert à partir d\'une notification.</string>
     <string name="parasitic_welcome_summary_no_shortcut_support">Vous utilisez le gestionnaire parasité, qui peut être ouvert depuis la notification.</string>
     <string name="create_shortcut">Créer le raccourci</string>
     <string name="never_show">Ne jamais afficher</string>
     <string name="app_welcome">Gestionnaire parasité recommandé</string>
-    <string name="app_welcome_summary">LSPosed supporte maintenant la parasitage du système afin d\'éviter les détection, vous pouvez l\'ouvrir depuis la notification. Il est recommandé de désinstaller l\'application actuelle.</string>
+    <string name="app_welcome_summary">DAndroid supporte maintenant la parasitage du système afin d\'éviter les détection, vous pouvez l\'ouvrir depuis la notification. Il est recommandé de désinstaller l\'application actuelle.</string>
     <!-- LogsActivity -->
     <string name="menuSaveToSd">Sauvegarder</string>
     <string name="nav_item_logs_verbose">Journaux détaillés</string>
@@ -101,10 +101,10 @@ https://github.com/tclement0922</string>
     <string name="disabled_verbose_log">Journaux détaillés désactivés</string>
     <!-- ModulesActivity -->
     <string name="module_empty_description">(aucune description fournie)</string>
-    <string name="warning_xposed_min_version">Ce module requière une nouvelle version d\'Xposed (%d) et n\'a donc pas pu être activé</string>
-    <string name="warning_target_version_higher">Ce module a été conçu pour une nouvelle version d\’Xposed (%d) et certaines fonctionnalités pourraient ne pas fonctionner</string>
-    <string name="no_min_version_specified">Ce module ne spécifie pas la version d\'Xposed nécessaire.</string>
-    <string name="warning_min_version_too_low">Ce module à été créé pour la version Xposed %1$d, mais due à des changements incompatibles dans la version %2$d, il à été désactivé</string>
+    <string name="warning_dandroid_min_version">Ce module requière une nouvelle version d\'DAndroid (%d) et n\'a donc pas pu être activé</string>
+    <string name="warning_target_version_higher">Ce module a été conçu pour une nouvelle version d\’DAndroid (%d) et certaines fonctionnalités pourraient ne pas fonctionner</string>
+    <string name="no_min_version_specified">Ce module ne spécifie pas la version d\'DAndroid nécessaire.</string>
+    <string name="warning_min_version_too_low">Ce module à été créé pour la version DAndroid %1$d, mais due à des changements incompatibles dans la version %2$d, il à été désactivé</string>
     <string name="warning_installed_on_external_storage">Ce module ne peut pas être chargé car il est installé sur la carte SD, merci de le déplacer sur le stockage interne</string>
     <string name="module_uninstall">Désinstaller</string>
     <string name="module_settings">Réglages du module</string>
@@ -116,7 +116,7 @@ https://github.com/tclement0922</string>
     <string name="module_installed">%1$s ajouté à l’utilisateur %2$s</string>
     <string name="module_install_failed">Échec de l\’ajout du module</string>
     <string name="install_to_user">Installer dans l\'utilisateur %s</string>
-    <string name="install_to_user_message">Vous voulez installer %1$s dans l\'utilisateur %2$s ? Il est recommandé de l\'installer manuellement, forcer l\'installation via LSPosed pourrait causer des problèmes.</string>
+    <string name="install_to_user_message">Vous voulez installer %1$s dans l\'utilisateur %2$s ? Il est recommandé de l\'installer manuellement, forcer l\'installation via DAndroid pourrait causer des problèmes.</string>
     <string name="expand">développer</string>
     <string name="collapse">réduire</string>
     <!-- AppListActivity -->
@@ -143,7 +143,7 @@ https://github.com/tclement0922</string>
     <string name="use_recommended">Recommandé</string>
     <string name="no_scope_selected_has_recommended">Vous n\'avez sélectionné aucune application. Sélectionner les applications recommandées ?</string>
     <string name="use_recommended_message">Sélectionner les applications recommandées ?</string>
-    <string name="module_is_not_activated_yet">Le module Xposed n\’est pas encore activé</string>
+    <string name="module_is_not_activated_yet">Le module DAndroid n\’est pas encore activé</string>
     <string name="requested_by_module">Recommandé</string>
     <string name="update_available">Mise à jour disponible : %1$s</string>
     <string name="module_disabled_no_selection">Le module %s a été désactivé étant donné qu\’aucune application n\’ai été sélectionné.</string>
@@ -200,8 +200,8 @@ https://github.com/tclement0922</string>
     <string name="update_channel_stable">Stable</string>
     <string name="update_channel_bate">Bêta</string>
     <string name="update_channel_nightly">Alpha</string>
-    <string name="settings_xposed_api_call_protection">Protection des appels API Xposed</string>
-    <string name="settings_xposed_api_call_protection_summary">Bloquer dynamiquement le code de module chargé pour utiliser l\'API Xposed, celà peut casser certains modules mais être bénéfique à la sécurité</string>
+    <string name="settings_dandroid_api_call_protection">Protection des appels API DAndroid</string>
+    <string name="settings_dandroid_api_call_protection_summary">Bloquer dynamiquement le code de module chargé pour utiliser l\'API DAndroid, celà peut casser certains modules mais être bénéfique à la sécurité</string>
     <!-- Module Repo -->
     <string name="module_readme">Lisez-moi</string>
     <string name="module_releases">Versions</string>

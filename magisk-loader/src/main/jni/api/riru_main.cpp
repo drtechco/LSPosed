@@ -1,21 +1,21 @@
 /*
- * This file is part of LSPosed.
+ * This file is part of DAndroid.
  *
- * LSPosed is free software: you can redistribute it and/or modify
+ * DAndroid is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * LSPosed is distributed in the hope that it will be useful,
+ * DAndroid is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with LSPosed.  If not, see <https://www.gnu.org/licenses/>.
+ * along with DAndroid.  If not, see <https://www.gnu.org/licenses/>.
  *
- * Copyright (C) 2020 EdXposed Contributors
- * Copyright (C) 2021 - 2022 LSPosed Contributors
+ * Copyright (C) 2020 EdDAndroid Contributors
+ * Copyright (C) 2021 - 2022 DAndroid Contributors
  */
 
 #include <jni.h>
@@ -31,7 +31,7 @@
 #define RIRU_MODULE
 #include "riru.h"
 
-namespace lspd {
+namespace dand {
     int *allowUnload = nullptr;
     namespace {
         std::string magiskPath;
@@ -40,7 +40,7 @@ namespace lspd {
         jstring app_dir = nullptr;
 
         void onModuleLoaded() {
-            LOGI("onModuleLoaded: welcome to LSPosed!");
+            LOGI("onModuleLoaded: welcome to DAndroid!");
             LOGI("onModuleLoaded: version v{} ({})", versionName, versionCode);
             MagiskLoader::Init();
             ConfigImpl::Init();
@@ -112,13 +112,13 @@ namespace lspd {
                     .supportHide = !isDebug,
                     .version = versionCode,
                     .versionName = versionName,
-                    .onModuleLoaded = lspd::onModuleLoaded,
-                    .forkAndSpecializePre = lspd::nativeForkAndSpecializePre,
-                    .forkAndSpecializePost = lspd::nativeForkAndSpecializePost,
-                    .forkSystemServerPre = lspd::nativeForkSystemServerPre,
-                    .forkSystemServerPost = lspd::nativeForkSystemServerPost,
-                    .specializeAppProcessPre = lspd::specializeAppProcessPre,
-                    .specializeAppProcessPost = lspd::specializeAppProcessPost,
+                    .onModuleLoaded = dand::onModuleLoaded,
+                    .forkAndSpecializePre = dand::nativeForkAndSpecializePre,
+                    .forkAndSpecializePost = dand::nativeForkAndSpecializePost,
+                    .forkSystemServerPre = dand::nativeForkSystemServerPre,
+                    .forkSystemServerPost = dand::nativeForkSystemServerPost,
+                    .specializeAppProcessPre = dand::specializeAppProcessPre,
+                    .specializeAppProcessPost = dand::specializeAppProcessPost,
             }
     };
 }
@@ -126,11 +126,11 @@ namespace lspd {
 RIRU_EXPORT RiruVersionedModuleInfo *init(Riru *riru) {
     LOGD("using riru {}", riru->riruApiVersion);
     LOGD("module path: {}", riru->magiskModulePath);
-    lspd::magiskPath = riru->magiskModulePath;
-    if (!lspd::isDebug && lspd::magiskPath.find(lspd::moduleName) == std::string::npos) {
+    dand::magiskPath = riru->magiskModulePath;
+    if (!dand::isDebug && dand::magiskPath.find(dand::moduleName) == std::string::npos) {
         LOGE("who am i");
         return nullptr;
     }
-    lspd::allowUnload = riru->allowUnload;
-    return &lspd::module;
+    dand::allowUnload = riru->allowUnload;
+    return &dand::module;
 }

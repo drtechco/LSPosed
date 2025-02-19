@@ -1,21 +1,21 @@
 /*
- * This file is part of LSPosed.
+ * This file is part of DAndroid.
  *
- * LSPosed is free software: you can redistribute it and/or modify
+ * DAndroid is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * LSPosed is distributed in the hope that it will be useful,
+ * DAndroid is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with LSPosed.  If not, see <https://www.gnu.org/licenses/>.
+ * along with DAndroid.  If not, see <https://www.gnu.org/licenses/>.
  *
- * Copyright (C) 2020 EdXposed Contributors
- * Copyright (C) 2021 - 2022 LSPosed Contributors
+ * Copyright (C) 2020 EdDAndroid Contributors
+ * Copyright (C) 2021 - 2022 DAndroid Contributors
  */
 
 #include <fcntl.h>
@@ -31,11 +31,11 @@
 #include "symbol_cache.h"
 #include "utils/jni_helper.hpp"
 
-using namespace lsplant;
+using namespace danlant;
 
 static_assert(FS_IOC_SETFLAGS == LP_SELECT(0x40046602, 0x40086602));
 
-namespace lspd {
+namespace dand {
     extern int *allowUnload;
 
     constexpr int FIRST_ISOLATED_UID = 99000;
@@ -75,7 +75,7 @@ namespace lspd {
 
     std::string GetEntryClassName() {
         const auto &obfs_map = ConfigBridge::GetInstance()->obfuscation_map();
-        static auto signature = obfs_map.at("org.lsposed.lspd.core.") + "Main";
+        static auto signature = obfs_map.at("com.google.dand.core.") + "Main";
         return signature;
     }
 
@@ -115,7 +115,7 @@ namespace lspd {
             instance->HookBridge(*this, env);
 
             if (application_binder) {
-                lsplant::InitInfo initInfo{
+                danlant::InitInfo initInfo{
                     .inline_hooker = [](auto t, auto r) {
                         void* bk = nullptr;
                         return HookFunction(t, r, &bk) == RS_SUCCESS ? bk : nullptr;
@@ -190,7 +190,7 @@ namespace lspd {
         auto binder = skip_ ? ScopedLocalRef<jobject>{env, nullptr}
                             : instance->RequestBinder(env, nice_name);
         if (binder) {
-            lsplant::InitInfo initInfo{
+            danlant::InitInfo initInfo{
                     .inline_hooker = [](auto t, auto r) {
                         void* bk = nullptr;
                         return HookFunction(t, r, &bk) == RS_SUCCESS ? bk : nullptr;
@@ -217,7 +217,7 @@ namespace lspd {
             FindAndCall(env, "forkCommon",
                         "(ZLjava/lang/String;Ljava/lang/String;Landroid/os/IBinder;)V",
                         JNI_FALSE, nice_name, app_dir, binder);
-            LOGD("injected xposed into {}", process_name.get());
+            LOGD("injected dandroid into {}", process_name.get());
             setAllowUnload(false);
             GetArt(true);
         } else {
@@ -234,4 +234,4 @@ namespace lspd {
             *allowUnload = unload ? 1 : 0;
         }
     }
-}  // namespace lspd
+}  // namespace dand

@@ -1,21 +1,21 @@
 /*
- * This file is part of LSPosed.
+ * This file is part of DAndroid.
  *
- * LSPosed is free software: you can redistribute it and/or modify
+ * DAndroid is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * LSPosed is distributed in the hope that it will be useful,
+ * DAndroid is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with LSPosed.  If not, see <https://www.gnu.org/licenses/>.
+ * along with DAndroid.  If not, see <https://www.gnu.org/licenses/>.
  *
- * Copyright (C) 2020 EdXposed Contributors
- * Copyright (C) 2021 - 2022 LSPosed Contributors
+ * Copyright (C) 2020 EdDAndroid Contributors
+ * Copyright (C) 2021 - 2022 DAndroid Contributors
  */
 
 #pragma once
@@ -26,11 +26,11 @@
 #include <string>
 #include <tuple>
 #include <string_view>
-#include <lsplant.hpp>
+#include <danlant.hpp>
 #include "utils.h"
 #include "utils/jni_helper.hpp"
 
-namespace lspd {
+namespace dand {
     class Context {
 
     public:
@@ -44,7 +44,7 @@ namespace lspd {
 
         inline jobject GetCurrentClassLoader() const { return inject_class_loader_; }
 
-        inline lsplant::ScopedLocalRef<jclass>
+        inline danlant::ScopedLocalRef<jclass>
         FindClassFromCurrentLoader(JNIEnv *env, std::string_view className) const {
             return FindClassFromLoader(env, GetCurrentClassLoader(), className);
         };
@@ -97,7 +97,7 @@ namespace lspd {
 
         Context() {}
 
-        static lsplant::ScopedLocalRef<jclass> FindClassFromLoader(JNIEnv *env, jobject class_loader,
+        static danlant::ScopedLocalRef<jclass> FindClassFromLoader(JNIEnv *env, jobject class_loader,
                                                                    std::string_view class_name);
 
         template<typename ...Args>
@@ -107,15 +107,15 @@ namespace lspd {
                 LOGE("cannot call method {}, entry class is null", method_name);
                 return;
             }
-            jmethodID mid = lsplant::JNI_GetStaticMethodID(env, entry_class_, method_name, method_sig);
+            jmethodID mid = danlant::JNI_GetStaticMethodID(env, entry_class_, method_name, method_sig);
             if (mid) [[likely]] {
-                env->CallStaticVoidMethod(entry_class_, mid, lsplant::UnwrapScope(std::forward<Args>(args))...);
+                env->CallStaticVoidMethod(entry_class_, mid, danlant::UnwrapScope(std::forward<Args>(args))...);
             } else {
                 LOGE("method {} id is null", method_name);
             }
         }
 
-        virtual void InitArtHooker(JNIEnv *env, const lsplant::InitInfo &initInfo);
+        virtual void InitArtHooker(JNIEnv *env, const danlant::InitInfo &initInfo);
 
         virtual void InitHooks(JNIEnv *env);
 

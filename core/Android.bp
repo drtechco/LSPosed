@@ -1,0 +1,81 @@
+
+cc_library_static {
+    name: "dand_core_static",
+    host_supported: true,
+    // vendor_available: true,
+    // recovery_available: true, 
+    defaults: [
+        "plugin_defaults", 
+    ],
+    srcs: [
+        "src/main/jni/src/*.cpp", 
+        "src/main/jni/src/jni/*.cpp", 
+    ],
+    local_include_dirs: [
+        "src/main/jni/include",
+        "src/main/jni/src",
+        "src/main/jni/src/jni", 
+    ], 
+    shared_libs: [
+        "libnativehelper", //jni
+    ],
+    export_include_dirs: [
+        "src/main/jni/src/jni",
+        "src/main/jni/src",
+        "src/main/jni/include",
+    ],
+    cflags:[
+        "-D_ELF_H",
+        // "-std=c++20",          // 确保使用 C++20
+ 
+    ], 
+    static_libs:[
+        "dobby_static", 
+    ],
+    target: {
+        android: {
+            static_libs: [ 
+                "fmt_static",
+                "danlant_static",
+                "libxdl_static",
+            ],
+            header_libs: [ 
+                "libc_headers",  
+                "libxc++_headers",
+                // "libc_llndk_headers",
+                "dand_core_static_headers",
+                "bionic_libc_platform_headers",
+                "libxdl_headers",
+            ],
+            cflags: [
+                "-DANDROID",
+                "-UNDEBUG",
+            ],
+        },
+        host: {
+            header_libs: [
+                "libc_headers",  
+                "libxc++_headers",
+                // "libc_llndk_headers",
+                "dand_core_static_headers",
+            ],
+            cflags: ["-DHOST_BUILD"],
+        },
+    },
+}
+ 
+cc_library_headers {
+    name: "dand_core_static_headers",
+    defaults: [
+        "plugin_defaults", 
+    ],
+    host_supported: true,
+    export_include_dirs: [
+        "src/main/jni/src/jni",
+        "src/main/jni/src",
+        "src/main/jni/include",
+    ],
+    // vendor_available: true, 
+    // recovery_available: true,
+}
+ 

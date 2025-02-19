@@ -1,0 +1,157 @@
+// Copyright (C) 2021 - 2022 DAndroid Contributors
+// SPDX-License-Identifier: GPL-3.0-or-later
+
+// Java library module
+java_library {
+    name: "dand-framework-loader",
+    srcs: [
+        "java/**/*.java",
+    ],
+    sdk_version: "current",
+    min_sdk_version: "29",
+    static_libs: [
+        "androidx.annotation_annotation",
+    ],
+    installable: true,  // 确保模块是可安装的
+}
+// 使用 d8 将 classes.jar 转换为 dand.dex
+genrule {
+    name: "dand_dex_gen",
+    srcs: [":dand-framework-loader"],  // 注意这里使用模块的实际名称
+    tools: ["d8"],
+    out: ["dand.dex"],
+    cmd: "d8 $(in) --output $(genDir) --release --min-api 29 && cp $(genDir)/classes.dex $(out)",
+}
+
+ 
+
+// Native library defaults
+cc_defaults {
+    name: "dand_loader_defaults",
+    vendor: false,
+    proprietary: false, 
+    local_include_dirs: [
+        "jni/include",
+        "jni/src",
+    ],
+    cflags: [
+        "-Wall",
+        "-Wextra",
+        "-Werror",
+        // "-fno-rtti",
+        // "-fno-exceptions",
+    ], 
+} 
+// Generated loader source
+genrule {
+    name: "loader_gen",
+    tool_files: ["jni/template/loader.cpp"],
+    out: ["loader.cpp"],
+    cmd: "cp $(location jni/template/loader.cpp) $(out)",
+}
+ 
+cc_library_shared {
+    name: "libdand",
+    host_supported: true,
+    // vendor_available: true,
+    // recovery_available: true, 
+    defaults: [
+        "plugin_defaults",
+        "dand_loader_defaults",
+    ],
+   
+    cflags: [
+        "-DANDROID",
+        "-DINJECTED_AID=2000",
+        "-DMODULE_NAME=\"dand\"",
+        "-DAPI_VERSION=1",
+        // "-std=c++20", 
+        "-Wno-error", 
+        "-DLIBCXX_BUILDING_LIBCXXABI", 
+        "-DLSPLANT_STANDALONE",
+        "-D_ELF_H",
+        "-Wno-macro-redefined",
+        // "-std=c++20",          // 确保使用 C++20
+    ], 
+    shared_libs: [
+        "liblog", 
+        "libz", 
+        "libnativehelper", //jni
+    ],
+    header_libs: [
+        // "libxc++_headers",
+        "danlant_static_headers",
+        "fmt_static_headers_only", 
+        "dand_core_static_headers",   
+    ], 
+    export_header_lib_headers: [
+        "fmt_static_headers_only",
+        "danlant_static_headers",
+        "dand_core_static_headers",
+    ],
+    export_include_dirs: [
+        "jni/src",
+        "jni/include",
+    ],
+    //stl: "none",
+    strip: {
+        none: true,
+    }, 
+    cppflags: [ 
+        // "-std=c++20",
+    ], 
+    static_libs:[
+        "dobby_static",
+    ],
+    target: {
+        android: {
+            srcs: [
+                "jni/src/*.cpp",
+                ":loader_gen",
+            ],
+            static_libs: [
+                "logging",
+                "dex_builder_static",
+                "libxc++_static", 
+                "dand_core_static",
+                "danlant_static",
+                "fmt_static",
+                "libxdl_static",
+            ],
+            header_libs: [ 
+                "libc_headers",  
+                "libxc++_headers",
+                // "libc_llndk_headers",
+                "dand_core_static_headers",
+                "bionic_libc_platform_headers", 
+            ],
+            cflags:[
+                "-D__ANDROID__",              
+                "-DFMT_USE_ANDROID",
+                "-UNDEBUG",
+            ],
+        },
+        host: {
+            header_libs: [
+                "libc_headers",  
+                "libxc++_headers",
+                // "libc_llndk_headers",
+                "dand_core_static_headers",
+            ],
+        },
+    },
+    // cpp_std: "c++20",
+    // target: {
+    //     android: {
+    //         cflags: [
+    //             "-D__ANDROID__",
+    //             "-DFMT_USE_ANDROID",
+    //             "-DLSPLANT_STANDALONE",
+    //             "-D_ELF_H",
+    //         ],
+    //     },
+    // },
+    installable: true,  // 确保模块是可安装的
+    // relative_install_path: "lib64",  // 指定安装路径为lib64
+}
+ 

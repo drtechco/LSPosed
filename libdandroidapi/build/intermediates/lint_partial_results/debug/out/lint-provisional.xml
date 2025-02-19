@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<incidents format="6" by="lint 8.2.1" type="conditional_incidents">
+
+    <incident
+        id="ObsoleteSdkInt"
+        severity="warning"
+        message="Unnecessary; SDK_INT is always >= 29">
+        <fix-replace
+            description="Delete @RequiresApi"
+            replacement="">
+            <range
+                file="${:libdandroidapi*debug*MAIN*sourceProvider*0*javaDir*0}/com/google/libdandroid/api/DAndroidModuleInterface.java"
+                startOffset="1730"
+                endOffset="1765"/>
+        </fix-replace>
+        <location
+            file="${:libdandroidapi*debug*MAIN*sourceProvider*0*javaDir*0}/com/google/libdandroid/api/DAndroidModuleInterface.java"
+            line="72"
+            column="9"
+            startOffset="1730"
+            endLine="72"
+            endColumn="44"
+            endOffset="1765"/>
+        <map>
+            <condition minGE="fffffffff0000000"/>
+        </map>
+    </incident>
+
+</incidents>

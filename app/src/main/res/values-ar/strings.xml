@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-  ~ This file is part of LSPosed.
+  ~ This file is part of DAndroid.
   ~
-  ~ LSPosed is free software: you can redistribute it and/or modify
+  ~ DAndroid is free software: you can redistribute it and/or modify
   ~ it under the terms of the GNU General Public License as published by
   ~ the Free Software Foundation, either version 3 of the License, or
   ~ (at your option) any later version.
   ~
-  ~ LSPosed is distributed in the hope that it will be useful,
+  ~ DAndroid is distributed in the hope that it will be useful,
   ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
   ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
   ~ GNU General Public License for more details.
   ~
   ~ You should have received a copy of the GNU General Public License
-  ~ along with LSPosed.  If not, see <https://www.gnu.org/licenses/>.
+  ~ along with DAndroid.  If not, see <https://www.gnu.org/licenses/>.
   ~
-  ~ Copyright (C) 2021 LSPosed Contributors
+  ~ Copyright (C) 2021 DAndroid Contributors
   -->
-<resources xmlns:tools="http://schemas.android.com/tools" tools:keep="@string/xposed_module_updated_notification_*,@string/module_is_not_activated_*">
+<resources xmlns:tools="http://schemas.android.com/tools" tools:keep="@string/dandroid_module_updated_notification_*,@string/module_is_not_activated_*">
     <!-- MainActivity -->
     <string name="overview">نظرة عامة</string>
     <string name="Modules">الوحدات</string>
@@ -49,19 +49,19 @@
     <string name="about_view_source_code"><![CDATA[عرض كود المصدر في %1$s<br/>انضم إلى قناتنا %2$s]]></string>
     <string name="translators" comment="Dear translators, please add your home page here following the format. There can be more than one translator. So feel free to append yourself.">Mahmoud Abd El-Hamed (7TM)</string>
     <string name="install">تثبيت</string>
-    <string name="install_summary">انقر لتثبيت LSPosed</string>
+    <string name="install_summary">انقر لتثبيت DAndroid</string>
     <string name="not_installed">غير مثبت</string>
-    <string name="not_install_summary">LSPosed غير مثبت</string>
+    <string name="not_install_summary">DAndroid غير مثبت</string>
     <string name="activated">مُفعّل</string>
     <string name="partial_activated">مفعل جزئياً</string>
     <string name="selinux_policy_not_loaded_summary">لم يتم تحميل SEPolicy بشكل صحيح</string>
     <string name="selinux_policy_not_loaded"><![CDATA[لن تعمل الوحدات النمطية التي تربط إطار عمل النظام.<br/>الرجاء الإبلاغ عن هذا إلى <a href="https://github.com/topjohnwu/Magisk/issues"><b>ماجيسك</b></a> مطور النظام.]]></string>
     <string name="system_inject_fail_summary">فشل حقن إطار عمل النظام</string>
-    <string name="system_inject_fail"><![CDATA[هذا نادر وقد يكون بسبب <b>Magisk</b> أو بعض وحدات Magisk منخفضة الجودة.<br/>الرجاء محاولة تعطيل وحدات Magisk خلاف Riru وLSPosed أو إرسال سجل كامل للمطورين.]]></string>
+    <string name="system_inject_fail"><![CDATA[هذا نادر وقد يكون بسبب <b>Magisk</b> أو بعض وحدات Magisk منخفضة الجودة.<br/>الرجاء محاولة تعطيل وحدات Magisk خلاف Riru وDAndroid أو إرسال سجل كامل للمطورين.]]></string>
     <string name="system_prop_incorrect_summary">نظام prop غير صحيح</string>
     <string name="system_prop_incorrect"><![CDATA[بعض خصائص النظام الضرورية تم حذفها أو تعديلها.<br/>قد تبطل الوحدات أحيانا.]]></string>
     <string name="need_update">تحتاج إلى التحديث</string>
-    <string name="please_update_summary">يرجى تثبيت أحدث إصدار من LSPosed</string>
+    <string name="please_update_summary">يرجى تثبيت أحدث إصدار من DAndroid</string>
     <string name="info_api_version">إصدار API</string>
     <string name="info_framework_version">إصدار إطار العمل</string>
     <string name="info_manager_package_name">Lاسم حزمة المديرo</string>
@@ -78,17 +78,17 @@
     <string name="mount_failed">فشل التحميل</string>
     <string name="selinux_permissive">SELinux متساهل</string>
     <string name="sepolicy_incorrect">سياسة SELinux غير صحيحة</string>
-    <string name="update_lsposed">تحديث LSPosed</string>
-    <string name="update_lsposed_msg">تأكيد تحديث LSPosed؟ سيتم إعـادة تشغيل هذا الجهاز بعد اكتمال التحديث</string>
+    <string name="update_lsposed">تحديث DAndroid</string>
+    <string name="update_lsposed_msg">تأكيد تحديث DAndroid؟ سيتم إعـادة تشغيل هذا الجهاز بعد اكتمال التحديث</string>
     <string name="info_copied">تم النسخ إلى الحافظة</string>
     <!-- WelcomeDialog -->
-    <string name="parasitic_welcome">مرحباً بك في LSPosed</string>
+    <string name="parasitic_welcome">مرحباً بك في DAndroid</string>
     <string name="parasitic_welcome_summary">أنت تستخدم مدير الطفيليات، الذي يمكنه إنشاء اختصار أو لا يزال مفتوحا من الإشعارات.</string>
     <string name="parasitic_welcome_summary_no_shortcut_support">أنت تستخدم المدير الطفيلي، الذي يمكن فتحه من الإشعار.</string>
     <string name="create_shortcut">إنشاء إختصار</string>
     <string name="never_show">لا تظهر أبداً</string>
     <string name="app_welcome">مدير طفيلي موصي به</string>
-    <string name="app_welcome_summary">يدعم LSPosed الآن تطهير النظام لتجنب الكشف، يمكنك فتح مدير الطفيليات من الإشعار. من المستحسن إلغاء تثبيت التطبيق الحالي.</string>
+    <string name="app_welcome_summary">يدعم DAndroid الآن تطهير النظام لتجنب الكشف، يمكنك فتح مدير الطفيليات من الإشعار. من المستحسن إلغاء تثبيت التطبيق الحالي.</string>
     <!-- LogsActivity -->
     <string name="menuSaveToSd">احفظ</string>
     <string name="nav_item_logs_verbose">سجلات مفصّلة</string>
@@ -108,10 +108,10 @@
     <string name="disabled_verbose_log">تم تعطيل السجل المفصّل</string>
     <!-- ModulesActivity -->
     <string name="module_empty_description">(لم يتم تقديم وصف)</string>
-    <string name="warning_xposed_min_version">هذه الوحدة تتطلب إصدار Xposed الأحدث (%d) لذا لا يمكن تفعيلها</string>
-    <string name="warning_target_version_higher">تم تصميم هذه الوحدة لإصدار Xposed أحدث (%d) وبالتالي قد لا تعمل بعض الوظائف</string>
-    <string name="no_min_version_specified">لا تحدد هذه الوحدة إصدار Xposed الذي تحتاجه.</string>
-    <string name="warning_min_version_too_low">تم إنشاء هذه الوحدة لإصدار Xposed %1$d ، ولكن بسبب التغييرات غير المتوافقة في الإصدار %2$d، فقد تم تعطيلها</string>
+    <string name="warning_dandroid_min_version">هذه الوحدة تتطلب إصدار DAndroid الأحدث (%d) لذا لا يمكن تفعيلها</string>
+    <string name="warning_target_version_higher">تم تصميم هذه الوحدة لإصدار DAndroid أحدث (%d) وبالتالي قد لا تعمل بعض الوظائف</string>
+    <string name="no_min_version_specified">لا تحدد هذه الوحدة إصدار DAndroid الذي تحتاجه.</string>
+    <string name="warning_min_version_too_low">تم إنشاء هذه الوحدة لإصدار DAndroid %1$d ، ولكن بسبب التغييرات غير المتوافقة في الإصدار %2$d، فقد تم تعطيلها</string>
     <string name="warning_installed_on_external_storage">لا يمكن تحميل هذه الوحدة لأنها مثبتة على بطاقة الذاكرة، يرجى نقلها إلى مساحة التخزين الداخلية</string>
     <string name="module_uninstall">إلغاء التثبيت</string>
     <string name="module_settings">إعدادات الوحدة</string>
@@ -123,7 +123,7 @@
     <string name="module_installed">تم إضافة %1$s للمستخدم %2$s</string>
     <string name="module_install_failed">فشل إضافة الوحدة</string>
     <string name="install_to_user">تثبيت للمستخدم %s</string>
-    <string name="install_to_user_message">هل ترغب في تثبيت %1$s للمستخدم %2$s؟ ينصح بالتثبيت يدوياً، قد يسبب إجبار التثبيت عبر LSPosed مشكلات.</string>
+    <string name="install_to_user_message">هل ترغب في تثبيت %1$s للمستخدم %2$s؟ ينصح بالتثبيت يدوياً، قد يسبب إجبار التثبيت عبر DAndroid مشكلات.</string>
     <string name="expand">توسّع</string>
     <string name="collapse">انهيار</string>
     <!-- AppListActivity -->
@@ -150,7 +150,7 @@
     <string name="use_recommended">مُوصى به</string>
     <string name="no_scope_selected_has_recommended">أنت لم تحدد أي تطبيق. تحديد التطبيقات الموصى بها؟</string>
     <string name="use_recommended_message">تحديد التطبيقات الموصى بها؟</string>
-    <string name="module_is_not_activated_yet">وحدة Xposed لم يتم تفعيلها بعد</string>
+    <string name="module_is_not_activated_yet">وحدة DAndroid لم يتم تفعيلها بعد</string>
     <string name="requested_by_module">مُوصى به</string>
     <string name="update_available">تحديث متاح: %1$s</string>
     <string name="module_disabled_no_selection">الوحدة %s تم تعطيلها لعدم تحديد أي تطبيق.</string>
@@ -207,8 +207,8 @@
     <string name="update_channel_stable">مستقر</string>
     <string name="update_channel_bate">تجريبي</string>
     <string name="update_channel_nightly">البناء الليلي</string>
-    <string name="settings_xposed_api_call_protection">حماية استدعاء Xposed API</string>
-    <string name="settings_xposed_api_call_protection_summary">حظر رمز الوحدة الذي يتم تحميله ديناميكيًا لاستخدام Xposed API ، قد يؤدي ذلك إلى كسر بعض الوحدات ولكنه يفيد الأمان</string>
+    <string name="settings_dandroid_api_call_protection">حماية استدعاء DAndroid API</string>
+    <string name="settings_dandroid_api_call_protection_summary">حظر رمز الوحدة الذي يتم تحميله ديناميكيًا لاستخدام DAndroid API ، قد يؤدي ذلك إلى كسر بعض الوحدات ولكنه يفيد الأمان</string>
     <!-- Module Repo -->
     <string name="module_readme">اقرأني</string>
     <string name="module_releases">إصدارات</string>

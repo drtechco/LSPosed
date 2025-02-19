@@ -1,20 +1,20 @@
 /*
- * This file is part of LSPosed.
+ * This file is part of DAndroid.
  *
- * LSPosed is free software: you can redistribute it and/or modify
+ * DAndroid is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * LSPosed is distributed in the hope that it will be useful,
+ * DAndroid is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with LSPosed.  If not, see <https://www.gnu.org/licenses/>.
+ * along with DAndroid.  If not, see <https://www.gnu.org/licenses/>.
  *
- * Copyright (C) 2023 LSPosed Contributors
+ * Copyright (C) 2023 DAndroid Contributors
  */
 
 #include <fcntl.h>
@@ -27,9 +27,9 @@
 
 #include "logging.h"
 
-extern "C"
+extern "C" __attribute__((visibility("default")))
 JNIEXPORT void JNICALL
-Java_org_lsposed_lspd_service_Dex2OatService_doMountNative(JNIEnv *env, jobject,
+Java_com_google_dand_service_Dex2OatService_doMountNative(JNIEnv *env, jobject,
                                                            jboolean enabled,
                                                            jstring r32, jstring d32,
                                                            jstring r64, jstring d64) {
@@ -102,9 +102,9 @@ static int setsockcreatecon_raw(const char *context) {
     return ret < 0 ? -1 : 0;
 }
 
-extern "C"
+extern "C" __attribute__((visibility("default")))
 JNIEXPORT jboolean JNICALL
-Java_org_lsposed_lspd_service_Dex2OatService_setSockCreateContext(JNIEnv *env, jclass,
+Java_com_google_dand_service_Dex2OatService_setSockCreateContext(JNIEnv *env, jclass,
                                                                   jstring contextStr) {
     const char *context = env->GetStringUTFChars(contextStr, nullptr);
     int ret = setsockcreatecon_raw(context);
@@ -112,8 +112,8 @@ Java_org_lsposed_lspd_service_Dex2OatService_setSockCreateContext(JNIEnv *env, j
     return ret == 0;
 }
 
-extern "C"
+extern "C" __attribute__((visibility("default")))
 JNIEXPORT jstring JNICALL
-Java_org_lsposed_lspd_service_Dex2OatService_getSockPath(JNIEnv *env, jobject) {
-    return env->NewStringUTF("5291374ceda0aef7c5d86cd2a4f6a3ac\0");
+Java_com_google_dand_service_Dex2OatService_getSockPath(JNIEnv *env, jobject) {
+    return env->NewStringUTF("fb478dc4c149cd9ba7ee46260e133149\0");
 }

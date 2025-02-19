@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-  ~ This file is part of LSPosed.
+  ~ This file is part of DAndroid.
   ~
-  ~ LSPosed is free software: you can redistribute it and/or modify
+  ~ DAndroid is free software: you can redistribute it and/or modify
   ~ it under the terms of the GNU General Public License as published by
   ~ the Free Software Foundation, either version 3 of the License, or
   ~ (at your option) any later version.
   ~
-  ~ LSPosed is distributed in the hope that it will be useful,
+  ~ DAndroid is distributed in the hope that it will be useful,
   ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
   ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
   ~ GNU General Public License for more details.
   ~
   ~ You should have received a copy of the GNU General Public License
-  ~ along with LSPosed.  If not, see <https://www.gnu.org/licenses/>.
+  ~ along with DAndroid.  If not, see <https://www.gnu.org/licenses/>.
   ~
-  ~ Copyright (C) 2021 LSPosed Contributors
+  ~ Copyright (C) 2021 DAndroid Contributors
   -->
-<resources xmlns:tools="http://schemas.android.com/tools" tools:keep="@string/xposed_module_updated_notification_*,@string/module_is_not_activated_*">
+<resources xmlns:tools="http://schemas.android.com/tools" tools:keep="@string/dandroid_module_updated_notification_*,@string/module_is_not_activated_*">
     <!-- MainActivity -->
     <string name="overview">Kodu</string>
     <string name="Modules">Moodulid</string>
@@ -41,19 +41,19 @@
     <string name="about_view_source_code"><![CDATA[Vaata lähtekoodi aadressil %1$s<br/>Liitu meie %2$s \'i kanaliga]]></string>
     <string name="translators" comment="Dear translators, please add your home page here following the format. There can be more than one translator. So feel free to append yourself.">Subaru Pan</string>
     <string name="install">Installi</string>
-    <string name="install_summary">Puudutage LSPosedi installimiseks</string>
+    <string name="install_summary">Puudutage DAndroidi installimiseks</string>
     <string name="not_installed">Puudub</string>
-    <string name="not_install_summary">LSPosed ei ole installitud</string>
+    <string name="not_install_summary">DAndroid ei ole installitud</string>
     <string name="activated">Aktiveeritud</string>
     <string name="partial_activated">Osaliselt aktiveeritud</string>
     <string name="selinux_policy_not_loaded_summary">SEPolicy ei ole korralikult laetud</string>
     <string name="selinux_policy_not_loaded"><![CDATA[Mõned funktsioonid ei tööta.<br/>Palun teatage sellest <a href="https://github.com/topjohnwu/Magisk/issues"><b>Magisk</b></a> arendajale.]]></string>
     <string name="system_inject_fail_summary">System Frameworki süstimine ebaõnnestus</string>
-    <string name="system_inject_fail"><![CDATA[Seda esineb harva ja selle põhjuseks võib olla <b>Magisk</b> või mõned madala kvaliteediga Magisk-moodulid.<br/>Palun proovige lülitada välja Magisk\'i moodulid peale Riru ja LSPosed või esitage täielik logi arendajatele.]]></string>
+    <string name="system_inject_fail"><![CDATA[Seda esineb harva ja selle põhjuseks võib olla <b>Magisk</b> või mõned madala kvaliteediga Magisk-moodulid.<br/>Palun proovige lülitada välja Magisk\'i moodulid peale Riru ja DAndroid või esitage täielik logi arendajatele.]]></string>
     <string name="system_prop_incorrect_summary">Süsteemi tugi vale</string>
     <string name="system_prop_incorrect"><![CDATA[Mõned vajalikud süsteemiomadused kustutatud või muudetud.<br/>Moodulid võivad aeg-ajalt kehtetuks muutuda.]]></string>
     <string name="need_update">Vaja uuendada</string>
-    <string name="please_update_summary">Palun installige LSPosedi uusim versioon</string>
+    <string name="please_update_summary">Palun installige DAndroidi uusim versioon</string>
     <string name="info_api_version">API\'i versioon</string>
     <string name="info_framework_version">Raamistiku versioon</string>
     <string name="info_manager_package_name">Manager paketi nimi</string>
@@ -70,17 +70,17 @@
     <string name="mount_failed">Kinnitus ebaõnnestus</string>
     <string name="selinux_permissive">SELinux on lubav</string>
     <string name="sepolicy_incorrect">SELinux policy on vale</string>
-    <string name="update_lsposed">LSPosedi uuendamine</string>
-    <string name="update_lsposed_msg">Kas kinnitada LSPosed uuendamine? See seade taaskäivitub pärast uuendamise lõpetamist</string>
+    <string name="update_lsposed">DAndroidi uuendamine</string>
+    <string name="update_lsposed_msg">Kas kinnitada DAndroid uuendamine? See seade taaskäivitub pärast uuendamise lõpetamist</string>
     <string name="info_copied">Kopeeritud lõikelauale</string>
     <!-- WelcomeDialog -->
-    <string name="parasitic_welcome">Tere tulemast LSPosedisse</string>
+    <string name="parasitic_welcome">Tere tulemast DAndroidisse</string>
     <string name="parasitic_welcome_summary">Sa kasutad parasiitide haldurit, mis võib luua otsetee või ikka avada teateid.</string>
     <string name="parasitic_welcome_summary_no_shortcut_support">Kasutate parasiitide haldurit, mida saab avada teatisest.</string>
     <string name="create_shortcut">Loo otsetee</string>
     <string name="never_show">Mitte kunagi ei näidata</string>
     <string name="app_welcome">Parasiitide haldur Soovitatav</string>
-    <string name="app_welcome_summary">LSPosed toetab nüüd süsteemi parasiitide tuvastamise vältimiseks, saate avada parasiitide haldaja teatest. Praegune rakendus on soovitatav eemaldada.</string>
+    <string name="app_welcome_summary">DAndroid toetab nüüd süsteemi parasiitide tuvastamise vältimiseks, saate avada parasiitide haldaja teatest. Praegune rakendus on soovitatav eemaldada.</string>
     <!-- LogsActivity -->
     <string name="menuSaveToSd">Salvesta</string>
     <string name="nav_item_logs_verbose">Põhjalikud logid</string>
@@ -100,10 +100,10 @@
     <string name="disabled_verbose_log">Paljusõnaline logi on välja lülitatud</string>
     <!-- ModulesActivity -->
     <string name="module_empty_description">(kirjeldus puudub)</string>
-    <string name="warning_xposed_min_version">See moodul nõuab uuemat Xposed versiooni (%d) ja seega ei saa seda aktiveerida.</string>
-    <string name="warning_target_version_higher">See moodul on mõeldud uuemale Xposedi versioonile (%d) ja seetõttu ei pruugi mõned funktsioonid töötada</string>
-    <string name="no_min_version_specified">See moodul ei täpsusta Xposedi versiooni, mida ta vajab.</string>
-    <string name="warning_min_version_too_low">See moodul loodi Xposedi versiooni %1$d jaoks, kuid versioonis %2$d tehtud ühildumatute muudatuste tõttu on see välja lülitatud</string>
+    <string name="warning_dandroid_min_version">See moodul nõuab uuemat DAndroid versiooni (%d) ja seega ei saa seda aktiveerida.</string>
+    <string name="warning_target_version_higher">See moodul on mõeldud uuemale DAndroidi versioonile (%d) ja seetõttu ei pruugi mõned funktsioonid töötada</string>
+    <string name="no_min_version_specified">See moodul ei täpsusta DAndroidi versiooni, mida ta vajab.</string>
+    <string name="warning_min_version_too_low">See moodul loodi DAndroidi versiooni %1$d jaoks, kuid versioonis %2$d tehtud ühildumatute muudatuste tõttu on see välja lülitatud</string>
     <string name="warning_installed_on_external_storage">Seda moodulit ei saa laadida, sest see on paigaldatud SD-kaardile, palun viige see sisemällu.</string>
     <string name="module_uninstall">Eemalda</string>
     <string name="module_settings">Mooduli seaded</string>
@@ -115,7 +115,7 @@
     <string name="module_installed">Lisatud %1$s kasutajale %2$s</string>
     <string name="module_install_failed">Mooduli lisamine ebaõnnestus</string>
     <string name="install_to_user">Installi kasutajale %s</string>
-    <string name="install_to_user_message">Tahad paigaldada %1$s kasutajale %2$s? Soovitatav on paigaldada käsitsi, LSPosed\'i kaudu sunniviisiline paigaldamine võib põhjustada probleeme.</string>
+    <string name="install_to_user_message">Tahad paigaldada %1$s kasutajale %2$s? Soovitatav on paigaldada käsitsi, DAndroid\'i kaudu sunniviisiline paigaldamine võib põhjustada probleeme.</string>
     <string name="expand">laienda</string>
     <string name="collapse">kollaps</string>
     <!-- AppListActivity -->
@@ -142,7 +142,7 @@
     <string name="use_recommended">Soovitatav</string>
     <string name="no_scope_selected_has_recommended">Te ei valinud ühtegi rakendust. Valige soovitatud rakendused?</string>
     <string name="use_recommended_message">Valige soovitatavad rakendused?</string>
-    <string name="module_is_not_activated_yet">Xposed moodul ei ole aktiveeritud</string>
+    <string name="module_is_not_activated_yet">DAndroid moodul ei ole aktiveeritud</string>
     <string name="requested_by_module">Soovitatav</string>
     <string name="update_available">Uuendus on saadaval: %1$s</string>
     <string name="module_disabled_no_selection">Moodul %s on välja lülitatud, kuna ühtegi rakendust ei ole valitud.</string>
@@ -199,8 +199,8 @@
     <string name="update_channel_stable">Stabiilne</string>
     <string name="update_channel_bate">Beeta</string>
     <string name="update_channel_nightly">Nightly build</string>
-    <string name="settings_xposed_api_call_protection">Xposed API call protection</string>
-    <string name="settings_xposed_api_call_protection_summary">Blokeerige dünaamiliselt laaditud mooduli kood, et kasutada Xposed API-t, see võib mõne mooduli rikkuda, kuid toob kasu turvalisusele</string>
+    <string name="settings_dandroid_api_call_protection">DAndroid API call protection</string>
+    <string name="settings_dandroid_api_call_protection_summary">Blokeerige dünaamiliselt laaditud mooduli kood, et kasutada DAndroid API-t, see võib mõne mooduli rikkuda, kuid toob kasu turvalisusele</string>
     <!-- Module Repo -->
     <string name="module_readme">Readme</string>
     <string name="module_releases">Väljaanded</string>

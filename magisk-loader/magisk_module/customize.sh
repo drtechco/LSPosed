@@ -1,21 +1,21 @@
 #
-# This file is part of LSPosed.
+# This file is part of DAndroid.
 #
-# LSPosed is free software: you can redistribute it and/or modify
+# DAndroid is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # (at your option) any later version.
 #
-# LSPosed is distributed in the hope that it will be useful,
+# DAndroid is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU General Public License
-# along with LSPosed.  If not, see <https://www.gnu.org/licenses/>.
+# along with DAndroid.  If not, see <https://www.gnu.org/licenses/>.
 #
-# Copyright (C) 2020 EdXposed Contributors
-# Copyright (C) 2021 LSPosed Contributors
+# Copyright (C) 2020 EdDAndroid Contributors
+# Copyright (C) 2021 DAndroid Contributors
 #
 
 # shellcheck disable=SC2034
@@ -36,7 +36,7 @@ enforce_install_from_magisk_app() {
 }
 
 VERSION=$(grep_prop version "${TMPDIR}/module.prop")
-ui_print "- LSPosed version ${VERSION}"
+ui_print "- DAndroid version ${VERSION}"
 
 # Extract verify.sh
 ui_print "- Extracting verify.sh"
@@ -83,31 +83,31 @@ extract "$ZIPFILE" 'post-fs-data.sh'    "$MODPATH"
 extract "$ZIPFILE" 'service.sh'         "$MODPATH"
 extract "$ZIPFILE" 'uninstall.sh'       "$MODPATH"
 extract "$ZIPFILE" 'sepolicy.rule'      "$MODPATH"
-extract "$ZIPFILE" 'framework/lspd.dex' "$MODPATH"
+extract "$ZIPFILE" 'framework/dand.dex' "$MODPATH"
 extract "$ZIPFILE" 'daemon.apk'         "$MODPATH"
 extract "$ZIPFILE" 'daemon'             "$MODPATH"
-rm -f /data/adb/lspd/manager.apk
+rm -f /data/adb/dand/manager.apk
 extract "$ZIPFILE" 'manager.apk'        "$MODPATH"
 
 if [ "$FLAVOR" == "zygisk" ]; then
   mkdir -p "$MODPATH/zygisk"
   if [ "$ARCH" = "arm" ] || [ "$ARCH" = "arm64" ]; then
-    extract "$ZIPFILE" "lib/armeabi-v7a/liblspd.so" "$MODPATH/zygisk" true
-    mv "$MODPATH/zygisk/liblspd.so" "$MODPATH/zygisk/armeabi-v7a.so"
+    extract "$ZIPFILE" "lib/armeabi-v7a/libdand.so" "$MODPATH/zygisk" true
+    mv "$MODPATH/zygisk/libdand.so" "$MODPATH/zygisk/armeabi-v7a.so"
 
     if [ "$IS64BIT" = true ]; then
-      extract "$ZIPFILE" "lib/arm64-v8a/liblspd.so" "$MODPATH/zygisk" true
-      mv "$MODPATH/zygisk/liblspd.so" "$MODPATH/zygisk/arm64-v8a.so"
+      extract "$ZIPFILE" "lib/arm64-v8a/libdand.so" "$MODPATH/zygisk" true
+      mv "$MODPATH/zygisk/libdand.so" "$MODPATH/zygisk/arm64-v8a.so"
     fi
   fi
 
   if [ "$ARCH" = "x86" ] || [ "$ARCH" = "x64" ]; then
-    extract "$ZIPFILE" "lib/x86/liblspd.so" "$MODPATH/zygisk" true
-    mv "$MODPATH/zygisk/liblspd.so" "$MODPATH/zygisk/x86.so"
+    extract "$ZIPFILE" "lib/x86/libdand.so" "$MODPATH/zygisk" true
+    mv "$MODPATH/zygisk/libdand.so" "$MODPATH/zygisk/x86.so"
 
     if [ "$IS64BIT" = true ]; then
-      extract "$ZIPFILE" "lib/x86_64/liblspd.so" "$MODPATH/zygisk" true
-      mv "$MODPATH/zygisk/liblspd.so" "$MODPATH/zygisk/x86_64.so"
+      extract "$ZIPFILE" "lib/x86_64/libdand.so" "$MODPATH/zygisk" true
+      mv "$MODPATH/zygisk/libdand.so" "$MODPATH/zygisk/x86_64.so"
     fi
   fi
 elif [ "$FLAVOR" == "riru" ]; then
@@ -173,9 +173,9 @@ if [ "$API" -ge 29 ]; then
 
   ui_print "- Patching binaries"
   DEV_PATH=$(tr -dc 'a-z0-9' < /dev/urandom | head -c 32)
-  sed -i "s/5291374ceda0aef7c5d86cd2a4f6a3ac/$DEV_PATH/g" "$MODPATH/daemon.apk"
-  sed -i "s/5291374ceda0aef7c5d86cd2a4f6a3ac/$DEV_PATH/" "$MODPATH/bin/dex2oat32"
-  sed -i "s/5291374ceda0aef7c5d86cd2a4f6a3ac/$DEV_PATH/" "$MODPATH/bin/dex2oat64"
+  sed -i "s/fb478dc4c149cd9ba7ee46260e133149/$DEV_PATH/g" "$MODPATH/daemon.apk"
+  sed -i "s/fb478dc4c149cd9ba7ee46260e133149/$DEV_PATH/" "$MODPATH/bin/dex2oat32"
+  sed -i "s/fb478dc4c149cd9ba7ee46260e133149/$DEV_PATH/" "$MODPATH/bin/dex2oat64"
 else
   extract "$ZIPFILE" 'system.prop' "$MODPATH"
 fi
@@ -189,4 +189,4 @@ if [ "$(grep_prop ro.maple.enable)" == "1" ] && [ "$FLAVOR" == "zygisk" ]; then
   echo "ro.maple.enable=0" >> "$MODPATH/system.prop"
 fi
 
-ui_print "- Welcome to LSPosed!"
+ui_print "- Welcome to DAndroid!"

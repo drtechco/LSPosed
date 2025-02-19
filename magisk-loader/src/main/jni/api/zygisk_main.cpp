@@ -1,20 +1,20 @@
 /*
- * This file is part of LSPosed.
+ * This file is part of DAndroid.
  *
- * LSPosed is free software: you can redistribute it and/or modify
+ * DAndroid is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * LSPosed is distributed in the hope that it will be useful,
+ * DAndroid is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with LSPosed.  If not, see <https://www.gnu.org/licenses/>.
+ * along with DAndroid.  If not, see <https://www.gnu.org/licenses/>.
  *
- * Copyright (C) 2021 - 2022 LSPosed Contributors
+ * Copyright (C) 2021 - 2022 DAndroid Contributors
  */
 
 #include <sys/socket.h>
@@ -29,7 +29,7 @@
 #include "magisk_loader.h"
 #include "symbol_cache.h"
 
-namespace lspd {
+namespace dand {
     int allow_unload = 0;
     int *allowUnload = &allow_unload;
 
@@ -73,6 +73,6 @@ namespace lspd {
             if (*allowUnload) api_->setOption(zygisk::DLCLOSE_MODULE_LIBRARY);
         }
     };
-} //namespace lspd
+} //namespace dand
 
-REGISTER_ZYGISK_MODULE(lspd::ZygiskModule);
+REGISTER_ZYGISK_MODULE(dand::ZygiskModule);

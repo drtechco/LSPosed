@@ -1,20 +1,20 @@
 /*
- * This file is part of LSPosed.
+ * This file is part of DAndroid.
  *
- * LSPosed is free software: you can redistribute it and/or modify
+ * DAndroid is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * LSPosed is distributed in the hope that it will be useful,
+ * DAndroid is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with LSPosed.  If not, see <https://www.gnu.org/licenses/>.
+ * along with DAndroid.  If not, see <https://www.gnu.org/licenses/>.
  *
- * Copyright (C) 2021 - 2022 LSPosed Contributors
+ * Copyright (C) 2021 - 2022 DAndroid Contributors
  */
 
 import com.android.build.api.dsl.ApplicationDefaultConfig
@@ -45,7 +45,8 @@ cmaker {
         )
         cFlags.addAll(flags)
         cppFlags.addAll(flags)
-        abiFilters("arm64-v8a", "armeabi-v7a", "x86", "x86_64")
+//        abiFilters("arm64-v8a", "armeabi-v7a", "x86", "x86_64")
+        abiFilters("arm64-v8a")
     }
     buildTypes {
         if (it.name == "release") {
@@ -63,7 +64,7 @@ val latestTag = repo?.latestTag?.removePrefix("v") ?: "1.0"
 val injectedPackageName by extra("com.android.shell")
 val injectedPackageUid by extra(2000)
 
-val defaultManagerPackageName by extra("org.lsposed.manager")
+val defaultManagerPackageName by extra("com.google.xmanager")
 val verCode by extra(commitCount)
 val verName by extra(latestTag)
 val androidTargetSdkVersion by extra(34)

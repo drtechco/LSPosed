@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-  ~ This file is part of LSPosed.
+  ~ This file is part of DAndroid.
   ~
-  ~ LSPosed is free software: you can redistribute it and/or modify
+  ~ DAndroid is free software: you can redistribute it and/or modify
   ~ it under the terms of the GNU General Public License as published by
   ~ the Free Software Foundation, either version 3 of the License, or
   ~ (at your option) any later version.
   ~
-  ~ LSPosed is distributed in the hope that it will be useful,
+  ~ DAndroid is distributed in the hope that it will be useful,
   ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
   ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
   ~ GNU General Public License for more details.
   ~
   ~ You should have received a copy of the GNU General Public License
-  ~ along with LSPosed.  If not, see <https://www.gnu.org/licenses/>.
+  ~ along with DAndroid.  If not, see <https://www.gnu.org/licenses/>.
   ~
-  ~ Copyright (C) 2021 LSPosed Contributors
+  ~ Copyright (C) 2021 DAndroid Contributors
   -->
-<resources xmlns:tools="http://schemas.android.com/tools" tools:keep="@string/xposed_module_updated_notification_*,@string/module_is_not_activated_*">
+<resources xmlns:tools="http://schemas.android.com/tools" tools:keep="@string/dandroid_module_updated_notification_*,@string/module_is_not_activated_*">
     <!-- MainActivity -->
     <string name="overview">Prehľad</string>
     <string name="Modules">Moduly</string>
@@ -45,19 +45,19 @@
     <string name="about_view_source_code"><![CDATA[Zobraziť zdrojový kód na %1$s<br/>Pripojte sa k nášmu kanálu %2$s]]></string>
     <string name="translators" comment="Dear translators, please add your home page here following the format. There can be more than one translator. So feel free to append yourself.">null</string>
     <string name="install">Inštalácia stránky</string>
-    <string name="install_summary">Ťuknutím na položku nainštalujete LSPosed</string>
+    <string name="install_summary">Ťuknutím na položku nainštalujete DAndroid</string>
     <string name="not_installed">Nie je nainštalovaný</string>
-    <string name="not_install_summary">LSPosed nie je nainštalovaný</string>
+    <string name="not_install_summary">DAndroid nie je nainštalovaný</string>
     <string name="activated">Aktivované</string>
     <string name="partial_activated">Čiastočne aktivované</string>
     <string name="selinux_policy_not_loaded_summary">SEPolicy sa nenačíta správne</string>
     <string name="selinux_policy_not_loaded"><![CDATA[Niektoré funkcie nebudú fungovať.<br/>Nahláste to vývojárovi <a href="https://github.com/topjohnwu/Magisk/issues"><b>Magisk</b></a> .]]></string>
     <string name="system_inject_fail_summary">Vstreknutie systémového rámca zlyhalo</string>
-    <string name="system_inject_fail"><![CDATA[Je to zriedkavé a môže to byť spôsobené <b>Magisk</b> alebo niektorými nekvalitnými modulmi Magisk.<br/>Skúste vypnúť iné moduly Magisk ako Riru a LSPosed alebo pošlite vývojárom celý log.]]></string>
+    <string name="system_inject_fail"><![CDATA[Je to zriedkavé a môže to byť spôsobené <b>Magisk</b> alebo niektorými nekvalitnými modulmi Magisk.<br/>Skúste vypnúť iné moduly Magisk ako Riru a DAndroid alebo pošlite vývojárom celý log.]]></string>
     <string name="system_prop_incorrect_summary">Nesprávna opora systému</string>
     <string name="system_prop_incorrect"><![CDATA[Niektoré potrebné vlastnosti systému boli odstránené alebo upravené.<br/>Moduly sa môžu občas znefunkčniť.]]></string>
     <string name="need_update">Je potrebné aktualizovať</string>
-    <string name="please_update_summary">Nainštalujte si najnovšiu verziu aplikácie LSPosed</string>
+    <string name="please_update_summary">Nainštalujte si najnovšiu verziu aplikácie DAndroid</string>
     <string name="info_api_version">Verzia API</string>
     <string name="info_framework_version">Verzia rámca</string>
     <string name="info_manager_package_name">Názov balíka správcu</string>
@@ -74,17 +74,17 @@
     <string name="mount_failed">Montáž zlyhala</string>
     <string name="selinux_permissive">SELinux je permisívny</string>
     <string name="sepolicy_incorrect">Zásady systému SELinux sú nesprávne</string>
-    <string name="update_lsposed">Aktualizácia LSPosed</string>
-    <string name="update_lsposed_msg">Potvrdiť aktualizáciu LSPosed? Toto zariadenie sa po dokončení aktualizácie reštartuje</string>
+    <string name="update_lsposed">Aktualizácia DAndroid</string>
+    <string name="update_lsposed_msg">Potvrdiť aktualizáciu DAndroid? Toto zariadenie sa po dokončení aktualizácie reštartuje</string>
     <string name="info_copied">Skopírované do schránky</string>
     <!-- WelcomeDialog -->
-    <string name="parasitic_welcome">Vitajte v LSPosed</string>
+    <string name="parasitic_welcome">Vitajte v DAndroid</string>
     <string name="parasitic_welcome_summary">Používate parazitného správcu, ktorý môže vytvoriť zástupcu alebo ho stále otvárať z oznámenia.</string>
     <string name="parasitic_welcome_summary_no_shortcut_support">Používate parazitného správcu, ktorý sa môže otvoriť z oznámenia.</string>
     <string name="create_shortcut">Vytvorenie skratky</string>
     <string name="never_show">Nikdy sa neukážte</string>
     <string name="app_welcome">Odporúčaný parazitický manažér</string>
-    <string name="app_welcome_summary">LSPosed teraz podporuje parazitovanie systému, aby sa zabránilo detekcii, môžete otvoriť správcu parazitov z oznámenia. Odporúča sa odinštalovať aktuálnu aplikáciu.</string>
+    <string name="app_welcome_summary">DAndroid teraz podporuje parazitovanie systému, aby sa zabránilo detekcii, môžete otvoriť správcu parazitov z oznámenia. Odporúča sa odinštalovať aktuálnu aplikáciu.</string>
     <!-- LogsActivity -->
     <string name="menuSaveToSd">Uložiť</string>
     <string name="nav_item_logs_verbose">Verbálne protokoly</string>
@@ -104,10 +104,10 @@
     <string name="disabled_verbose_log">Verbose log vypnuté</string>
     <!-- ModulesActivity -->
     <string name="module_empty_description">(bez popisu)</string>
-    <string name="warning_xposed_min_version">Tento modul vyžaduje novšiu verziu Xposed (%d), a preto ho nemožno aktivovať</string>
-    <string name="warning_target_version_higher">Tento modul je určený pre novšiu verziu Xposed (%d), a preto niektoré funkcie nemusia fungovať</string>
-    <string name="no_min_version_specified">Tento modul neuvádza verziu Xposed, ktorú potrebuje.</string>
-    <string name="warning_min_version_too_low">Tento modul bol vytvorený pre verziu Xposed %1$d, ale kvôli nekompatibilným zmenám vo verzii %2$d, bol vypnutý.</string>
+    <string name="warning_dandroid_min_version">Tento modul vyžaduje novšiu verziu DAndroid (%d), a preto ho nemožno aktivovať</string>
+    <string name="warning_target_version_higher">Tento modul je určený pre novšiu verziu DAndroid (%d), a preto niektoré funkcie nemusia fungovať</string>
+    <string name="no_min_version_specified">Tento modul neuvádza verziu DAndroid, ktorú potrebuje.</string>
+    <string name="warning_min_version_too_low">Tento modul bol vytvorený pre verziu DAndroid %1$d, ale kvôli nekompatibilným zmenám vo verzii %2$d, bol vypnutý.</string>
     <string name="warning_installed_on_external_storage">Tento modul nie je možné načítať, pretože je nainštalovaný na karte SD, prosím, presuňte ho do internej pamäte</string>
     <string name="module_uninstall">Odinštalovanie stránky</string>
     <string name="module_settings">Nastavenia modulu</string>
@@ -119,7 +119,7 @@
     <string name="module_installed">Pridanie stránky %1$s do používateľa %2$s</string>
     <string name="module_install_failed">Pridanie modulu zlyhalo</string>
     <string name="install_to_user">Inštalácia do používateľa %s</string>
-    <string name="install_to_user_message">Chcete nainštalovať stránku %1$s na používateľa %2$s? Odporúča sa inštalovať ručne, vynútená inštalácia cez LSPosed môže spôsobiť problémy.</string>
+    <string name="install_to_user_message">Chcete nainštalovať stránku %1$s na používateľa %2$s? Odporúča sa inštalovať ručne, vynútená inštalácia cez DAndroid môže spôsobiť problémy.</string>
     <string name="expand">rozšíriť</string>
     <string name="collapse">zrútenie</string>
     <!-- AppListActivity -->
@@ -146,7 +146,7 @@
     <string name="use_recommended">Odporúčané stránky</string>
     <string name="no_scope_selected_has_recommended">Nevybrali ste žiadnu aplikáciu. Vybrať odporúčané aplikácie?</string>
     <string name="use_recommended_message">Vybrať odporúčané aplikácie?</string>
-    <string name="module_is_not_activated_yet">Modul Xposed ešte nie je aktivovaný</string>
+    <string name="module_is_not_activated_yet">Modul DAndroid ešte nie je aktivovaný</string>
     <string name="requested_by_module">Odporúčané stránky</string>
     <string name="update_available">Dostupná aktualizácia: %1$s</string>
     <string name="module_disabled_no_selection">Modul %s bol vypnutý, pretože nebola vybraná žiadna aplikácia.</string>
@@ -203,8 +203,8 @@
     <string name="update_channel_stable">Stabilné</string>
     <string name="update_channel_bate">Beta</string>
     <string name="update_channel_nightly">Nočné zostavenie</string>
-    <string name="settings_xposed_api_call_protection">Ochrana volaní Xposed API</string>
-    <string name="settings_xposed_api_call_protection_summary">Blokovať dynamicky načítaný kód modulu, aby používal Xposed API, čo môže rozbiť niektoré moduly, ale prospeje bezpečnosti</string>
+    <string name="settings_dandroid_api_call_protection">Ochrana volaní DAndroid API</string>
+    <string name="settings_dandroid_api_call_protection_summary">Blokovať dynamicky načítaný kód modulu, aby používal DAndroid API, čo môže rozbiť niektoré moduly, ale prospeje bezpečnosti</string>
     <!-- Module Repo -->
     <string name="module_readme">Readme</string>
     <string name="module_releases">Uvoľňuje</string>

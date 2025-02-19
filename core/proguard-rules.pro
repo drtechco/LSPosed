@@ -1,25 +1,25 @@
--keep class de.robv.android.xposed.** {*;}
--keep class io.github.libxposed.** {*;}
+-keep class com.google.android.dandroid.** {*;}
+-keep class com.google.libdandroid.** {*;}
 -keepattributes RuntimeVisibleAnnotations
 -keep class android.** { *; }
 -keepclasseswithmembers,includedescriptorclasses class * {
     native <methods>;
 }
--keepclassmembers class org.lsposed.lspd.impl.LSPosedContext {
+-keepclassmembers class com.google.dand.impl.DAndroidContext {
     public <methods>;
 }
--keepclassmembers class org.lsposed.lspd.impl.LSPosedHookCallback {
+-keepclassmembers class com.google.dand.impl.DAndroidHookCallback {
     public <methods>;
 }
--keep,allowoptimization,allowobfuscation @io.github.libxposed.api.annotations.* class * {
-    @io.github.libxposed.api.annotations.BeforeInvocation <methods>;
-    @io.github.libxposed.api.annotations.AfterInvocation <methods>;
+-keep,allowoptimization,allowobfuscation @com.google.libdandroid.api.annotations.* class * {
+    @com.google.libdandroid.api.annotations.BeforeInvocation <methods>;
+    @com.google.libdandroid.api.annotations.AfterInvocation <methods>;
 }
--keepclassmembers class org.lsposed.lspd.impl.LSPosedBridge$NativeHooker {
+-keepclassmembers class com.google.dand.impl.DAndroidBridge$NativeHooker {
     <init>(java.lang.reflect.Executable);
     callback(...);
 }
--keepclassmembers class org.lsposed.lspd.impl.LSPosedBridge$HookerCallback {
+-keepclassmembers class com.google.dand.impl.DAndroidBridge$HookerCallback {
     final *** beforeInvocation;
     final *** afterInvocation;
     HookerCallback(...);

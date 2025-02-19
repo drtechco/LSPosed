@@ -1,0 +1,75 @@
+ 
+
+// Only build framework_loader
+// subdirs = ["framework_loader"]
+
+
+cc_defaults {
+    name: "plugin_defaults",
+    cflags: [
+        "-DPLUGIN_ENABLED",
+        "-fPIC",
+        "-Wno-fortify-source",
+        "-Wno-error=fortify-source",
+        "-Wno-ignored-qualifiers",
+        "-Wno-gnu-string-literal-operator-template",
+        "-Wno-unused-parameter",
+    ],
+    sdk_version: "current",
+    stl: "none",
+    min_sdk_version: "29",
+}
+ 
+//////////////////////////////
+// 1. 利用 genrule 模块生成目标文件（仅进行复制/解压操作，不安装）
+//////////////////////////////
+
+// 复制 daemon-debug.apk 为 daemon.apk
+genrule {
+    name: "copy_daemon_apk_gen",
+    srcs: ["daemon/build/outputs/apk/debug/daemon-debug.apk"],
+    out: ["daemon.apk"],
+    cmd: "cp $(location daemon/build/outputs/apk/debug/daemon-debug.apk) $(out)",
+}
+
+// 复制 app-debug.apk 为 manager.apk
+genrule {
+    name: "copy_manager_apk_gen",
+    srcs: ["app/build/outputs/apk/debug/app-debug.apk"],
+    out: ["manager.apk"],
+    cmd: "cp $(location app/build/outputs/apk/debug/app-debug.apk) $(out)",
+}
+
+// 从 magisk-loader-Zygisk-debug.apk 中提取 classes.dex 为 dand.dex
+genrule {
+    name: "extract_dand_dex_gen",
+    srcs: ["magisk-loader/build/outputs/apk/Zygisk/debug/magisk-loader-Zygisk-debug.apk"],
+    out: ["dand.dex"],
+    cmd: "unzip -p $(location magisk-loader/build/outputs/apk/Zygisk/debug/magisk-loader-Zygisk-debug.apk) classes.dex > $(out)",
+}
+
+genrule {
+    name: "create_dand_zip_gen",
+    srcs: [
+        ":copy_daemon_apk_gen",
+        ":copy_manager_apk_gen",
+        ":extract_dand_dex_gen",
+    ],
+    out: ["dand.zip"],
+    cmd: "zip -rj $(out) $(location :copy_daemon_apk_gen) $(location :copy_manager_apk_gen) $(location :extract_dand_dex_gen)",
+}
+
+//////////////////////////////
+// 2. 使用 prebuilt_etc 模块将生成的文件安装到目标目录
+//////////////////////////////
+
+prebuilt_etc {
+    name: "dand_zip_file",
+    src: ":create_dand_zip_gen", 
+    filename: "dand.zip", 
+} 
+
+cc_prebuilt_binary {
+    name: "dand.sh",
+    srcs: ["dand.sh"],    // dand.sh 是一个 shell 脚本文件 
+}

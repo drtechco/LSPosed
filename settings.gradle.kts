@@ -15,7 +15,7 @@ dependencyResolutionManagement {
         mavenCentral()
         mavenLocal {
             content {
-                includeGroup("io.github.libxposed")
+                includeGroup("com.google.libdandroid")
             }
         }
     }
@@ -24,8 +24,11 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "LSPosed"
+rootProject.name = "DAndroid"
 include(
+    ":libdandroidapi",
+    ":libdandroidcompat",
+    ":libdandroidservice",
     ":app",
     ":core",
     ":daemon",

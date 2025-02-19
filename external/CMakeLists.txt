@@ -103,7 +103,9 @@ target_include_directories(cxx PRIVATE ${LIBCXX_INCLUDES} ${LIBCXXABI_INCLUDES})
 link_libraries(cxx)
 
 OPTION(LSPLANT_BUILD_SHARED OFF)
-add_subdirectory(lsplant/lsplant/src/main/jni)
+add_subdirectory(lsplant/danlant/src/main/jni)
 add_subdirectory(dobby)
 add_subdirectory(fmt)
+add_subdirectory(xDL/xdl/src/main/cpp)
+
 target_compile_definitions(fmt-header-only INTERFACE FMT_STATIC_THOUSANDS_SEPARATOR=1 FMT_USE_FLOAT=0 FMT_USE_DOUBLE=0 FMT_USE_LONG_DOUBLE=0)

@@ -1,0 +1,18 @@
+<libraries>
+  <library
+      name=":@@:libdandroidapi::debug"
+      project=":libdandroidapi"/>
+  <library
+      name=":@@:libdandroidservice::debug"
+      jars="/Users/ttttt/d/lineage22/LSPosed/libdandroidservice/build/.transforms/2184a924c0a0639c40a1384c0f3843ef/transformed/out/jars/classes.jar:/Users/ttttt/d/lineage22/LSPosed/libdandroidservice/build/.transforms/2184a924c0a0639c40a1384c0f3843ef/transformed/out/jars/libs/R.jar"
+      resolved="com.google.libdandroid:libdandroidservice:unspecified"
+      folder="/Users/ttttt/d/lineage22/LSPosed/libdandroidservice/build/.transforms/2184a924c0a0639c40a1384c0f3843ef/transformed/out"
+      manifest="AndroidManifest.xml"
+      resFolder="res"
+      assetsFolder="assets"
+      lintJar="lint.jar"
+      publicResources="public.txt"
+      symbolFile="R.txt"
+      externalAnnotations="annotations.zip"
+      proguardRules="proguard.txt"/>
+</libraries>

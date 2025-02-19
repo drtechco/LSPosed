@@ -1,21 +1,21 @@
 /*
- * This file is part of LSPosed.
+ * This file is part of DAndroid.
  *
- * LSPosed is free software: you can redistribute it and/or modify
+ * DAndroid is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * LSPosed is distributed in the hope that it will be useful,
+ * DAndroid is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with LSPosed.  If not, see <https://www.gnu.org/licenses/>.
+ * along with DAndroid.  If not, see <https://www.gnu.org/licenses/>.
  *
- * Copyright (C) 2020 EdXposed Contributors
- * Copyright (C) 2021 - 2022 LSPosed Contributors
+ * Copyright (C) 2020 EdDAndroid Contributors
+ * Copyright (C) 2021 - 2022 DAndroid Contributors
  */
 
 #include <dlfcn.h>
@@ -33,7 +33,7 @@
 #include <cassert>
 #include "config_bridge.h"
 
-namespace lspd {
+namespace dand {
 
 [[gnu::always_inline]]
 inline bool RegisterNativeMethodsInternal(JNIEnv *env,
@@ -61,7 +61,7 @@ inline bool RegisterNativeMethodsInternal(JNIEnv *env,
 #define LSP_NATIVE_METHOD(className, functionName, signature)                \
   { #functionName,                                                       \
     signature,                                                           \
-    _NATIVEHELPER_JNI_MACRO_CAST(void*) (Java_org_lsposed_lspd_nativebridge_## className ## _ ## functionName) \
+    _NATIVEHELPER_JNI_MACRO_CAST(void*) (Java_com_google_dand_nativebridge_## className ## _ ## functionName) \
   }
 #endif
 
@@ -69,7 +69,7 @@ inline bool RegisterNativeMethodsInternal(JNIEnv *env,
 
 #ifndef LSP_DEF_NATIVE_METHOD
 #define LSP_DEF_NATIVE_METHOD(ret, className, functionName, ...)                \
-  extern "C" ret Java_org_lsposed_lspd_nativebridge_## className ## _ ## functionName (JNI_START, ##  __VA_ARGS__)
+  extern "C" ret Java_com_google_dand_nativebridge_## className ## _ ## functionName (JNI_START, ##  __VA_ARGS__)
 #endif
 
 #define REGISTER_LSP_NATIVE_METHODS(class_name) \
@@ -78,10 +78,16 @@ inline bool RegisterNativeMethodsInternal(JNIEnv *env,
 inline int HookFunction(void *original, void *replace, void **backup) {
     if constexpr (isDebug) {
         Dl_info info;
-        if (dladdr(original, &info))
-        LOGD("Hooking {} ({}) from {} ({})",
+        if (dladdr(original, &info)){
+            LOGD("Hooking {} ({}) from {} ({})",
              info.dli_sname ? info.dli_sname : "(unknown symbol)", info.dli_saddr,
              info.dli_fname ? info.dli_fname : "(unknown file)", info.dli_fbase);
+        }else{
+            LOGD("Hooking original address {}, replace address {}, backup address {}",
+                 static_cast<const void*>(original),
+                 static_cast<const void*>(replace),
+                 static_cast<const void*>(backup));
+        }
     }
     return DobbyHook(original, reinterpret_cast<dobby_dummy_func_t>(replace), reinterpret_cast<dobby_dummy_func_t *>(backup));
 }
@@ -89,20 +95,23 @@ inline int HookFunction(void *original, void *replace, void **backup) {
 inline int UnhookFunction(void *original) {
     if constexpr (isDebug) {
         Dl_info info;
-        if (dladdr(original, &info))
-        LOGD("Unhooking {} ({}) from {} ({})",
-             info.dli_sname ? info.dli_sname : "(unknown symbol)", info.dli_saddr,
-             info.dli_fname ? info.dli_fname : "(unknown file)", info.dli_fbase);
+        if (dladdr(original, &info)){
+            LOGD("Unhooking {} ({}) from {} ({})",
+                 info.dli_sname ? info.dli_sname : "(unknown symbol)", info.dli_saddr,
+                 info.dli_fname ? info.dli_fname : "(unknown file)", info.dli_fbase);
+        }else{
+            LOGD("Unhooking original address {}", static_cast<const void*>(original));
+        }
     }
     return DobbyDestroy(original);
 }
 
 inline std::string GetNativeBridgeSignature() {
     const auto &obfs_map = ConfigBridge::GetInstance()->obfuscation_map();
-    static auto signature = obfs_map.at("org.lsposed.lspd.nativebridge.");
+    static auto signature = obfs_map.at("com.google.dand.nativebridge.");
     return signature;
 }
 
-} // namespace lspd
+} // namespace dand
 
 #pragma clang diagnostic pop

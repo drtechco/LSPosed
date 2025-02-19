@@ -1,21 +1,21 @@
 /*
- * This file is part of LSPosed.
+ * This file is part of DAndroid.
  *
- * LSPosed is free software: you can redistribute it and/or modify
+ * DAndroid is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * LSPosed is distributed in the hope that it will be useful,
+ * DAndroid is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with LSPosed.  If not, see <https://www.gnu.org/licenses/>.
+ * along with DAndroid.  If not, see <https://www.gnu.org/licenses/>.
  *
- * Copyright (C) 2020 EdXposed Contributors
- * Copyright (C) 2021 LSPosed Contributors
+ * Copyright (C) 2020 EdDAndroid Contributors
+ * Copyright (C) 2021 DAndroid Contributors
  */
 
 package android.content.res;
@@ -23,10 +23,10 @@ package android.content.res;
 import android.app.AndroidAppHelper;
 import android.util.DisplayMetrics;
 
-import de.robv.android.xposed.IXposedHookInitPackageResources;
-import de.robv.android.xposed.IXposedHookZygoteInit;
-import de.robv.android.xposed.IXposedHookZygoteInit.StartupParam;
-import de.robv.android.xposed.callbacks.XC_InitPackageResources.InitPackageResourcesParam;
+import com.google.android.dandroid.IDAndroidHookInitPackageResources;
+import com.google.android.dandroid.IDAndroidHookZygoteInit;
+import com.google.android.dandroid.IDAndroidHookZygoteInit.StartupParam;
+import com.google.android.dandroid.callbacks.XC_InitPackageResources.InitPackageResourcesParam;
 import hidden.HiddenApiBridge;
 
 /**
@@ -41,8 +41,8 @@ public class XModuleResources extends Resources {
 	 * Creates a new instance.
 	 *
 	 * <p>This is usually called with {@link StartupParam#modulePath} from
-	 * {@link IXposedHookZygoteInit#initZygote} and {@link InitPackageResourcesParam#res} from
-	 * {@link IXposedHookInitPackageResources#handleInitPackageResources} (or {@code null} for
+	 * {@link IDAndroidHookZygoteInit#initZygote} and {@link InitPackageResourcesParam#res} from
+	 * {@link IDAndroidHookInitPackageResources#handleInitPackageResources} (or {@code null} for
 	 * system-wide replacements).
 	 *
 	 * @param path The path to the APK from which the resources should be loaded.

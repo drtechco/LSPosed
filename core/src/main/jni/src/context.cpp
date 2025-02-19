@@ -1,21 +1,21 @@
 /*
- * This file is part of LSPosed.
+ * This file is part of DAndroid.
  *
- * LSPosed is free software: you can redistribute it and/or modify
+ * DAndroid is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * LSPosed is distributed in the hope that it will be useful,
+ * DAndroid is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with LSPosed.  If not, see <https://www.gnu.org/licenses/>.
+ * along with DAndroid.  If not, see <https://www.gnu.org/licenses/>.
  *
- * Copyright (C) 2020 EdXposed Contributors
- * Copyright (C) 2021 - 2022 LSPosed Contributors
+ * Copyright (C) 2020 EdDAndroid Contributors
+ * Copyright (C) 2021 - 2022 DAndroid Contributors
  */
 
 #include <jni.h>
@@ -29,10 +29,10 @@
 #include "jni/dex_parser.h"
 #include "symbol_cache.h"
 
-using namespace lsplant;
+using namespace danlant;
 
 
-namespace lspd {
+namespace dand {
     std::unique_ptr<Context> Context::instance_;
     std::unique_ptr<ConfigBridge> ConfigBridge::instance_;
 
@@ -52,11 +52,13 @@ namespace lspd {
         if (*this) munmap(addr_, size_);
     }
 
-    void Context::InitArtHooker(JNIEnv *env, const lsplant::InitInfo &initInfo) {
-        if (!lsplant::Init(env, initInfo)) {
-            LOGE("Failed to init lsplant");
+    void Context::InitArtHooker(JNIEnv *env, const danlant::InitInfo &initInfo) {
+        LOGD("start call danlant::Init");
+        if (!danlant::Init(env, initInfo)) {
+            LOGE("Failed to init danlant");
             return;
         }
+        LOGD("success call danlant::Init");
     }
 
     void Context::InitHooks(JNIEnv *env) {
@@ -87,7 +89,7 @@ namespace lspd {
                 LOGE("Failed to get cookie");
                 return;
             }
-            lsplant::MakeDexFileTrusted(env, cookie);
+            danlant::MakeDexFileTrusted(env, cookie.get());
         }
         RegisterResourcesHook(env);
         RegisterHookBridge(env);
@@ -119,4 +121,4 @@ namespace lspd {
         LOGE("Class {} not found", class_name);
         return {env, nullptr};
     }
-}  // namespace lspd
+}  // namespace dand

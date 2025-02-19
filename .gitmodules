@@ -1,9 +1,9 @@
-[submodule "external/lsplant"]
-	path = external/lsplant
-	url = https://github.com/LSPosed/LSPlant.git
+[submodule "external/danlant"]
+	path = external/danlant
+	url = https://github.com/DAndroid/LSPlant.git
 [submodule "external/dobby"]
 	path = external/dobby
-	url = https://github.com/LSPosed/Dobby.git
+	url = https://github.com/DAndroid/Dobby.git
 [submodule "external/fmt"]
 	path = external/fmt
 	url = https://github.com/fmtlib/fmt.git
