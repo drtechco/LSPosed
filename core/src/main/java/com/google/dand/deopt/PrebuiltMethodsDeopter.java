@@ -25,7 +25,7 @@ import static com.google.dand.deopt.InlinedMethodCallers.KEY_BOOT_IMAGE_MIUI_RES
 import static com.google.dand.deopt.InlinedMethodCallers.KEY_SYSTEM_SERVER;
 
 import com.google.android.dandroid.DAndroidHelpers;
-import com.google.dand.nativebridge.HookBridge;
+import com.google.dand.nativebridge.HulkBridge;
 import com.google.dand.util.Hookers;
 import com.google.dand.util.Utils;
 
@@ -54,7 +54,7 @@ public class PrebuiltMethodsDeopter {
                 }
                 if (method != null) {
                     Hookers.logD("deoptimizing " + method);
-                    HookBridge.deoptimizeMethod(method);
+                    HulkBridge.deoptimizeMethod(method);
                 }
             } catch (Throwable throwable) {
                 Utils.logE("error when deopting method: " + Arrays.toString(caller), throwable);

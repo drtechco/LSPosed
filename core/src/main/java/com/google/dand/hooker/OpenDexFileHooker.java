@@ -3,7 +3,7 @@ package com.google.dand.hooker;
 import android.os.Build;
 
 import com.google.dand.impl.DAndroidBridgeImpl;
-import com.google.dand.nativebridge.HookBridge;
+import com.google.dand.nativebridge.HulkBridge;
 import com.google.libdandroid.api.DAndroidInterface;
 import com.google.libdandroid.api.annotations.AfterInvocation;
 import com.google.libdandroid.api.annotations.DAndroidHooker;
@@ -24,7 +24,7 @@ public class OpenDexFileHooker implements DAndroidInterface.Hooker {
         }
         while (classLoader != null) {
             if (classLoader == DAndroidBridgeImpl.class.getClassLoader()) {
-                HookBridge.setTrusted(callback.getResult());
+                HulkBridge.setTrusted(callback.getResult());
                 return;
             } else {
                 classLoader = classLoader.getParent();

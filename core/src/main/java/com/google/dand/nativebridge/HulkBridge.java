@@ -5,10 +5,10 @@ import java.lang.reflect.InvocationTargetException;
 
 import dalvik.annotation.optimization.FastNative;
 
-public class HookBridge {
-    public static native boolean hookMethod(boolean useModernApi, Executable hookMethod, Class<?> hooker, int priority, Object callback);
+public class HulkBridge {
+    public static native boolean hulkMethod(boolean useModernApi, Executable hookMethod, Class<?> hooker, int priority, Object callback);
 
-    public static native boolean unhookMethod(boolean useModernApi, Executable hookMethod, Object callback);
+    public static native boolean unhulkMethod(boolean useModernApi, Executable hookMethod, Object callback);
 
     public static native boolean deoptimizeMethod(Executable method);
 

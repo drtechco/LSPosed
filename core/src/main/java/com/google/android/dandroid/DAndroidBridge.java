@@ -27,7 +27,7 @@ import android.util.Log;
 
 import com.google.dand.impl.DAndroidBridgeImpl;
 import com.google.dand.impl.DAndroidHookCallback;
-import com.google.dand.nativebridge.HookBridge;
+import com.google.dand.nativebridge.HulkBridge;
 import com.google.dand.nativebridge.ResourcesHook;
 
 import java.lang.reflect.AccessibleObject;
@@ -175,7 +175,7 @@ public final class DAndroidBridge {
         } else if (Proxy.isProxyClass(deoptimizedMethod.getDeclaringClass())) {
             throw new IllegalArgumentException("Cannot deoptimize methods from proxy class: " + deoptimizedMethod);
         }
-        HookBridge.deoptimizeMethod((Executable) deoptimizedMethod);
+        HulkBridge.deoptimizeMethod((Executable) deoptimizedMethod);
     }
 
     /**
@@ -207,7 +207,7 @@ public final class DAndroidBridge {
             throw new IllegalArgumentException("callback should not be null!");
         }
 
-        if (!HookBridge.hookMethod(false, (Executable) hookMethod, DAndroidBridgeImpl.NativeHooker.class, callback.priority, callback)) {
+        if (!HulkBridge.hulkMethod(false, (Executable) hookMethod, DAndroidBridgeImpl.NativeHooker.class, callback.priority, callback)) {
             log("Failed to hook " + hookMethod);
             return null;
         }
@@ -226,7 +226,7 @@ public final class DAndroidBridge {
     @Deprecated
     public static void unhookMethod(Member hookMethod, XC_MethodHook callback) {
         if (hookMethod instanceof Executable) {
-            HookBridge.unhookMethod(false, (Executable) hookMethod, callback);
+            HulkBridge.unhulkMethod(false, (Executable) hookMethod, callback);
         }
     }
 
@@ -325,7 +325,7 @@ public final class DAndroidBridge {
             throw new IllegalArgumentException("method must be of type Method or Constructor");
         }
 
-        return HookBridge.invokeOriginalMethod((Executable) method, thisObject, args);
+        return HulkBridge.invokeOriginalMethod((Executable) method, thisObject, args);
     }
 
     /**

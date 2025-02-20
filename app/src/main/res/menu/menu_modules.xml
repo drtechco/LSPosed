@@ -26,5 +26,10 @@
         android:icon="@drawable/ic_baseline_search_24"
         android:showAsAction="ifRoom|collapseActionView"
         android:title="@android:string/search_go" />
-
+    <item
+        android:id="@+id/menu_search2"
+        android:actionViewClass="androidx.appcompat.widget.SearchView"
+        android:icon="@drawable/ic_baseline_search_24"
+        android:showAsAction="ifRoom|collapseActionView"
+        android:title="@android:string/search_go" />
 </menu>

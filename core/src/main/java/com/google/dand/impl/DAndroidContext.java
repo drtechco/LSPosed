@@ -16,7 +16,7 @@ import androidx.annotation.Nullable;
 import com.google.dand.core.BuildConfig;
 import com.google.dand.impl.utils.DAndroidDexParser;
 import com.google.dand.models.Module;
-import com.google.dand.nativebridge.HookBridge;
+import com.google.dand.nativebridge.HulkBridge;
 import com.google.dand.nativebridge.NativeAPI;
 import com.google.dand.service.ILSPInjectedModuleService;
 import com.google.dand.util.LspModuleClassLoader;
@@ -193,7 +193,7 @@ public class DAndroidContext implements DAndroidInterface {
         } else if (Proxy.isProxyClass(method.getDeclaringClass())) {
             throw new IllegalArgumentException("Cannot deoptimize methods from proxy class: " + method);
         }
-        return HookBridge.deoptimizeMethod(method);
+        return HulkBridge.deoptimizeMethod(method);
     }
 
     @Override
@@ -209,7 +209,7 @@ public class DAndroidContext implements DAndroidInterface {
     @Nullable
     @Override
     public Object invokeOrigin(@NonNull Method method, @Nullable Object thisObject, Object[] args) throws InvocationTargetException, IllegalArgumentException, IllegalAccessException {
-        return HookBridge.invokeOriginalMethod(method, thisObject, args);
+        return HulkBridge.invokeOriginalMethod(method, thisObject, args);
     }
 
     private static char getTypeShorty(Class<?> type) {
@@ -252,14 +252,14 @@ public class DAndroidContext implements DAndroidInterface {
         if (Modifier.isStatic(method.getModifiers())) {
             throw new IllegalArgumentException("Cannot invoke special on static method: " + method);
         }
-        return HookBridge.invokeSpecialMethod(method, getExecutableShorty(method), method.getDeclaringClass(), thisObject, args);
+        return HulkBridge.invokeSpecialMethod(method, getExecutableShorty(method), method.getDeclaringClass(), thisObject, args);
     }
 
     @NonNull
     @Override
     public <T> T newInstanceOrigin(@NonNull Constructor<T> constructor, Object... args) throws InvocationTargetException, IllegalAccessException, InstantiationException {
-        var obj = HookBridge.allocateObject(constructor.getDeclaringClass());
-        HookBridge.invokeOriginalMethod(constructor, obj, args);
+        var obj = HulkBridge.allocateObject(constructor.getDeclaringClass());
+        HulkBridge.invokeOriginalMethod(constructor, obj, args);
         return obj;
     }
 
@@ -270,8 +270,8 @@ public class DAndroidContext implements DAndroidInterface {
         if (!superClass.isAssignableFrom(subClass)) {
             throw new IllegalArgumentException(subClass + " is not inherited from " + superClass);
         }
-        var obj = HookBridge.allocateObject(subClass);
-        HookBridge.invokeSpecialMethod(constructor, getExecutableShorty(constructor), superClass, obj, args);
+        var obj = HulkBridge.allocateObject(subClass);
+        HulkBridge.invokeSpecialMethod(constructor, getExecutableShorty(constructor), superClass, obj, args);
         return obj;
     }
 

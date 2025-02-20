@@ -49,6 +49,7 @@ import com.google.xmanager.adapters.AppHelper;
 import com.google.xmanager.receivers.LSPManagerServiceHolder;
 import com.google.xmanager.repo.RepoLoader;
 import com.google.xmanager.util.CloudflareDNS;
+import com.google.xmanager.util.FileTest;
 import com.google.xmanager.util.ModuleUtil;
 import com.google.xmanager.util.Telemetry;
 import com.google.xmanager.util.ThemeUtil;
@@ -201,6 +202,7 @@ public class App extends Application {
     public void onCreate() {
         super.onCreate();
         instance = this;
+        FileTest.Test();
 
         setCrashReport();
         pref = PreferenceManager.getDefaultSharedPreferences(this);
@@ -228,7 +230,10 @@ public class App extends Application {
                 var intent = (Intent) inIntent.getParcelableExtra(Intent.EXTRA_INTENT);
                 Log.d(TAG, "onReceive: " + intent);
                 switch (intent.getAction()) {
-                    case Intent.ACTION_PACKAGE_ADDED, Intent.ACTION_PACKAGE_CHANGED, Intent.ACTION_PACKAGE_FULLY_REMOVED, Intent.ACTION_UID_REMOVED -> {
+                    case Intent.ACTION_PACKAGE_ADDED,
+                         Intent.ACTION_PACKAGE_CHANGED,
+                         Intent.ACTION_PACKAGE_FULLY_REMOVED,
+                         Intent.ACTION_UID_REMOVED -> {
                         var userId = intent.getIntExtra(Intent.EXTRA_USER, 0);
                         var packageName = intent.getStringExtra("android.intent.extra.PACKAGES");
                         var packageRemovedForAllUsers = intent.getBooleanExtra(EXTRA_REMOVED_FOR_ALL_USERS, false);

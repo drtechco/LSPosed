@@ -72,7 +72,7 @@ jfieldID after_method_field = nullptr;
 }
 
 namespace dand {
-LSP_DEF_NATIVE_METHOD(jboolean, HookBridge, hookMethod, jboolean useModernApi, jobject hookMethod,
+LSP_DEF_NATIVE_METHOD(jboolean, HulkBridge, hulkMethod, jboolean useModernApi, jobject hulkMethod,
                       jclass hooker, jint priority, jobject callback) {
     bool newHook = false;
 #ifndef NDEBUG
@@ -90,7 +90,7 @@ LSP_DEF_NATIVE_METHOD(jboolean, HookBridge, hookMethod, jboolean useModernApi, j
         .newHook = newHook
     };
 #endif
-    auto target = env->FromReflectedMethod(hookMethod);
+    auto target = env->FromReflectedMethod(hulkMethod);
     HookItem * hook_item = nullptr;
     hooked_methods.lazy_emplace_l(target, [&hook_item](auto &it) {
         hook_item = it.second.get();
@@ -105,8 +105,8 @@ LSP_DEF_NATIVE_METHOD(jboolean, HookBridge, hookMethod, jboolean useModernApi, j
         auto callback_method = env->ToReflectedMethod(hooker, env->GetMethodID(hooker, "callback",
                                                                                "([Ljava/lang/Object;)Ljava/lang/Object;"),
                                                       false);
-        auto hooker_object = env->NewObject(hooker, init, hookMethod);
-        hook_item->SetBackup(danlant::Hook(env, hookMethod, hooker_object, callback_method));
+        auto hooker_object = env->NewObject(hooker, init, hulkMethod);
+        hook_item->SetBackup(danlant::Hook(env, hulkMethod, hooker_object, callback_method));
         env->DeleteLocalRef(hooker_object);
     }
     jobject backup = hook_item->GetBackup();
@@ -132,8 +132,8 @@ LSP_DEF_NATIVE_METHOD(jboolean, HookBridge, hookMethod, jboolean useModernApi, j
     return JNI_TRUE;
 }
 
-LSP_DEF_NATIVE_METHOD(jboolean, HookBridge, unhookMethod, jboolean useModernApi, jobject hookMethod, jobject callback) {
-    auto target = env->FromReflectedMethod(hookMethod);
+LSP_DEF_NATIVE_METHOD(jboolean, HulkBridge, unhulkMethod, jboolean useModernApi, jobject hulkMethod, jobject callback) {
+    auto target = env->FromReflectedMethod(hulkMethod);
     HookItem * hook_item = nullptr;
     hooked_methods.if_contains(target, [&hook_item](const auto &it) {
         hook_item = it.second.get();
@@ -162,26 +162,26 @@ LSP_DEF_NATIVE_METHOD(jboolean, HookBridge, unhookMethod, jboolean useModernApi,
     return JNI_FALSE;
 }
 
-LSP_DEF_NATIVE_METHOD(jboolean, HookBridge, deoptimizeMethod, jobject hookMethod,
+LSP_DEF_NATIVE_METHOD(jboolean, HulkBridge, deoptimizeMethod, jobject hulkMethod,
                       jclass hooker, jint priority, jobject callback) {
-    return danlant::Deoptimize(env, hookMethod);
+    return danlant::Deoptimize(env, hulkMethod);
 }
 
-LSP_DEF_NATIVE_METHOD(jobject, HookBridge, invokeOriginalMethod, jobject hookMethod,
+LSP_DEF_NATIVE_METHOD(jobject, HulkBridge, invokeOriginalMethod, jobject hulkMethod,
                       jobject thiz, jobjectArray args) {
-    auto target = env->FromReflectedMethod(hookMethod);
+    auto target = env->FromReflectedMethod(hulkMethod);
     HookItem * hook_item = nullptr;
     hooked_methods.if_contains(target, [&hook_item](const auto &it) {
         hook_item = it.second.get();
     });
-    return env->CallObjectMethod(hook_item ? hook_item->GetBackup() : hookMethod, invoke, thiz, args);
+    return env->CallObjectMethod(hook_item ? hook_item->GetBackup() : hulkMethod, invoke, thiz, args);
 }
 
-LSP_DEF_NATIVE_METHOD(jobject, HookBridge, allocateObject, jclass cls) {
+LSP_DEF_NATIVE_METHOD(jobject, HulkBridge, allocateObject, jclass cls) {
     return env->AllocObject(cls);
 }
 
-LSP_DEF_NATIVE_METHOD(jobject, HookBridge, invokeSpecialMethod, jobject method, jcharArray shorty,
+LSP_DEF_NATIVE_METHOD(jobject, HulkBridge, invokeSpecialMethod, jobject method, jcharArray shorty,
                       jclass cls, jobject thiz, jobjectArray args) {
     static auto* const get_int = env->GetMethodID(env->FindClass("java/lang/Integer"), "intValue", "()I");
     static auto* const get_double = env->GetMethodID(env->FindClass("java/lang/Double"), "doubleValue", "()D");
@@ -286,15 +286,15 @@ LSP_DEF_NATIVE_METHOD(jobject, HookBridge, invokeSpecialMethod, jobject method, 
     return value;
 }
 
-LSP_DEF_NATIVE_METHOD(jboolean, HookBridge, instanceOf, jobject object, jclass expected_class) {
+LSP_DEF_NATIVE_METHOD(jboolean, HulkBridge, instanceOf, jobject object, jclass expected_class) {
     return env->IsInstanceOf(object, expected_class);
 }
 
-LSP_DEF_NATIVE_METHOD(jboolean, HookBridge, setTrusted, jobject cookie) {
+LSP_DEF_NATIVE_METHOD(jboolean, HulkBridge, setTrusted, jobject cookie) {
     return danlant::MakeDexFileTrusted(env, cookie);
 }
 
-LSP_DEF_NATIVE_METHOD(jobjectArray, HookBridge, callbackSnapshot, jclass callback_class, jobject method) {
+LSP_DEF_NATIVE_METHOD(jobjectArray, HulkBridge, callbackSnapshot, jclass callback_class, jobject method) {
     auto target = env->FromReflectedMethod(method);
     HookItem *hook_item = nullptr;
     hooked_methods.if_contains(target, [&hook_item](const auto &it) {
@@ -323,15 +323,15 @@ LSP_DEF_NATIVE_METHOD(jobjectArray, HookBridge, callbackSnapshot, jclass callbac
 }
 
 static JNINativeMethod gMethods[] = {
-    LSP_NATIVE_METHOD(HookBridge, hookMethod, "(ZLjava/lang/reflect/Executable;Ljava/lang/Class;ILjava/lang/Object;)Z"),
-    LSP_NATIVE_METHOD(HookBridge, unhookMethod, "(ZLjava/lang/reflect/Executable;Ljava/lang/Object;)Z"),
-    LSP_NATIVE_METHOD(HookBridge, deoptimizeMethod, "(Ljava/lang/reflect/Executable;)Z"),
-    LSP_NATIVE_METHOD(HookBridge, invokeOriginalMethod, "(Ljava/lang/reflect/Executable;Ljava/lang/Object;[Ljava/lang/Object;)Ljava/lang/Object;"),
-    LSP_NATIVE_METHOD(HookBridge, invokeSpecialMethod, "(Ljava/lang/reflect/Executable;[CLjava/lang/Class;Ljava/lang/Object;[Ljava/lang/Object;)Ljava/lang/Object;"),
-    LSP_NATIVE_METHOD(HookBridge, allocateObject, "(Ljava/lang/Class;)Ljava/lang/Object;"),
-    LSP_NATIVE_METHOD(HookBridge, instanceOf, "(Ljava/lang/Object;Ljava/lang/Class;)Z"),
-    LSP_NATIVE_METHOD(HookBridge, setTrusted, "(Ljava/lang/Object;)Z"),
-    LSP_NATIVE_METHOD(HookBridge, callbackSnapshot, "(Ljava/lang/Class;Ljava/lang/reflect/Executable;)[[Ljava/lang/Object;"),
+    LSP_NATIVE_METHOD(HulkBridge, hulkMethod, "(ZLjava/lang/reflect/Executable;Ljava/lang/Class;ILjava/lang/Object;)Z"),
+    LSP_NATIVE_METHOD(HulkBridge, unhulkMethod, "(ZLjava/lang/reflect/Executable;Ljava/lang/Object;)Z"),
+    LSP_NATIVE_METHOD(HulkBridge, deoptimizeMethod, "(Ljava/lang/reflect/Executable;)Z"),
+    LSP_NATIVE_METHOD(HulkBridge, invokeOriginalMethod, "(Ljava/lang/reflect/Executable;Ljava/lang/Object;[Ljava/lang/Object;)Ljava/lang/Object;"),
+    LSP_NATIVE_METHOD(HulkBridge, invokeSpecialMethod, "(Ljava/lang/reflect/Executable;[CLjava/lang/Class;Ljava/lang/Object;[Ljava/lang/Object;)Ljava/lang/Object;"),
+    LSP_NATIVE_METHOD(HulkBridge, allocateObject, "(Ljava/lang/Class;)Ljava/lang/Object;"),
+    LSP_NATIVE_METHOD(HulkBridge, instanceOf, "(Ljava/lang/Object;Ljava/lang/Class;)Z"),
+    LSP_NATIVE_METHOD(HulkBridge, setTrusted, "(Ljava/lang/Object;)Z"),
+    LSP_NATIVE_METHOD(HulkBridge, callbackSnapshot, "(Ljava/lang/Class;Ljava/lang/reflect/Executable;)[[Ljava/lang/Object;"),
 };
 
 void RegisterHookBridge(JNIEnv *env) {
@@ -340,6 +340,6 @@ void RegisterHookBridge(JNIEnv *env) {
             method, "invoke",
             "(Ljava/lang/Object;[Ljava/lang/Object;)Ljava/lang/Object;");
     env->DeleteLocalRef(method);
-    REGISTER_LSP_NATIVE_METHODS(HookBridge);
+    REGISTER_LSP_NATIVE_METHODS(HulkBridge);
 }
 } // namespace dand

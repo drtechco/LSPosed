@@ -4,7 +4,7 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
-import com.google.dand.nativebridge.HookBridge;
+import com.google.dand.nativebridge.HulkBridge;
 
 import java.lang.reflect.Executable;
 import java.lang.reflect.InvocationTargetException;
@@ -104,15 +104,15 @@ public class DAndroidBridgeImpl {
                 }
             }
 
-            Object[][] callbacksSnapshot = HookBridge.callbackSnapshot(HookerCallback.class, method);
+            Object[][] callbacksSnapshot = HulkBridge.callbackSnapshot(HookerCallback.class, method);
             Object[] modernSnapshot = callbacksSnapshot[0];
             Object[] legacySnapshot = callbacksSnapshot[1];
 
             if (modernSnapshot.length == 0 && legacySnapshot.length == 0) {
                 try {
-                    return HookBridge.invokeOriginalMethod(method, callback.thisObject, callback.args);
+                    return HulkBridge.invokeOriginalMethod(method, callback.thisObject, callback.args);
                 } catch (InvocationTargetException ite) {
-                    throw (Throwable) HookBridge.invokeOriginalMethod(getCause, ite);
+                    throw (Throwable) HulkBridge.invokeOriginalMethod(getCause, ite);
                 }
             }
 
@@ -154,10 +154,10 @@ public class DAndroidBridgeImpl {
             // call original method if not requested otherwise
             if (!callback.isSkipped) {
                 try {
-                    var result = HookBridge.invokeOriginalMethod(method, callback.thisObject, callback.args);
+                    var result = HulkBridge.invokeOriginalMethod(method, callback.thisObject, callback.args);
                     callback.setResult(result);
                 } catch (InvocationTargetException e) {
-                    var throwable = (Throwable) HookBridge.invokeOriginalMethod(getCause, e);
+                    var throwable = (Throwable) HulkBridge.invokeOriginalMethod(getCause, e);
                     callback.setThrowable(throwable);
                 }
             }
@@ -197,7 +197,7 @@ public class DAndroidBridgeImpl {
                 throw t;
             } else {
                 var result = callback.getResult();
-                if (returnType != null && !returnType.isPrimitive() && !HookBridge.instanceOf(result, returnType)) {
+                if (returnType != null && !returnType.isPrimitive() && !HulkBridge.instanceOf(result, returnType)) {
                     throw new ClassCastException(castException);
                 }
                 return result;
@@ -279,7 +279,7 @@ public class DAndroidBridgeImpl {
         }
 
         var callback = new DAndroidBridgeImpl.HookerCallback(beforeInvocation, afterInvocation);
-        if (HookBridge.hookMethod(true, hookMethod, DAndroidBridgeImpl.NativeHooker.class, priority, callback)) {
+        if (HulkBridge.hulkMethod(true, hookMethod, DAndroidBridgeImpl.NativeHooker.class, priority, callback)) {
             return new DAndroidInterface.MethodUnhooker<>() {
                 @NonNull
                 @Override
@@ -289,7 +289,7 @@ public class DAndroidBridgeImpl {
 
                 @Override
                 public void unhook() {
-                    HookBridge.unhookMethod(true, hookMethod, callback);
+                    HulkBridge.unhulkMethod(true, hookMethod, callback);
                 }
             };
         }
