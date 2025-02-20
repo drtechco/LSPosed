@@ -61,10 +61,10 @@ public class DAndroidBridgeImpl {
         Log.e(TAG, logStr);
     }
 
-    public static class NativeHooker<T extends Executable> {
+    public static class NativeHulker<T extends Executable> {
         private final Object params;
 
-        private NativeHooker(Executable method) {
+        private NativeHulker(Executable method) {
             var isStatic = Modifier.isStatic(method.getModifiers());
             Object returnType;
             if (method instanceof Method) {
@@ -279,7 +279,7 @@ public class DAndroidBridgeImpl {
         }
 
         var callback = new DAndroidBridgeImpl.HookerCallback(beforeInvocation, afterInvocation);
-        if (HulkBridge.hulkMethod(true, hookMethod, DAndroidBridgeImpl.NativeHooker.class, priority, callback)) {
+        if (HulkBridge.hulkMethod(true, hookMethod, DAndroidBridgeImpl.NativeHulker.class, priority, callback)) {
             return new DAndroidInterface.MethodUnhooker<>() {
                 @NonNull
                 @Override

@@ -207,7 +207,7 @@ public final class DAndroidBridge {
             throw new IllegalArgumentException("callback should not be null!");
         }
 
-        if (!HulkBridge.hulkMethod(false, (Executable) hookMethod, DAndroidBridgeImpl.NativeHooker.class, callback.priority, callback)) {
+        if (!HulkBridge.hulkMethod(false, (Executable) hookMethod, DAndroidBridgeImpl.NativeHulker.class, callback.priority, callback)) {
             log("Failed to hook " + hookMethod);
             return null;
         }

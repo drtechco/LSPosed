@@ -15,7 +15,7 @@
     @com.google.libdandroid.api.annotations.BeforeInvocation <methods>;
     @com.google.libdandroid.api.annotations.AfterInvocation <methods>;
 }
--keepclassmembers class com.google.dand.impl.DAndroidBridge$NativeHooker {
+-keepclassmembers class com.google.dand.impl.DAndroidBridge$NativeHulker {
     <init>(java.lang.reflect.Executable);
     callback(...);
 }
